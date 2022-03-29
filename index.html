@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta content="width=device-width, initial-scale=1">
 
-</head>
-
+<body>
+<div style="border:2px solid black;border-radius:5px;">
 
 <svg width="100%" height="100%" viewBox="0 0 600 600">
 
@@ -111,6 +109,9 @@
 
 
 </svg>
+</div>
+
+</body>
 
 
 <script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} };
@@ -143,6 +144,10 @@ for(i=0;i < allelems.length;i++) { allelems[i].style.animationDuration = item_an
 
 
 <style>
+
+* {
+  box-sizing: border-box;
+}
 
 .point{ fill-opacity:0; animation: pointBounce; animation-timing-function: ease-out; animation-fill-mode: forwards; }
 
