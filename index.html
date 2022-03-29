@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  height: 3000px;
+  background: linear-gradient(141deg, white 0%, lightgray 51%, white 75%);
+}
+
+</style>
+</head>
+<body>
+
+
+<svg id="mySVG" style="position: fixed;" width="100%" height="100%" viewBox="0 0 600 600">
+
+
+  
+  <path id="ABC" d="M 307 102 L 57 522 L 515 523 Z " style=" stroke :MidnightBlue; stroke-width:2;fill:none;stroke-linecap:round;" />
+
+
+<line id="A" x1="307" x2="306.08178199413635" y1="102" y2="522.5438466855768" style=" stroke :MidnightBlue; stroke-width:1; stroke-linecap:round;" />
+
+
+<path id="BC" d="M 322.0817438561747 522.5787811001228 L 306.08178199413635 522.543846685577 L 290.0818201320981 522.5089122710309" style=" stroke :MidnightBlue; stroke-width:1; stroke-linecap:round;" />
+
+<path id="ABD" d="M 290.0818201320981 522.5089122710309 L 290.1167545466441 506.50895040899275 L 306.1167164086823 506.5438848235385" style=" stroke :MidnightBlue; stroke-width:1; stroke-linecap:round; fill:none;" />
+
+<line id="C" x1="515" x2="176.3804939305149" y1="523" y2="321.440770196735" style=" stroke :MidnightBlue; stroke-width:1; stroke-linecap:round;" />
+
+
+<path id="ACF" d="M 190.1291800810702 329.62451195301793 L 198.31292183735314 315.8758258024627 L 184.56423568679782 307.69208404617973" style=" stroke :MidnightBlue; stroke-width:1; stroke-linecap:round; fill:none;" />
+
+<line id="B" x1="57" x2="424.741366408925" y1="522" y2="340.3130541257567" style=" stroke :MidnightBlue; stroke-width:1; stroke-linecap:round;" />
+
+
+<path id="BCE" d="M 431.8285567501478 354.65779996063566 L 417.48381091526886 361.7449903018585 L 410.39662057404604 347.40024446697953" style=" stroke :MidnightBlue; stroke-width:1; stroke-linecap:round; fill:none;" />
+
+<circle id="pointH" cx = "306.35195472716896" cy =" 398.80473495664813" r = " 3" style="fill:black; stroke:black; opacity:0; " />
+
+  
+  
+  
+  Sorry, your browser does not support inline SVG.
+</svg>
+
+<script>
+
+
+
+let t1 = document.getElementById("ABC");
+let ha = document.getElementById("A");
+let perpsignABD = document.getElementById("ABD");
+
+let hb = document.getElementById("B");
+let perpsignBCE = document.getElementById("BCE");
+
+let hc =document.getElementById("C");
+let perpsignACF = document.getElementById("ACF"); 
+
+let pH= document.getElementById("pointH"); 
+
+let elems = [t1,ha,perpsignABD,hb,perpsignBCE,hc,perpsignACF,pH];
+
+
+let n = elems.length;
+
+
+for(i=0;i<n;i++)
+{
+elems[i].style.strokeDasharray = elems[i].getTotalLength();
+elems[i].style.strokeDashoffset = elems[i].getTotalLength();
+}
+
+
+
+window.addEventListener("scroll", myFunction);
+
+function myFunction() {
+var scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+
+
+for(i=0;i<n;i++)
+{
+elems[i].style.strokeDashoffset =elems[i].getTotalLength()*( 1 - Math.max(0, Math.min(1, n*scrollpercent-i ) ) );
+elems[i].style.opacity=Math.max(0, Math.min(1, n*scrollpercent-i ) );
+}
+
+
+}
+</script>
+
+</body>
+</html>
