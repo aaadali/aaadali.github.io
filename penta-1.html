@@ -1,0 +1,95 @@
+<svg width="100%" height="100%" viewBox="0 0 600 600">
+
+
+
+
+<path class= "qu filled" style="fill :#800000 ; stroke:none;" id=" fill_121" d="M 323.04226065180615 302.3606797749979 L 285 330 L 513.2535639108369 364.16407864998735 Z " />
+
+<path class= "qu filled" style="fill :#800000 ; stroke:none;" id=" fill_223" d="M 285 330 L 285 530 L 246.95773934819385 302.3606797749979 Z " />
+
+<path class= "qu filled" style="fill :#800000 ; stroke:none;" id=" fill_343" d="M 246.95773934819385 302.3606797749979 L 261.4885899083011 257.6393202250021 L 56.746436089163154 364.1640786499874 Z " />
+
+<path class= "qu filled" style="fill :#800000 ; stroke:none;" id=" fill_454" d="M 261.4885899083011 257.6393202250021 L 308.5114100916989 257.6393202250021 L 143.93153944980642 95.83592135001263 Z " />
+
+<path class= "qu filled" style="fill :#800000 ; stroke:none;" id=" fill_551" d="M 308.5114100916989 257.6393202250021 L 426.0684605501935 95.8359213500126 L 323.04226065180615 302.3606797749979 Z " />
+
+<path class= "qu filled" style="fill :#4b0082 ; stroke:none;" id=" fill_545" d="M 426.0684605501935 95.8359213500126 L 143.93153944980642 95.83592135001263 L 308.5114100916989 257.6393202250021 Z " />
+
+<path class= "qu filled" style="fill :#556b2f ; stroke:none;" id=" fill_434" d="M 143.93153944980642 95.83592135001263 L 56.746436089163154 364.1640786499874 L 261.4885899083011 257.6393202250021 Z " />
+
+<path class= "qu filled" style="fill :#4169e1 ; stroke:none;" id=" fill_323" d="M 56.746436089163154 364.1640786499874 L 285 530 L 246.95773934819385 302.3606797749979 Z " />
+
+<path class= "qu filled" style="fill :#00ffff ; stroke:none;" id=" fill_212" d="M 285 530 L 513.2535639108369 364.16407864998735 L 285 330 Z " />
+
+<path class= "qu filled" style="fill :#ff4500 ; stroke:none;" id=" fill_151" d="M 513.2535639108369 364.16407864998735 L 426.0684605501935 95.8359213500126 L 323.04226065180615 302.3606797749979 Z " />
+
+<path class= "qu filled" style="fill :Red ; stroke:none;" id=" fill_13524" d="M 323.04226065180615 302.3606797749979 L 246.95773934819385 302.3606797749979 L 308.5114100916989 257.6393202250021 L 285 330 L 261.4885899083011 257.6393202250021 Z " />
+
+
+
+
+</svg>
+
+<script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} };
+</script>
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+<script>
+
+let strokable_elems =document.getElementsByClassName("strokable");
+
+for(i=0;i < strokable_elems.length;i++)
+
+{ strokable_elems[i].style.strokeDasharray = strokable_elems[i].getTotalLength();
+
+strokable_elems[i].style.strokeDashoffset = strokable_elems[i].getTotalLength();
+
+}
+
+let allelems = document.getElementsByClassName("qu");
+
+let item_anim_time=0.2;
+
+let anim_time=0;
+
+for(i=0;i < allelems.length;i++) { allelems[i].style.animationDuration = item_anim_time+"s"; allelems[i].style.animationDelay = anim_time+"s"; anim_time = anim_time+item_anim_time*(1.0); } </script>
+
+
+
+<style>
+
+.point{ fill-opacity:0; animation: pointBounce; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.pointLite{ opacity:0; animation: fadeIn4; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.circle{ animation: stroke; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.triangle{ animation: stroke; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.line{ animation: stroke; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.angle{ animation: stroke; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.perpAngle{ animation: stroke; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.angleIn{ fill-opacity:0; animation: fadeIn2; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.text{ opacity:0; animation: textBounce; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.bouncyline{ stroke-width:0; opacity:0; animation: lineBounce; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.filled{ fill-opacity:0; animation: fadeIn3; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+
+.latex{ opacity:0; animation: fadeIn; animation-timing-function: ease-out; animation-fill-mode: forwards;}
+
+@keyframes pointBounce { 20% { stroke-width:15; stroke:red; } to{opacity:1;fill-opacity:1; } }
+@keyframes textBounce { 0% { font-size:40; } to { opacity: 1; } }
+@keyframes lineBounce { 20%{stroke:white;} 50% { stroke-width:6;stroke:red; } to{opacity:1; fill-opacity:1;} }
+@keyframes stroke { to { stroke-dashoffset: 0; } }
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes fadeIn2 { 50% { fill-opacity: 0.3; } 100% { fill-opacity: 0.2; } }
+@keyframes fadeIn3 { 50% { fill-opacity: 0.8; } 100% { fill-opacity: 0.4; } }
+@keyframes fadeIn4 { to { opacity: 0.4; } }
+</style>
