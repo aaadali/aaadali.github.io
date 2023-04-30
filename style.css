@@ -1,0 +1,199 @@
+body {
+  font-family: Papyrus;
+  background-color: #b0cf98;
+}
+
+#WholeContainer
+{
+  display: grid;
+  grid-template-columns: 630px 500px ;
+}
+
+#rightpane{
+  display: grid;
+  grid-template-columns: auto ;
+
+}
+
+
+#drawingFrame {
+  background-color: #ecece9;
+  width: 600px;
+  height: 600px;
+  border: 2px solid #094f29;
+  padding: 0px;
+  margin: 0px;
+  border-radius:10px;
+
+  position: absolute;
+}
+
+#codeFrame{
+  top:620px;
+  position: absolute;
+  width: 600px;
+}
+
+#tableDiv{
+  display: inline-block;
+  width:400px;
+  height: 380px;
+  border-radius:5px;
+  border:0px solid green;
+  }
+
+
+
+#tableHeader {
+height: auto;
+width:400px;
+  display:grid;
+  border-radius:5px;
+  grid-template-columns: auto auto auto auto auto auto;
+  background-color: rgba(66, 109, 84,0.9);
+  color:#dfdedc;
+  text-align: center;
+  border-radius:5px;
+  border:1px solid #094f29;
+}
+
+
+.tableCheck{
+width:20px;
+padding: 5px;
+}
+
+.tableShape{
+width:30px;
+padding: 5px;
+}
+
+.tableID{
+width:20px;
+padding: 5px;
+}
+
+.tableLabel{
+width:50px;
+padding: 5px;
+}
+
+.tableCoordinates{
+width:80px;
+padding: 5px;
+}
+
+.tableProperty{
+width:70px;
+padding: 5px;
+}
+
+#tableInfo{
+  width:400px;
+  text-align: center;
+  border-collapse:collapse;
+}
+
+#tableInfo td
+{
+border: 1px solid #094f29;
+color:#094f29;
+border-radius:5px;
+}
+
+#tableInfo tr:nth-child(even){background-color: #D1F1D1;}
+
+#tableInfo tr:nth-child(odd){background-color: #EBFFE6;}
+
+#tableInfo tr:hover {background-color: #ddd;}
+
+
+
+#ButtonContainer
+{
+  width: 190px;
+  display: inline-grid;
+  gap: 1px;
+  grid-template-columns: auto auto auto auto;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+
+}
+
+
+
+.FigureButton 
+{
+  background-color: #4B8063; /* Green */
+  border: 1px solid #094f29;
+  color: #ecece9;
+  font-family: Papyrus;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: -0px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border-radius: 20px;
+  height:50px;
+  width:60px;
+}
+
+.FigureButton:hover 
+{
+  background-color: LightBlue;
+  color:white;
+}
+
+.FigureEditButton {
+    background-color: White; /* Green */
+    border: 2px solid RoyalBlue;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display:grid;
+    grid-template-columns: auto ;
+
+    font-size: 16px;
+    transition-duration: 0.2s;
+    border-radius: 10px 5px;
+    width: 300px;
+}
+
+ select
+ {
+  border: 0.5px solid gray;
+  font-family: Papyrus;
+  border-radius:5px;
+  width: 60px;
+}
+
+
+
+input{
+border: 0.5px solid gray;
+border-radius:5px;
+font-family: Papyrus;
+font-size: 16px;
+width:36px;
+text-align: center;
+}
+
+input:disabled {
+  border: 0px solid gray;
+    color: black;
+    background: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+
+}
