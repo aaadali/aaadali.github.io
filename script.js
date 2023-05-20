@@ -49,19 +49,20 @@ function uncheckTheObject(i)
 {
   let Obj= allObjects[i];
 
-  CheckedObjects.splice(Obj,1);
+  CheckedObjects.splice( CheckedObjects.indexOf(Obj) ,1);
+
 
   switch(Obj.figure){
   case "Point":
-    CheckedPoints.splice(Obj,1);
+    CheckedPoints.splice(CheckedObjects.indexOf(Obj),1);
     break;
 
   case "Line":
-    CheckedLines.splice(Obj,1);
+    CheckedLines.splice(CheckedObjects.indexOf(Obj),1);
     break;
 
   case "Circle":
-    CheckedCircles.splice(Obj,1);
+    CheckedCircles.splice(CheckedObjects.indexOf(Obj),1);
   
   }
 
@@ -245,10 +246,10 @@ class point{
     P.setAttribute("stroke",this.stroke);
     P.setAttribute("fill",this.fill);
     P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+    /*
     P.setAttribute("style","cursor:move; z-index:10;");
     P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;  } else { seletTheObject('+this.index+') ;   }' );
-
-
+    */
     return P;
   }
 
@@ -259,10 +260,7 @@ class point{
     L.setAttribute("width", 20);
     L.setAttribute("height", 20);
     L.setAttribute("style","font-size:18;font-family:Arial;cursor:all-scroll;");
-    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.color = "blue";} else { seletTheObject('+this.index+') ; this.style.color = "red"   }' );
-
-
-
+    
     let labd ="Gray";
 
     if(this.labeled){
@@ -272,12 +270,10 @@ class point{
     L.setAttribute("color",labd);
     L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 
-    /*
-    L.innerHTML='$'+ this.id+'$';
-    */
-
     let textNode = document.createTextNode( '$'+ this.id+'$'); 
     L.appendChild(textNode);
+
+    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.color = " '+labd+' ";this.firstChild.style.fontSize="40";} else { seletTheObject('+this.index+') ; this.style.color = "red"   }' );
 
     return L;
   }
@@ -481,8 +477,11 @@ class circle{
     P.setAttribute("stroke",this.stroke);
     P.setAttribute("fill",this.fill);
     P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+    P.setAttribute("style","cursor:all-scroll;");
+    /*
     P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;} else { seletTheObject('+this.index+') ;  }' );
-
+    */
+    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.stroke = " '+this.stroke+' ";} else { seletTheObject('+this.index+') ; this.style.stroke = "red"   }' );
     return P;
   }
 
@@ -614,6 +613,7 @@ class line{
     return scode;
   }
 
+
   SVGObject(){
     let l = document.createElementNS("http://www.w3.org/2000/svg", "line");
     l.setAttribute("x1", this.P1.cx );
@@ -624,9 +624,11 @@ class line{
     l.setAttribute("stroke-width",this.size);
     l.setAttribute("stroke-linecap","round");
     l.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    l.setAttribute("style","cursor:move; z-index:10;");
+    l.setAttribute("style","cursor:all-scroll;");
+    /*
     l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;;} else { seletTheObject('+this.index+') ;  }' );
-
+    */
+    l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.stroke = " '+this.stroke+' ";} else { seletTheObject('+this.index+') ; this.style.stroke = "red"   }' );
 
     return l;
   }
@@ -771,9 +773,11 @@ class polygon{
     pl.setAttribute("stroke-width",this.size);
     pl.setAttribute("stroke-linejoin","round");
     pl.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    pl.setAttribute("style","cursor:move;");
+    pl.setAttribute("style","cursor:all-scroll;");
+    pl.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.stroke = " '+this.stroke+' ";} else { seletTheObject('+this.index+') ; this.style.stroke = "red"   }' );
+    /*
     pl.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;} else { seletTheObject('+this.index+') ;  }' );
-
+    */
 
     return pl;
   }
@@ -955,13 +959,16 @@ class midText{
     let P = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
     P.setAttribute("x", Number(coorx)+Number(this.dx) );
     P.setAttribute("y", Number(coory)+Number(this.dy) -10 );
-    P.setAttribute("width", 400);
-    P.setAttribute("height", 400);
-    P.setAttribute("style", "font-family:Arial; font-size:18;");
+    P.setAttribute("width", 60);
+    P.setAttribute("height", 20);
+    P.setAttribute("style", "font-family:Arial; font-size:18;cursor:all-scroll;");
     P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+    /*
     P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;} else { seletTheObject('+this.index+') ;  }' );
+    */
     let textNode = document.createTextNode( '$'+ this.id+'$'); 
     P.appendChild(textNode);
+    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.color = " '+this.fill+' ";} else { seletTheObject('+this.index+') ; this.style.color = "red"   }' );
 
 /*
     P.innerHTML='$'+ this.id+'$';
@@ -1089,7 +1096,7 @@ class midText{
 }
 
 
-
+/*
 function newAngle(a_index,a_id,a_points,a_scale,a_fill,a_stroke,a_rightAngle,a_in,a_ecctr,a_draw)
 {
   var newChbox = document.createElement("INPUT");
@@ -1108,6 +1115,7 @@ function newAngle(a_index,a_id,a_points,a_scale,a_fill,a_stroke,a_rightAngle,a_i
 
   return NA;
 }
+*/
 
 class angle{
   constructor(index,points,scale,fill,stroke,rightAngle,text,eccentricity,draw){
@@ -1214,11 +1222,9 @@ class angle{
     Pth.setAttribute("fill",this.fill);
     Pth.setAttribute("stroke-width","2");
     Pth.setAttribute("d",pth);
-    Pth.setAttribute("z-index","-1");
-    Pth.setAttribute("cursor","crosshair");
+    Pth.setAttribute("style","cursor:all-scroll;");
     Pth.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    
-
+    Pth.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.stroke = " '+this.stroke+' ";} else { seletTheObject('+this.index+') ; this.style.stroke = "red"   }' );
 
 
     return Pth;
@@ -1248,14 +1254,13 @@ class angle{
     let L = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
     L.setAttribute("x",Number(Bx.cx)   );
     L.setAttribute("y", Number(Bx.cy)-10 );
-    L.setAttribute("width", 400);
-    L.setAttribute("height", 400);
+    L.setAttribute("width", 40);
+    L.setAttribute("height", 20);
     L.setAttribute("style","font-size:18;font-family:Arial;");
-
     L.setAttribute("color","Black");
     L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    L.innerHTML='$'+ this.text+'$';
-
+    let textNode = document.createTextNode('$'+this.text+'$');
+    L.appendChild(textNode);
     return L;
   }
 
@@ -2321,8 +2326,10 @@ function loadCheckBoxes(Objs){
 
 function loadTable(Objs){
 theTable.innerHTML="";
-
-  for(let i=0;i<Objs.length;i++){
+if(Objs.length>0)
+{
+  for(let i=0;i<Objs.length;i++)
+  {
     let P = Objs[i];
     let fig = P.figure;
     if(fig=="Point"||fig=="Angle"||fig=="Line"||fig=="MidText"||fig=="Circle"){
@@ -2334,6 +2341,10 @@ theTable.innerHTML="";
     }
 
   }
+
+}
+
+
 
 }
 
@@ -2614,7 +2625,7 @@ function addToChecked(i){
 }
 
 function removeFromChecked(i){
-  CheckedObjects.splice(allObjects[i],1);
+  CheckedObjects.splice( CheckedObjects.indexOf(allObjects[i]) ,1);
 }
 
 
@@ -2652,7 +2663,9 @@ function clearButtons()
 
   showButtons(CheckedPoints,CheckedLines,CheckedCircles);
 
+  /*
   clickEditBACK();
+  */
 
   Pselected=0;
   Cselected=0;
@@ -2661,6 +2674,9 @@ function clearButtons()
 }
 
 function resetAll(){
+    location.reload();
+ /*
+
   clearButtons();
 
   ObjectCounter=0;
@@ -2670,6 +2686,9 @@ function resetAll(){
   labels= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
   reBuild(Objects);
+  */
+
+
 }
 
 ////// Functions of Geometric objects /////
