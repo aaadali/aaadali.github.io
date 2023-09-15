@@ -2182,7 +2182,7 @@ function loadSVGDrawing(Objs){
   let patrn = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
   patrn.setAttribute("id","coorsystem");
   patrn.setAttribute("viewBox","0,0,10,10");
-  patrn.setAttribute("width","6.25%");
+  patrn.setAttribute("width","10%");
   patrn.setAttribute("height","10%");
 
   let rct = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -2193,8 +2193,8 @@ function loadSVGDrawing(Objs){
   patrn.appendChild(rct);
 
   let coorect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-  coorect.setAttribute("width","800");
-  coorect.setAttribute("height","500");
+  coorect.setAttribute("width","600");
+  coorect.setAttribute("height","600");
   coorect.setAttribute("style","fill:url(#coorsystem);");
 
   document.getElementById("drawingFrame").appendChild(patrn);
