@@ -51,18 +51,17 @@ function uncheckTheObject(i)
 
   CheckedObjects.splice( CheckedObjects.indexOf(Obj) ,1);
 
-
   switch(Obj.figure){
   case "Point":
-    CheckedPoints.splice(CheckedObjects.indexOf(Obj),1);
+    CheckedPoints.splice(Obj,1);
     break;
 
   case "Line":
-    CheckedLines.splice(CheckedObjects.indexOf(Obj),1);
+    CheckedLines.splice(Obj,1);
     break;
 
   case "Circle":
-    CheckedCircles.splice(CheckedObjects.indexOf(Obj),1);
+    CheckedCircles.splice(Obj,1);
   
   }
 
@@ -71,13 +70,13 @@ function uncheckTheObject(i)
 }
 
 
-function seletTheObject(i)
+function selectTheObject(i)
 {
   allObjects[i].checkBox.checked=true ; 
   checkTheObject(i);
 }
 
-function unseletTheObject(i)
+function unselectTheObject(i)
 {
   allObjects[i].checkBox.checked=false ; 
   uncheckTheObject(i);
@@ -246,10 +245,8 @@ class point{
     P.setAttribute("stroke",this.stroke);
     P.setAttribute("fill",this.fill);
     P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    /*
-    P.setAttribute("style","cursor:move; z-index:10;");
-    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;  } else { seletTheObject('+this.index+') ;   }' );
-    */
+
+
     return P;
   }
 
@@ -259,21 +256,20 @@ class point{
     L.setAttribute("y", Number(this.cy) + Number(this.dy) -15);
     L.setAttribute("width", 20);
     L.setAttribute("height", 20);
-    L.setAttribute("style","font-size:18;font-family:Arial;cursor:all-scroll;");
-    
+
     let labd ="Gray";
 
     if(this.labeled){
       labd = "Black";
     }
-
+  
+    L.setAttribute("style","font-size:15;font-family:Arial;cursor:all-scroll;");
+    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + labd + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
     L.setAttribute("color",labd);
     L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 
     let textNode = document.createTextNode( '$'+ this.id+'$'); 
     L.appendChild(textNode);
-
-    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.color = " '+labd+' ";this.firstChild.style.fontSize="40";} else { seletTheObject('+this.index+') ; this.style.color = "red"   }' );
 
     return L;
   }
@@ -477,11 +473,9 @@ class circle{
     P.setAttribute("stroke",this.stroke);
     P.setAttribute("fill",this.fill);
     P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    P.setAttribute("style","cursor:all-scroll;");
-    /*
-    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;} else { seletTheObject('+this.index+') ;  }' );
-    */
-    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.stroke = " '+this.stroke+' ";} else { seletTheObject('+this.index+') ; this.style.stroke = "red"   }' );
+    P.setAttribute("style", "cursor:all-scroll;");
+    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+
     return P;
   }
 
@@ -613,7 +607,6 @@ class line{
     return scode;
   }
 
-
   SVGObject(){
     let l = document.createElementNS("http://www.w3.org/2000/svg", "line");
     l.setAttribute("x1", this.P1.cx );
@@ -624,11 +617,9 @@ class line{
     l.setAttribute("stroke-width",this.size);
     l.setAttribute("stroke-linecap","round");
     l.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    l.setAttribute("style","cursor:all-scroll;");
-    /*
-    l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;;} else { seletTheObject('+this.index+') ;  }' );
-    */
-    l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.stroke = " '+this.stroke+' ";} else { seletTheObject('+this.index+') ; this.style.stroke = "red"   }' );
+
+    l.setAttribute("style", "cursor:all-scroll;");
+    l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
 
     return l;
   }
@@ -773,11 +764,9 @@ class polygon{
     pl.setAttribute("stroke-width",this.size);
     pl.setAttribute("stroke-linejoin","round");
     pl.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    pl.setAttribute("style","cursor:all-scroll;");
-    pl.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.stroke = " '+this.stroke+' ";} else { seletTheObject('+this.index+') ; this.style.stroke = "red"   }' );
-    /*
-    pl.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;} else { seletTheObject('+this.index+') ;  }' );
-    */
+
+    pl.setAttribute("style", "cursor:all-scroll;");
+    pl.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
 
     return pl;
   }
@@ -941,41 +930,30 @@ class midText{
   }
 
   SVGObject(){
-    /*
-    let T = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    T.setAttribute("x", this.cx );
-    T.setAttribute("y", this.cy);
-    T.setAttribute("dx", this.dx);
-    T.setAttribute("dy", this.dy);
-    T.setAttribute("fill",this.fill);
-    T.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    T.innerHTML = this.id;
-
-    return T;
-    */
+  
     let coorx = Number(this.P1.cx)*(1-Number(this.location)) +Number(this.P2.cx)*Number(this.location)  ;
     let coory =Number(this.P1.cy)*(1-Number(this.location)) +Number(this.P2.cy)*Number(this.location)  ;
+    let sl = this.id.length;
+    let wd = Number(sl)*9;
+
+
+
 
     let P = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
     P.setAttribute("x", Number(coorx)+Number(this.dx) );
     P.setAttribute("y", Number(coory)+Number(this.dy) -10 );
-    P.setAttribute("width", 60);
+    P.setAttribute("width", wd);
     P.setAttribute("height", 20);
-    P.setAttribute("style", "font-family:Arial; font-size:18;cursor:all-scroll;");
+    P.setAttribute("style", "font-family:Arial; font-size:18;fill:yellow;opacity:0.3;");
     P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    /*
-    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;} else { seletTheObject('+this.index+') ;  }' );
-    */
+
+    P.setAttribute("style","cursor:all-scroll;");
+    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + this.fill + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
+
     let textNode = document.createTextNode( '$'+ this.id+'$'); 
     P.appendChild(textNode);
-    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.color = " '+this.fill+' ";} else { seletTheObject('+this.index+') ; this.style.color = "red"   }' );
 
-/*
-    P.innerHTML='$'+ this.id+'$';
-    */
     return P;
-
-
 
   }
 
@@ -1096,26 +1074,6 @@ class midText{
 }
 
 
-/*
-function newAngle(a_index,a_id,a_points,a_scale,a_fill,a_stroke,a_rightAngle,a_in,a_ecctr,a_draw)
-{
-  var newChbox = document.createElement("INPUT");
-  newChbox.setAttribute("type", "checkbox");
-
-  let chkCode= ' if( this.checked==true){ addToChecked('
-              +a_index
-              +')  }  if( this.checked==false){removeFromChecked('
-              +a_index+')}';
-
-  newChbox.setAttribute("onchange",chkCode);
-
-  let a_prop = '&#8737;'+a_points[0].id+a_points[1].id+a_points[2].id;
-
-  var NA ={objectIndex:a_index,checkBox:newChbox,figure:"Angle",id:a_id, points:a_points, scale:a_scale, fill:a_fill,stroke:a_stroke, property:a_prop,label:a_id,rightAngle:a_rightAngle,angleIn:a_in,eccentricity:a_ecctr,draw:a_draw};
-
-  return NA;
-}
-*/
 
 class angle{
   constructor(index,points,scale,fill,stroke,rightAngle,text,eccentricity,draw){
@@ -1222,9 +1180,10 @@ class angle{
     Pth.setAttribute("fill",this.fill);
     Pth.setAttribute("stroke-width","2");
     Pth.setAttribute("d",pth);
-    Pth.setAttribute("style","cursor:all-scroll;");
     Pth.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    Pth.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unseletTheObject('+this.index+') ;this.style.stroke = " '+this.stroke+' ";} else { seletTheObject('+this.index+') ; this.style.stroke = "red"   }' );
+
+    Pth.setAttribute("style", "cursor:all-scroll;");
+    Pth.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
 
 
     return Pth;
@@ -1255,12 +1214,22 @@ class angle{
     L.setAttribute("x",Number(Bx.cx)   );
     L.setAttribute("y", Number(Bx.cy)-10 );
     L.setAttribute("width", 40);
-    L.setAttribute("height", 20);
+    L.setAttribute("height", 32);
     L.setAttribute("style","font-size:18;font-family:Arial;");
-    L.setAttribute("color","Black");
+
+    L.setAttribute("color",this.stroke);
     L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    let textNode = document.createTextNode('$'+this.text+'$');
+
+    /*
+
+    L.setAttribute("style","cursor:all-scroll;");
+    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
+    */
+
+    let textNode = document.createTextNode( '$'+ this.text+'$'); 
     L.appendChild(textNode);
+
+
     return L;
   }
 
@@ -1352,8 +1321,8 @@ class angle{
 
 function toTikz(x,y)
 {
-  let Tx = Number(x/60)-1;
-  let Ty = 9-Number(y/60);
+  let Tx = Number(x/50)-1;
+  let Ty = 9-Number(y/50);
   if(Number.isInteger(Tx)==false){ Tx=Tx.toFixed(2); }
 
   if(Number.isInteger(Ty)==false){Ty=Ty.toFixed(2)};
@@ -1400,6 +1369,7 @@ function reBuild(Objs)
     MathJax.typeset();
 
     loadTikZCode(Objs);
+
 }
 
 
@@ -1881,7 +1851,7 @@ function clickAngle()
     CheckedPoints[1].checkBox.disabled=true;
     CheckedPoints[2].checkBox.disabled=true;
 
-    let nA = new angle(ObjectCounter,CheckedObjects,1,"none",'MidnightBlue',false,' ',1.4,true);
+    let nA = new angle(ObjectCounter,CheckedObjects,0.4,"none",'MidnightBlue',false,' ',1,true);
     ObjectCounter++;
     allObjects.push(nA);
     Objects.push(nA);
@@ -1945,11 +1915,11 @@ function toTIKZCoordinates(){
       let x = CheckedObjects[i].cx;
       let y = CheckedObjects[i].cy;
 
-      let Tx = Number(Number(Number(x)/60)-1).toFixed(0);
-      let Ty = Number(9-Number(Number(y)/60)).toFixed(0);
+      let Tx = Number(Number(Number(x)/50)-1).toFixed(0);
+      let Ty = Number(9-Number(Number(y)/50)).toFixed(0);
 
-      CheckedObjects[i].cx = Number(60*(Number(Tx)+1));
-      CheckedObjects[i].cy = Number(60*(9-Number(Ty)));
+      CheckedObjects[i].cx = Number(50*(Number(Tx)+1));
+      CheckedObjects[i].cy = Number(50*(9-Number(Ty)));
     }
   }
 
@@ -2212,7 +2182,7 @@ function loadSVGDrawing(Objs){
   let patrn = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
   patrn.setAttribute("id","coorsystem");
   patrn.setAttribute("viewBox","0,0,10,10");
-  patrn.setAttribute("width","10%");
+  patrn.setAttribute("width","6.25%");
   patrn.setAttribute("height","10%");
 
   let rct = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -2223,8 +2193,8 @@ function loadSVGDrawing(Objs){
   patrn.appendChild(rct);
 
   let coorect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-  coorect.setAttribute("width","600");
-  coorect.setAttribute("height","600");
+  coorect.setAttribute("width","800");
+  coorect.setAttribute("height","500");
   coorect.setAttribute("style","fill:url(#coorsystem);");
 
   document.getElementById("drawingFrame").appendChild(patrn);
@@ -2232,13 +2202,15 @@ function loadSVGDrawing(Objs){
 
   //drawing everything else:
 
- 
+
+
+
 
   for(let i=0;i<Objs.length;i++)
   {
     let P = Objs[i];
     let fig = P.figure;
-    if(i<Objs.length-1||P.figure!="Line")
+    if(i<Objs.length-1)
     {
       document.getElementById("drawingFrame").appendChild(P.SVGObject());
     }
@@ -2255,23 +2227,133 @@ function loadSVGDrawing(Objs){
 
   }
 
-   let Pl=Objs[Objs.length-1 ];
+  let Pl=Objs[Objs.length-1 ];
   
-  if(Pl.figure=="Line")
+  switch(Pl.figure)
   {
-
+  case "Line":
     let llO = Pl.SVGObject();
     let ll=llO.getTotalLength();
     llO.setAttribute("stroke-dashoffset",ll);
     llO.setAttribute("stroke-dasharray",ll);
+
+    let Pinit = Pl.P1.SVGObject();
+    let Pend = Pl.P2.SVGObject();
+
+    document.getElementById("drawingFrame").appendChild(Pinit);
+    Pinit.animate(  [{ strokeWidth : "20", }, { strokeWidth : "1",} ], { duration: 200, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+    
     document.getElementById("drawingFrame").appendChild(llO);
     llO.animate(  [{ strokeDashoffset : ll }, { strokeDashoffset : "0"} ], { duration: 500, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
 
+    document.getElementById("drawingFrame").appendChild(Pend);
+    Pend.animate(  [{ strokeWidth : "20", }, { strokeWidth : "1",} ], { duration: 200, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+        
+
+
+
+
+
+    break;
+
+
+  case "Point":
+    let P0 = Pl.SVGObject();
+    let LP0 = Pl.SVGLabel();
+    let strk= Pl.stroke;
+
+    document.getElementById("drawingFrame").appendChild( P0 );
+    P0.animate(  [{ strokeWidth : "20", stroke: "red" }, { strokeWidth : "1",stroke: strk} ], { duration: 200, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+
+    document.getElementById("drawingFrame").appendChild( LP0 );
+    LP0.animate(  [{ opacity : 0 }, { opacity : 1 } ], { duration: 600, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+
+
+    
+    break;
+
+  case "Angle":
+    document.getElementById("drawingFrame").appendChild(Pl.SVGLabel());
+
+    let AO = Pl.SVGObject();
+    let Al=AO.getTotalLength();
+    AO.setAttribute("stroke-dashoffset",Al);
+    AO.setAttribute("stroke-dasharray",Al);
+    document.getElementById("drawingFrame").appendChild(AO);
+    AO.animate(  [{ strokeDashoffset : Al }, { strokeDashoffset : "0"} ], { duration: 500, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+
+  
+    break;
+
+  case "Circle":
+    let CO = Pl.SVGObject();
+    let Cl=CO.getTotalLength();
+    CO.setAttribute("stroke-dashoffset",Cl);
+    CO.setAttribute("stroke-dasharray",Cl);
+    document.getElementById("drawingFrame").appendChild(CO);
+    CO.animate(  [{ strokeDashoffset : Cl }, { strokeDashoffset : "0"} ], { duration: 500, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+    break;
+
+  case "Polygon":
+    let PoO = Pl.SVGObject();
+    let Pol=PoO.getTotalLength();
+    PoO.setAttribute("stroke-dashoffset",Pol);
+    PoO.setAttribute("stroke-dasharray",Pol);
+    document.getElementById("drawingFrame").appendChild(PoO);
+    PoO.animate(  [{ strokeDashoffset : Pol }, { strokeDashoffset : "0"} ], { duration: 500, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+    break;
+
+  case "Triangle":
+    let ToO = Pl.SVGObject();
+    let Tol=ToO.getTotalLength();
+    ToO.setAttribute("stroke-dashoffset",Tol);
+    ToO.setAttribute("stroke-dasharray",Tol);
+    document.getElementById("drawingFrame").appendChild(ToO);
+    ToO.animate(  [{ strokeDashoffset : Tol }, { strokeDashoffset : "0"} ], { duration: 500, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+    break;
+
+  case "Quad":
+    let QoO = Pl.SVGObject();
+    let Qol=QoO.getTotalLength();
+    QoO.setAttribute("stroke-dashoffset",Qol);
+    QoO.setAttribute("stroke-dasharray",Qol);
+    document.getElementById("drawingFrame").appendChild(QoO);
+    QoO.animate(  [{ strokeDashoffset : Qol }, { strokeDashoffset : "0"} ], { duration: 500, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+    break;
+
+  default:
+    document.getElementById("drawingFrame").appendChild(Pl.SVGObject());
   }
 
 
-  
+}
 
+function copySVGcode()
+{
+   let copySVGcode = document.getElementById("test");
+   /*
+  
+  navigator.clipboard.writeText(copySVGcode.innerText);
+  */
+
+
+  var SVGcodeWindow = window.open("", "MsgWindow", "width=600,height=600");
+    SVGcodeWindow.document.write(copySVGcode.innerHTML);
+
+}
+
+function copyTIKZcode()
+{
+   let copySVGcode = document.getElementById("tikZcode");
+   /*
+  
+  navigator.clipboard.writeText(copySVGcode.innerText);
+  */
+
+
+  var SVGcodeWindow = window.open("", "MsgWindow", "width=600,height=600");
+  SVGcodeWindow.document.write(" ");
+  SVGcodeWindow.document.write(copySVGcode.innerHTML);
 
 }
 
@@ -2291,25 +2373,119 @@ function loadSVGCode(Objs){
     }
 
   }
+
+  /*
+  document.getElementById("test").innerText="";
+  document.getElementById("test").style="font-size:6;font-family:Courier New;"
+  let t1 = document.createElement( "p" );
+  t1.innerText="<svg>";
+  document.getElementById("test").appendChild(t1);
+
+
+  for(let i=0;i<Objs.length;i++)
+  {
+    let P = Objs[i];
+    let fig = P.figure;
+    let itxtnd=" ";
+
+    if(fig=="Point"||fig=="Line"||fig=="Circle"){
+      itxtnd = P.SVGcode();
+    }
+    else{
+      itxtnd= SVGcode(Objs[i]);
+    }
+    let txtnd = document.createElement( "p" );
+    txtnd.innerText=itxtnd;
+    document.getElementById("test").appendChild(txtnd);
+
+  }
+
+  let tl = txtnd = document.createElement( "p" );
+  tl.innerText="</svg>";
+  document.getElementById("test").appendChild(tl);
+
+  */
+
+
 }
 
 function loadTikZCode(Objs){
   document.getElementById("tikZcode").innerText="";
-  for(let i=0;i<Objs.length;i++){
+  let t1 = document.getElementById("tikZcode");
+  t1.innerText+="\\begin{center}";
+  t1.innerHTML+='<br>';
+  t1.innerText+="\\begin{tikzpicture}[scale=1] ";
+  t1.innerHTML+='<br>';
+  
+
+
+
+  for(let i=0;i<Objs.length;i++)
+  {
     document.getElementById("tikZcode").innerHTML+='<br>';
     let P = Objs[i];
     let fig = P.figure;
-    if(fig=="Point" || fig=="Line" || fig=="Circle"|| fig=="Angle" ){
-
+    if(fig=="Point" || fig=="Line" || fig=="Circle"|| fig=="Angle" )
+    {
       document.getElementById("tikZcode").innerText+=P.tikZObjectCode();
       if(fig=="Point"){document.getElementById("tikZcode").innerText+=P.tikZLabelCode();}
     }
 
-    else{
+    else
+    {
       document.getElementById("tikZcode").innerText+= tikZcode(Objs[i]);
     }
 
   }
+
+  t1.innerHTML+='<br>';
+  t1.innerHTML+='<br>';
+  t1.innerText+="\\end{tikzpicture}";
+  t1.innerHTML+="<br>";
+  t1.innerText+="\\end{center}";
+
+
+
+
+/*
+
+  document.getElementById("tikZcode").innerText="";
+
+  let t1 = document.createElement( "p" );
+  t1.innerText="\\begin{center}";
+  document.getElementById("tikZcode").appendChild(t1);
+
+  let t2 = document.createElement( "p" );
+  t2.innerText="\\begin{tikzpicture}[scale=1] ";
+  document.getElementById("tikZcode").appendChild(t2);
+
+
+  for(let i=0;i<Objs.length;i++)
+  {
+    let P = Objs[i];
+    let fig = P.figure;
+
+    txt = document.createElement( "p" );
+    txt.innerText= P.tikZObjectCode();
+    document.getElementById("tikZcode").appendChild(txt);
+    
+    if(fig=="Point")
+      { 
+        let labtxt = document.createElement( "p" );
+        labtxt.innerText= P.tikZLabelCode();
+        document.getElementById("tikZcode").appendChild(labtxt);
+      }
+  }
+
+  let t3 = document.createElement( "p" );
+  t3.innerText="\\end{tikzpicture}";
+  document.getElementById("tikZcode").appendChild(t3);
+
+  let t4 = document.createElement( "p" );
+  t4.innerText="\\end{center}";
+  document.getElementById("tikZcode").appendChild(t4);
+
+ */ 
 }
 
 
@@ -2326,10 +2502,8 @@ function loadCheckBoxes(Objs){
 
 function loadTable(Objs){
 theTable.innerHTML="";
-if(Objs.length>0)
-{
-  for(let i=0;i<Objs.length;i++)
-  {
+
+  for(let i=0;i<Objs.length;i++){
     let P = Objs[i];
     let fig = P.figure;
     if(fig=="Point"||fig=="Angle"||fig=="Line"||fig=="MidText"||fig=="Circle"){
@@ -2341,10 +2515,6 @@ if(Objs.length>0)
     }
 
   }
-
-}
-
-
 
 }
 
@@ -2626,7 +2796,8 @@ function addToChecked(i){
 
 function removeFromChecked(i){
   CheckedObjects.splice( CheckedObjects.indexOf(allObjects[i]) ,1);
-}
+} 
+
 
 
 function clickRemoveObject(){
@@ -2663,9 +2834,7 @@ function clearButtons()
 
   showButtons(CheckedPoints,CheckedLines,CheckedCircles);
 
-  /*
   clickEditBACK();
-  */
 
   Pselected=0;
   Cselected=0;
@@ -2674,21 +2843,7 @@ function clearButtons()
 }
 
 function resetAll(){
-    location.reload();
- /*
-
-  clearButtons();
-
-  ObjectCounter=0;
-
-  allObjects=[];
-  Objects=[];
-  labels= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-
-  reBuild(Objects);
-  */
-
-
+  location.reload();
 }
 
 ////// Functions of Geometric objects /////
