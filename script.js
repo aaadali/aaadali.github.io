@@ -1918,8 +1918,8 @@ function toTIKZCoordinates(){
       let Tx = Number(Number(Number(x)/60)-1).toFixed(0);
       let Ty = Number(9-Number(Number(y)/60)).toFixed(0);
 
-      CheckedObjects[i].cx = Number(50*(Number(Tx)+1));
-      CheckedObjects[i].cy = Number(50*(9-Number(Ty)));
+      CheckedObjects[i].cx = Number(60*(Number(Tx)+1));
+      CheckedObjects[i].cy = Number(60*(9-Number(Ty)));
     }
   }
 
