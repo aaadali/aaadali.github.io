@@ -1321,8 +1321,8 @@ class angle{
 
 function toTikz(x,y)
 {
-  let Tx = Number(x/50)-1;
-  let Ty = 9-Number(y/50);
+  let Tx = Number(x/60)-1;
+  let Ty = 9-Number(y/60);
   if(Number.isInteger(Tx)==false){ Tx=Tx.toFixed(2); }
 
   if(Number.isInteger(Ty)==false){Ty=Ty.toFixed(2)};
