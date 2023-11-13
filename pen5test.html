@@ -1,0 +1,4890 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+body {font-family: Arial; background-color: #b0cf98;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  border: 0.5px solid black;
+  border-radius: 20px 20px 0px 0px;
+  box-shadow: 3px 3px 3px 0px black;
+
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 0px 0px;
+  border-top: none;
+  border:0px solid gray;
+  height:600px;
+  width:900px;
+}
+
+#drawingFrame {
+  background-color: #ecece9;
+  width:600px;
+  height: 600px;
+  border: 0.2px solid black;
+  padding: 0px;
+  margin: 0px;
+  cursor: crosshair;
+  float:left;
+  box-shadow: 3px 3px 3px 0px gray;
+}
+
+.mainbuttoncontainer {
+border: 0px solid blue;
+float:left;
+margin: 0.5px;
+display: inline-grid;
+grid-auto-columns: 70px 70px;
+}
+
+.tablecontainer {
+border: 0.1px solid blue;
+float:left;
+display: inline-block;
+
+}
+
+.mainbuttoncontainer button {
+  
+  color: black;
+  height: 50px;
+  width: 70px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 15px;
+  border: 0.3px solid black;
+  border-radius: 0px 20px 20px 0px;
+  padding: 5px 1px;
+  box-shadow: 1px 1px 2px 0px darkolivegreen;
+}
+
+.mainbuttoncontainer button:hover {
+  background-color: whitesmoke;
+  scale:1.05;
+
+}
+
+.TikzContainer {
+
+ heigth: 300px;
+ width: 300px;
+ overflow: auto;
+ background:white;
+ border: 1px solid green;
+ padding: 20px 20px;
+
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 200px; /* Location of the box */
+  left: 0;
+  top: 0;
+
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius:20px;
+  width: 50%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: bottom;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Hyde{
+  display: none;
+}
+
+.PP, .PPP, .P, .PPPP{
+  background-color: inherit;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 47px;
+  height: 26px;
+ 
+  
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  box-shadow: 0 0 3px black;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: silver;
+  -webkit-transition: .4s;
+  transition: .4s;
+  box-shadow: 1px 0px 3px black;
+}
+
+input:checked + .slider {
+  background-color: blue;
+}
+
+input:focus + .slider {
+
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 20px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.editrow{
+  padding-inline: 5px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.editrow input::-webkit-outer-spin-button,
+.editrow input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.editrow input[type=number] {
+  -moz-appearance: textfield;
+  width:30px;
+  height:25px;
+  font-size:15px;
+  border:1px solid gray;
+  border-radius: 5px 10px;
+  text-align: center;
+  box-shadow: 3px 3px 3px 0px black;
+}
+
+.editrow input[type=text] {
+  width:20px;
+  height:25px;
+  font-size:15px;
+  border:1px solid gray;
+  border-radius: 5px 10px;
+  text-align: center;
+  box-shadow: 2px 2px 2px 0px black;
+}
+
+.editrow input:focus {
+  box-shadow: 7px 7px 7px 0px black;
+}
+
+.editrow input[type=checkbox] {
+  width:18px;
+  height:18px;
+  border: 1px solid black;
+  border-radius:10px;
+  box-shadow: 3px 3px 3px 0px black;
+}
+
+.editrow input[type=range] {
+ width: 20px;
+ height: 20px;
+ background: transparent;
+ box-shadow: 3px 3px 3px 0px black;
+}
+
+
+.colorsDiv input {
+  appearance: none;
+
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+
+  border: 1px solid black;
+  transition: 0.2s all linear;
+  margin: 3px;
+
+  position: relative;
+  top:2.5px;
+  left:2px;
+
+  opacity:0.6;
+  box-shadow: 0px 0px 0px 0px gray;
+}
+
+.colorsDiv input:checked {
+  border: 1.4px solid black;
+  opacity:1;
+  scale:1.4;
+  box-shadow: 1px 1px 1px 1px lightgray;
+}
+
+.colorsDiv input:hover {
+scale:1.4;
+opacity:1;
+
+}
+
+.colorsDiv{
+border: 0.2px solid gray; 
+width:200px;
+border-radius:20px 20px;
+box-shadow: 2px 2px 2px 0px lightgray;
+}
+
+
+@keyframes pointBounce { 20% { stroke-width:15; stroke:red; } to{opacity:1;fill-opacity:1; } }
+@keyframes textBounce { 0% { font-size:40; } to { opacity: 1; } }
+@keyframes lineBounce { 20%{stroke:white;} 50% { stroke-width:6;stroke:red; } to{opacity:1; fill-opacity:1;} }
+@keyframes stroke { to { stroke-dashoffset: 0; } }
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes fadeIn2 { 50% { fill-opacity: 0.3; } 100% { fill-opacity: 0.2; } }
+@keyframes fadeIn3 { 50% { fill-opacity: 0.2; } 100% { fill-opacity: 0.1; } }
+@keyframes fadeIn4 { to { opacity: 0.4; } }
+@keyframes bumpy { 50% {  text-shadow: 5px 5px 10px #00FF00; } 100% { text-shadow: none; } }
+
+
+</style>
+</head>
+<body>
+
+  <!-- Circl with R Modal -->
+
+<div id="rModal" class="modal">
+
+
+  <div class="modal-content">
+    <span>
+      r = <input id="rRangeInput" onmousemove ='document.getElementById("rNumberInput").value=this.value;' type="range" min="0" max="6"  size="4" step="0.5" value="1">
+    </span>
+
+    <br>
+
+    r =  <input id="rNumberInput" oninput ='document.getElementById("rRangeInput").value=this.value;' type=number size="2" value="1"> 
+
+    <span >
+      <button onclick="rCircleOKbutton();" class="close"> OK </button>
+    </span>
+    
+  </div>
+
+</div>
+
+
+  <!-- WP Modal -->
+
+
+<div id="wpModal" class="modal">
+
+
+  <div class="modal-content">
+    
+
+    <span>
+
+     AX <input id="wpRangeInput1" onmousemove ='document.getElementById("wpNumberInput1").value=this.value;' type="range" min="-5" max="5"  size="5" step="1" value="1"> :  XB <input id="wpRangeInput2" onmousemove ='document.getElementById("wpNumberInput2").value=this.value;' type="range" min="-5" max="5"  size="5" step="1" value="1">
+    </span>
+
+  </br>
+
+  <span>
+      AX  <input id="wpNumberInput1" oninput ='document.getElementById("wpRangeInput1").value=this.value;' type=number size="1" value="1"> :  <input id="wpNumberInput2" oninput ='document.getElementById("wpRangeInput2").value=this.value;'  type=number size="1" value="1"> XB  
+    </span>
+
+    <span >
+      <button onclick="clickOKWP()" class="close"> OK </button>
+    </span>
+    
+  </div>
+
+</div>
+
+<!-- WA Modal -->
+
+<div id="waModal" class="modal">
+
+
+  <div class="modal-content">
+    
+
+    <span>
+
+     AX <input id="waRangeInput1" onmousemove ='document.getElementById("waNumberInput1").value=this.value;' type="range" min="1" max="5"  size="5" step="1" value="1"> :  XB <input id="waRangeInput2" onmousemove ='document.getElementById("waNumberInput2").value=this.value;' type="range" min="1" max="5"  size="5" step="1" value="1">
+    </span>
+
+  </br>
+
+  <span>
+      AX  <input id="waNumberInput1" oninput ='document.getElementById("waRangeInput1").value=this.value;' type=number size="1" value="1"> :  <input id="waNumberInput2" oninput ='document.getElementById("waRangeInput2").value=this.value;'  type=number size="1" value="1"> XB  
+    </span>
+
+    <span >
+      <button onclick="clickOKWA()" class="close"> OK </button>
+    </span>
+    
+  </div>
+
+</div>
+
+
+<!-- Angle Modal -->
+
+<div id="angleModal" class="modal">
+
+
+  <div class="modal-content">
+    <table id = "angleEditTable" > 
+    </table>
+
+    <span >
+      <button onclick="clickAngleOK()" class="close"> OK </button>
+    </span>
+    
+  </div>
+
+</div>
+
+<!-- Edit Modal -->
+
+<div id="editModal" style="opacity:0.8;" class="modal">
+
+
+  <div class="modal-content">
+    <input type="range" id="editModalOpacity" min="0" max="1" step="0.1" oninput ="modalOpacity()">
+      
+    </input>
+    <table id = "editTable" style="border-collapse: collapse;" > 
+    </table>
+
+    <span >
+      <button onclick="clickOKEditMultiple()" class="close"> OK </button>
+    </span>
+    
+  </div>
+
+</div>
+
+
+<!-- MidText Modal -->
+
+<div id="midTextModal" style="opacity:0.5;" class="modal">
+
+
+  <div class="modal-content">
+    <input type="range" id="midTextModalOpacity" min="0" max="1" step="0.1" oninput ="midTextModalOpacity()">
+      
+    </input>
+    <table id = "midTextEditTable" > 
+    </table>
+
+    <span>
+      <button onclick="clickMidTextOK()" class="close"> OK </button>
+    </span>
+    
+  </div>
+
+</div>
+
+
+<div class="tab">
+  <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'figureTab')">Figure</button>
+  <button class="tablinks" onclick="openTab(event, 'tikzTab'); loadTikZCode(Objects);">TikZ</button>
+  <button class="tablinks" onclick="openTab(event, 'Tokyo')">SVG</button>
+</div>
+
+<div id="figureTab" class="tabcontent">
+
+  <div >
+
+    <svg id="drawingFrame" viewbox="0 0 600 600">
+      <pattern id="coorsystem" viewBox="0,0,10,10" width="10%" height="10%">
+          <rect width="10" height="10" style="fill:none; stroke:#85BBB6;stroke-width:0.1;" />
+        </pattern>
+        
+        <rect width="600" height="600" style="fill:url(#coorsystem);" />
+        </svg>
+    </div>
+      
+    <div class="mainbuttoncontainer">
+  
+      <button class="EditButton" onclick=" clickRemoveObject()" style="font-size: 17px;" > &#10008; </button>
+
+      <button class="EditButton" onclick="resetAll()" style="font-size: 17px;">  &#8635; </button>
+
+      <button  onclick='clickEditRow()' > Edit </button>
+
+
+
+      <button class="AllP Hyde" onclick="toTIKZCoordinates()"> to GriD </button>
+
+
+
+      <button class="Hyde AllP" onclick="clickFillPoint()" >
+        <svg  height="100%" width="100%" viewBox="0 0 600 600" >
+          <circle style="fill:black;stroke-width: 30; stroke:firebrick;" id="A" cx = "300" cy =" 300" r = " 50 " />
+        </svg>
+     </button>
+
+
+
+      <button class="Hyde AllP" onclick="clickAddLabel()" > Label </button>
+
+
+
+      <button class="PP Hyde" onclick="clickLine()" style="font-size: 17px;" >
+        <svg width="100%" height="100%" viewBox="0 0 600 600" >
+          <line style="stroke :MidnightBlue;stroke-width:20;stroke-linecap:round;" x1="86" x2="548" y1="458" y2="236 "/>
+          <circle style="fill:firebrick;" cx = "548" cy =" 236" r = " 40 " />
+          <circle style="fill:firebrick;" cx = "86" cy =" 458" r = " 40 " />
+        </svg>
+      </button>
+
+
+      <button class="PPP Hyde" onclick="clickDrawCirle()">
+        <svg width="100%" height="100%" viewBox="0 0 600 600" >
+          <circle style="stroke:gray; stroke-width:15;fill:none;" id="" cx = "305.5" cy = "326.5" r = "224" />
+          <circle style=" fill:firebrick;"  cx = "116" cy =" 446" r = " 40 " />
+          <circle style=" fill:firebrick;"  cx = "484" cy =" 462" r = " 40 " />
+          <circle style=" fill:firebrick;"  cx = "214" cy =" 122" r = " 40 " />  
+          <circle style=" fill:white;stroke:Maroon; stroke-width:20;" id="" cx = "305.5" cy =" 326.5" r = " 30 " />
+        </svg>
+     </button>
+
+
+
+      <button class="Hyde PPP PPPP AllP" onclick="clickDrawPolygon()"> Polygon </button>
+
+
+          
+      <button class="Hyde PPP" onclick="clickPerp()" style="font-size: 17px; font-weight: bold;"> 
+        <svg width="100%" height="100%" viewBox="0 0 600 600">
+          <line  style="stroke :MidnightBlue;opacity:0.5;stroke-width:20;stroke-linecap:round;" id="AB" x1="50" x2="500" y1="500" y2="500 "/>
+          <line style="stroke :MidnightBlue;stroke-width:20;opacity:0.5;stroke-linecap:round;" id="E" x1="200" x2="200" y1="100" y2="500 "/>
+          <path style="stroke :MidnightBlue;stroke-width:7;stroke-linecap:round;fill:none;opacity:0.5;" id="EB" d="M 300 500 L 300 400 L 200 400" />
+          <circle  style=" fill:firebrick;" id="A" cx = "50" cy =" 500" r = " 40 " />
+          <circle style=" fill:firebrick;"  cx = "500" cy =" 500" r = " 40 " />
+          <circle  style=" fill:white;stroke:black;stroke-width:20;" cx = "200" cy =" 500" r = " 35 " />
+          <circle style="fill:firebrick;" cx = "200" cy =" 100" r = " 40 " />
+        </svg>
+      </button>
+
+
+
+      <button id="mergeButton" class="Hyde PL PC PCC PLC" onclick="clickMerge()" > Merge </button>
+
+      <button class="Hyde PPPP LL" onclick="clickIntersection()" style="font-size:25px;"> &#10011; </button>
+
+      <button id="btn1" class="Hyde P" onclick='clickCircleWithR()' >
+      <svg width="100%" height="100%" viewBox="0 0 600 600" >
+        <line  style="stroke :firebrick;stroke-width:20;stroke-linecap:round;" x1="300" x2="550" y1="300" y2="300 "/>
+        <circle style="stroke:gray; stroke-width:20;fill:none;" cx = "300" cy = "300" r = "250" />
+        <circle  style="fill:firebrick;" id="A" cx = "300" cy =" 300" r = " 40 " />
+      </svg> 
+      </button>
+
+
+
+      <button class="Hyde PPP" onclick='clickAngle()' style="font-size: 17px; font-weight: bold;" >
+        <svg width="100%" height="100%" viewBox="0 0 600 600">
+          <path d="M 200 280 A 210,210 0 0,0 400,280" style="fill:none; stroke :#ff0000; stroke-width:20; stroke-linecap:round; " />
+          <path style="stroke:none; fill :#ff0000;opacity:0.4;" d="M 200 280 A 210,210 0 0,0 400,280 M 300 100 L 200 280 L 400,280 Z " />
+          <line style="stroke :MidnightBlue;stroke-width:20;stroke-linecap:round;" x1="100" x2="300" y1="460" y2="100 "/>
+          <line style="stroke :MidnightBlue;stroke-width:20;stroke-linecap:round;" x1="300" x2="500" y1="100" y2="460 "/>
+          <circle style=" fill:firebrick;" id="B" cx = "500" cy =" 460" r = " 40 " />
+          <circle style=" fill:firebrick;" id="A" cx = "100" cy =" 460" r = " 40 " />
+          <circle style=" fill:firebrick;" id="D" cx = "300" cy =" 100" r = " 40 " />
+        </svg> 
+      </button>
+
+
+
+      <button class="Hyde PP" onclick='clickMidText()' > Text </button>
+
+
+
+      <button class="Hyde PPP" onclick='clickIncircle()' >
+        <svg  width="100%" height="100%" viewBox="0 0 600 600">        
+          <line  style="stroke :MidnightBlue;stroke-width:15;stroke-linecap:round;"  x1="92" x2="520" y1="507" y2="506 "/>
+          <circle  style=" fill:firebrick;" cx = "520" cy =" 506" r = " 40 " />
+          <line  style="stroke :MidnightBlue;stroke-width:15;stroke-linecap:round;"  x1="520" x2="161" y1="506" y2="72 "/>
+          <line style="stroke :MidnightBlue;stroke-width:15;stroke-linecap:round;"  x1="161" x2="92" y1="72" y2="507 "/>
+          <circle style="stroke:gray; stroke-width:20;fill:none;" id="" cx = "244" cy = "377" r = "130" />
+          <circle style=" fill:firebrick;"  cx = "161" cy =" 72" r = " 40 " />
+          <circle  style=" fill:firebrick;" cx = "92" cy =" 507" r = " 40 " />
+          <circle style=" fill:firebrick;" cx = "92" cy =" 507" r = " 40 " />
+          <circle style=" fill:white; stroke :black;stroke-width:20;"  cx = "344" cy =" 294" r = " 25 " />
+          <circle style=" fill:white; stroke :black;stroke-width:20;"  cx = "116" cy =" 356" r = " 25 " />
+          <circle style=" fill:white; stroke :black;stroke-width:20;"  cx = "245" cy =" 507" r = " 25 " />       
+          <circle style=" fill:white;stroke :maroon;stroke-width:20;" cx = "244" cy =" 377" r = " 30 " />
+        </svg>
+      </button>
+
+      <button class="Hyde PP" onclick='clickCircAB()' >
+        <svg width="100%" height="100%" viewBox="0 0 600 600">
+          <circle style="stroke:gray; stroke-width:20;fill:none;" cx = "300" cy = "300" r = "241" />
+          <circle style="fill:firebrick;"  cx = "300" cy =" 300" r = " 40 " />
+          <circle style="fill:firebrick;" cx = "460" cy =" 120" r = " 40 " />
+        </svg>
+      </button>
+
+      <button class="Hyde PP" onclick='clickWP()' >
+        <svg width="100%" height="100%" viewBox="0 0 600 600">
+          <line style="stroke :midnightblue;stroke-width:20;stroke-linecap:round;"  x1="59" x2="224.3" y1="295" y2="291.6"/>
+          <line style="stroke :midnightblue;stroke-width:20;stroke-linecap:round;"  x1="224.3" x2="555" y1="291.6" y2="285 "/>
+          <circle  style="fill:white;stroke-width: 20; stroke:black;"  cx = "224.3" cy =" 291.6" r = " 40 " />
+          <circle style="fill:firebrick;"  cx = "59" cy =" 295" r = " 40 " />
+          <circle style="fill:firebrick;"  cx = "555" cy =" 285" r = " 40 " />
+        </svg>
+      </button>
+
+      
+
+      <button class="Hyde PPP" onclick='clickWA()'  > (W)Angle </button>
+
+
+  </div>
+
+  <div class="tablecontainer" style="float: left;height: 600px;width: 200px; overflow: auto;">
+    <table id="tableInfo">
+      
+    </table>
+  </div>
+
+  <div style="float:left;">
+    <button onclick="chooseP()"> P </button>
+    <button onclick="choosePP()" > 2P </button>
+    <button onclick="choosePPP()"> 3P </button>
+    <button onclick="choosePPPP()"> 4P </button>
+    <button onclick="chooseAllP()" > All P </button>
+
+  </div>
+      
+    
+</div>
+
+<div id="tikzTab" class="tabcontent">
+  <div id="tc" style='height: 600px; width: 590px; border: 1px solid black; overflow-y: auto; background-color: #ecece9;font-family: "Lucida Console", monospace; font-size: 13px; padding-left: 10px; border-radius: 0px 0px 0px 0px; box-shadow: 3px 3px 3px 0px gray;'>
+      
+        <p id="tikZcode" style="font-family: inherit; "> abbydick gubby dick </p>
+
+      
+    </div>
+</div>
+
+<div id="Tokyo" class="tabcontent">
+  <h3>Tokyo</h3>
+  <p>Tokyo is the capital of Japan.</p>
+</div>
+
+
+
+
+
+
+
+
+
+<script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}, svg: {fontCache: 'global'} };
+  </script>
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+   
+</body>
+
+<script>
+  let ObjectCounter=0;
+
+var allObjects=[];
+
+var Objects=[];
+var Points=[];
+var Lines=[];
+var Circles=[];
+
+var Checkboxes=[];
+
+var CheckedObjects=[];
+var CheckedCircles=[];
+var CheckedLines=[];
+var CheckedPoints=[];
+
+
+
+var SVGObjects=[];
+var SVGLabels=[];
+var TikZCodes=[];
+var InfoRows=[];
+
+
+
+let labels= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+
+var theTable = document.getElementById("tableInfo");
+var tikzCode = document.getElementById("tikZcode");
+
+
+var Hbtns = document.getElementsByClassName("Hyde");
+var Pbtns = document.getElementsByClassName("P");
+var PPbtns = document.getElementsByClassName("PP");
+var PPPbtns = document.getElementsByClassName("PPP");
+var PPPPbtns = document.getElementsByClassName("PPPP");
+var LLbtns = document.getElementsByClassName("LL");
+var AllPbtns = document.getElementsByClassName("AllP");
+
+var ABList = document.createElement( "DATALIST" );
+ABList.setAttribute("id","ABdataList");
+var ABoptA = document.createElement("OPTION");
+var ABopt0 = document.createElement("OPTION");
+var ABoptB = document.createElement("OPTION");
+
+ABoptA.setAttribute("value","1");
+ABoptA.setAttribute("label","A");
+
+ABopt0.setAttribute("value","0");
+// ABopt0.setAttribute("label"," ");
+
+ABoptB.setAttribute("value","-1");
+ABoptB.setAttribute("label","B");
+//let ABoptAtext = document.createElement("textNode");
+//ABoptAtext.innerText = "A";
+//ABoptA.appendChild(ABoptAtext);
+ABList.appendChild(ABoptA);
+ABList.appendChild(ABopt0);
+ABList.appendChild(ABoptB);
+
+
+
+
+
+
+
+function openTab(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen").click();
+
+
+var rModal = document.getElementById("rModal");
+
+function clickCircleWithR(){
+  rModal.style.display = "block";
+}
+
+var wpModal = document.getElementById("wpModal");
+
+function clickWP(){
+  wpModal.style.display = "block";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == rModal || 
+    event.target == wpModal ||  event.target == waModal || event.target == angleModal 
+    || event.target == editModal||event.target == midTextModal) {
+    event.target.style.display = "none";
+  }
+}
+
+
+function modalOpacity(){
+  document.getElementById("editModal").style.opacity = document.getElementById("editModalOpacity").value; 
+}
+
+function midTextModalOpacity(){
+  document.getElementById("midTextModal").style.opacity = document.getElementById("midTextModalOpacity").value; 
+}
+
+
+
+
+
+
+function chooseP(){
+  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  }
+  for(let i=0;i<Pbtns.length;i++){
+    Pbtns[i].style.display = "block";
+  }
+}
+
+function choosePP(){
+  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  }
+
+  for(let i=0;i<PPbtns.length;i++){
+    PPbtns[i].style.display = "block";
+  }
+}
+
+function choosePPP(){
+  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  }
+  
+  for(let i=0;i<PPPbtns.length;i++){
+    PPPbtns[i].style.display = "block";
+  }
+}
+
+function choosePPPP(){
+  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  }
+  
+  for(let i=0;i<PPPPbtns.length;i++){
+    PPPPbtns[i].style.display = "block";
+  }
+}
+
+function chooseAllP(){
+  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  } 
+}
+
+
+function hidebuttons(){
+  for(let i=0;i<Hbtns.length;i++){
+    Hbtns[i].style.display = "none";
+  }
+}
+
+
+
+
+
+function checkTheObject(i)
+{
+  
+
+  let Obj= allObjects[i];
+
+
+
+  CheckedObjects.push(Obj);
+
+  switch(Obj.figure)
+  {
+  case "Point":
+    CheckedPoints.push(Obj);
+    break;
+
+  case "Line":
+    CheckedLines.push(Obj);
+    break;
+
+  case "Circle":
+    CheckedCircles.push(Obj);
+    break;
+  }
+
+  showButtons(CheckedPoints,CheckedLines,CheckedCircles);
+
+}
+
+function uncheckTheObject(i)
+{
+  let Obj= allObjects[i];
+
+
+  CheckedObjects.splice( CheckedObjects.indexOf(Obj) ,1);
+
+  switch(Obj.figure){
+  case "Point":
+    CheckedPoints.splice(CheckedObjects.indexOf(Obj),1);
+    break;
+
+  case "Line":
+    CheckedLines.splice(CheckedObjects.indexOf(Obj),1);
+    break;
+
+  case "Circle":
+    CheckedCircles.splice(CheckedObjects.indexOf(Obj),1);
+  
+  }
+
+  showButtons(CheckedPoints,CheckedLines,CheckedCircles);
+
+}
+
+
+function selectTheObject(i)
+{
+  allObjects[i].checkBox.checked=true ; 
+  checkTheObject(i);
+}
+
+function unselectTheObject(i)
+{
+  allObjects[i].checkBox.checked=false ; 
+  uncheckTheObject(i);
+}
+
+
+function showButtons(points,lines,circles){
+  hidebuttons();
+
+
+  let Arr=100*Number(points.length)+10* Number(lines.length)+ Number(circles.length);
+
+  switch(Arr){
+  case 100:
+    chooseP();
+    chooseAllP();
+    break;
+
+  case 200:
+    choosePP();
+    chooseAllP();
+    break;
+
+  case 300:
+    choosePPP();
+    chooseAllP();
+    break;
+
+  case 400:
+    choosePPPP();
+    chooseAllP();
+    break;
+
+  case 110:
+    document.getElementById("mergeButton").style.display = "block";
+    break;
+
+  case 101:
+    document.getElementById("mergeButton").style.display = "block";
+    break;
+
+  case 111:
+    document.getElementById("mergeButton").style.display = "block";
+    break;
+
+  case 102:
+    document.getElementById("mergeButton").style.display = "block";
+    break;
+
+
+
+    /*
+
+  case [1,1,1]:
+
+    break;
+
+  case [1,0,2]:
+    break;
+    */
+
+  default:
+    hidebuttons();
+    if(lines.length==0&&circles.length==0&&points.length>4){ chooseAllP(); }
+
+  }
+
+}
+
+//// CLASSES:
+
+
+/// POINT
+class point{
+  constructor(index,id,cx,cy,r,fill,stroke,dx,dy,labeled,pointType,objs){
+    this.index = index;
+    this.id = id;
+
+    if( pointType =="intersectionLL")
+    {
+      let intP=intersectionPoint(objs[0],objs[1],objs[2],objs[3]);
+      this.cx = intP.cx;
+      this.cy = intP.cy;
+    }
+    else {
+      this.cx = cx;
+      this.cy = cy;
+    }
+    this.r = r;
+    this.fill = fill;
+    this.stroke=stroke;
+    this.dx=dx;
+    this.dy=dy;
+    this.labeled=labeled;
+    this.figure="Point";
+    this.pointType=pointType;
+    this.objs= objs;
+
+    let labcolor;
+
+    let prop = '';
+
+    if( this.pointType =="base")
+    { prop = this.pointType; }
+
+    if( this.pointType =="weighted")
+    { prop = this.objs[0].id+'/'+this.objs[1].id+':'+' '+this.objs[2]+'/'+this.objs[3];  }
+
+    if( this.pointType =="weightedAngle")
+    { prop = this.objs[0].id+this.objs[1].id+this.id+'/'+this.id+this.objs[1].id+ this.objs[2].id+':' + this.objs[4]+ '/'+this.objs[3];  }
+
+    if( this.pointType =="intersectionLL")
+    { prop = this.objs[0].id+this.objs[1].id+"&cap;"+this.objs[2].id+this.objs[3].id;  }
+
+    if( this.pointType =="perpendicularLP")
+    { prop = objs[1].id + '&perp;'+ this.objs[0].P1.id+this.objs[0].P2.id;  }
+
+    if(this.pointType=="Circumcenter"){
+      prop = "$\\circledcirc$ of "+objs[0].id+objs[1].id+objs[2].id;
+    }
+    this.property = prop;
+
+    var newChbox = document.createElement("INPUT");
+    newChbox.setAttribute("type", "checkbox");
+
+   
+    let chkCode= ' if( this.checked==true){document.getElementById("Obj'+this.index+'").style.fontWeight="900"; checkTheObject('+this.index+');   };  if( this.checked==false){uncheckTheObject('+this.index+');  }; ';
+
+// 
+
+    newChbox.setAttribute("onchange",chkCode);
+
+    this.checkBox = newChbox;
+    /*
+    */
+
+    let editID=document.createElement("INPUT");
+    editID.setAttribute("type","text");
+    editID.setAttribute("size","2");
+    editID.setAttribute("id","ID"+this.index);
+    this.EditID = editID;
+
+    let editcx=document.createElement("INPUT");
+    editcx.setAttribute("type","number");
+    editcx.setAttribute("size","3");
+    editcx.setAttribute("id","cx"+this.index);
+    this.Editcx = editcx;
+
+    let editcy=document.createElement("INPUT");
+    editcy.setAttribute("type","number");
+    editcy.setAttribute("size","3");
+    this.Editcy = editcy;
+
+    let editLabeled=document.createElement("INPUT");
+    editLabeled.setAttribute("type","checkbox");
+    this.EditLabeled = editLabeled;
+
+
+    let editdx=document.createElement("INPUT");
+    editdx.setAttribute("type","range");
+    editdx.setAttribute("style","width:60px;height:60px;");
+    editdx.setAttribute("name","L/R");
+    editdx.setAttribute("min","-20");
+    editdx.setAttribute("max","10");
+    editdx.setAttribute("step","15");
+    //editdx.setAttribute("orient","vertical");
+    
+
+
+    this.Editdx=editdx;
+
+  
+    let editdy=document.createElement("INPUT");
+    editdy.setAttribute("type","range");
+    editdy.setAttribute("style","width:60px;height:60px;");
+    editdy.setAttribute("name","A/B");
+    editdy.setAttribute("min","-1");
+    editdy.setAttribute("max","1");
+    editdy.setAttribute("step","1");
+    editdy.setAttribute("orient","vertical");
+    editdy.setAttribute("list",ABList);
+
+
+    this.Editdy=editdy;
+
+
+    let editStroke = document.createElement("DIV");
+    editStroke.setAttribute("class","colorsDiv")
+    let sColor1 = document.createElement("INPUT");
+
+    sColor1.setAttribute("type","radio");
+    sColor1.setAttribute("id","col"+1+this.index);
+    sColor1.setAttribute("name","sColor"+this.index);
+    sColor1.setAttribute("value","none");
+    sColor1.setAttribute("style","background-color:none;");
+    sColor1.checked=true;
+
+    let sColor2 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+2+this.index);
+    sColor2.setAttribute("type","radio");
+    sColor2.setAttribute("name","sColor"+this.index);
+    sColor2.setAttribute("value","Crimson");
+    sColor2.setAttribute("style","background-color:Crimson;");
+
+    let sColor3 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+3+this.index);
+    sColor3.setAttribute("type","radio");
+    sColor3.setAttribute("name","sColor"+this.index);
+    sColor3.setAttribute("value","Mediumseagreen");
+    sColor3.setAttribute("style","background-color:Mediumseagreen;");
+
+    let sColor4 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+4+this.index);
+    sColor4.setAttribute("type","radio");
+    sColor4.setAttribute("name","sColor"+this.index);
+    sColor4.setAttribute("value","Lightskyblue");
+    sColor4.setAttribute("style","background-color:Lightskyblue;");
+
+    let sColor5 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+5+this.index);
+    sColor5.setAttribute("type","radio");
+    sColor5.setAttribute("name","sColor"+this.index);
+    sColor5.setAttribute("value","Orchid");
+    sColor5.setAttribute("style","background-color:Orchid;");
+
+    let sColor6 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+6+this.index);
+    sColor6.setAttribute("type","radio");
+    sColor6.setAttribute("name","sColor"+this.index);
+    sColor6.setAttribute("value","Orange");
+    sColor6.setAttribute("style","background-color:Orange;");
+
+    let sColor7 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+7+this.index);
+    sColor7.setAttribute("type","radio");
+    sColor7.setAttribute("name","sColor"+this.index);
+    sColor7.setAttribute("value","Khaki");
+    sColor7.setAttribute("style","background-color:Khaki;");
+
+    editStroke.appendChild(sColor1);
+    editStroke.appendChild(sColor2);
+    editStroke.appendChild(sColor3);
+    editStroke.appendChild(sColor4);
+    editStroke.appendChild(sColor5);
+    editStroke.appendChild(sColor6);
+    editStroke.appendChild(sColor7);
+
+  
+    this.EditStroke = editStroke;
+
+
+
+    /// SVG Object
+
+    let P = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    P.setAttribute("cx", this.cx );
+    P.setAttribute("cy", this.cy);
+    P.setAttribute("r", this.r);
+    P.setAttribute("stroke",this.stroke);
+    P.setAttribute("fill",this.fill);
+    P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+    this.SVGobj = P;
+    ///
+
+    ///SGV Label
+
+    let L = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+    L.setAttribute("id", "Obj"+this.index );
+    L.setAttribute("x", Number(this.cx) + Number(this.dx)   );
+    L.setAttribute("y", Number(this.cy) + Number(this.dy) -15);
+    L.setAttribute("width", 30);
+    L.setAttribute("height", 20);
+
+
+    let labd ="Gray";
+
+    if(this.labeled){
+      labd = "Black";
+    }
+  
+    L.setAttribute("style","font-size:17;font-family:Arial;cursor:all-scroll;transition: all 0.2s;");
+    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + labd + '";this.style.fontWeight="900";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
+    L.setAttribute("color",labd);
+    L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    let textNode = document.createTextNode( '$'+ this.id+'$'); 
+    L.appendChild(textNode);
+
+    this.SVGlab = L;
+  }
+
+  SVGcode(){
+    var scode = ' <circle '
+    +' style="fill:'+this.fill
+    +'; stroke:'+ this.stroke
+    +'" id="'+this.id
+    +'" cx = "'+ this.cx.toFixed(1)
+    +'" cy =" '+this.cy.toFixed(1)
+    +'" r = " '+ this.r.toFixed(1)
+    +' " /> ';
+
+    scode+=' <text '
+    +' style="font-size:18;font-family:Arial;'
+    +'fill:'+ 'Gray'
+    +';" x = "' +this.cx.toFixed(1)
+    +'" y =" '+this.cy.toFixed(1)
+    +'" dx = "' +this.dx.toFixed(1)
+    +'" dy =" '+this.dy.toFixed(1)
+    +'" >'+this.id+' </text>';
+
+    return scode;
+  }
+
+  SVGObject(){
+    let P = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    P.setAttribute("cx", this.cx );
+    P.setAttribute("cy", this.cy);
+    P.setAttribute("r", this.r);
+    P.setAttribute("stroke",this.stroke);
+    P.setAttribute("fill",this.fill);
+    P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    return P;
+  }
+
+  SVGLabel(){
+    let L = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+    L.setAttribute("id", "Obj"+this.index );
+    L.setAttribute("x", Number(this.cx) + Number(this.dx)   );
+    L.setAttribute("y", Number(this.cy) + Number(this.dy) -15);
+    L.setAttribute("width", 20);
+    L.setAttribute("height", 20);
+
+
+    let labd ="Gray";
+
+    if(this.labeled){
+      labd = "Black";
+    }
+  
+    L.setAttribute("style","font-size:15;font-family:Arial;cursor:all-scroll;");
+    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + labd + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
+    L.setAttribute("color",labd);
+    L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+    L.setAttribute("onmouseenter",' this.animate( [ {color:'+labd+'}, {color:'+ "blue" +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    L.setAttribute("onmouseleave",' this.animate( [ {color:'+"blue"+'}, {color:'+ labd +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+
+
+    let textNode = document.createTextNode( '$'+ this.id+'$'); 
+    L.appendChild(textNode);
+
+    return L;
+  }
+
+
+  tikZObjectCode(){
+    let cT = '';
+
+    if(this.pointType=="intersectionLL")
+    {
+      cT= '(intersection cs: first line={('+ this.objs[0].id+ ')--('+this.objs[1].id+')}, second line={('+this.objs[2].id+')--('+this.objs[3].id+')})';
+    }
+    else if(this.pointType=="weighted")
+    {
+      let sg='';
+      let dnm = Number(this.objs[3]) + Number(this.objs[2]);
+      if(Number(this.objs[2])>0){sg='+'}
+      let a = (this.objs[3]/dnm).toFixed(2);
+      let b = (1-a).toFixed(2);
+      cT= '($ '+a+'*('+this.objs[0].id+')'+sg+b+'*('+this.objs[1].id+')$)';
+    }
+    else {
+      cT=toTikz(this.cx,this.cy);
+    }
+
+    let tcode = ' \\coordinate ('+this.id+') at '+cT+';' ;
+    if(this.fill=="Black"||this.fill=="black")
+    {
+      tcode +=  '\\filldraw['+this.fill+'] ('+this.id+') circle (1pt);';}
+
+    return tcode;
+  }
+
+  tikZLabelCode(){
+    let tcode='';
+
+    if(this.labeled==true){
+      let locCode = '';
+      if(this.dy==20){locCode += 'below';}
+      if(this.dy==-5){locCode += 'above';}
+      if(this.dx==10){locCode += ' right';}
+      if(this.dx==-20){locCode += ' left';}
+
+      if(locCode!=''){locCode = '['+locCode+']';}
+      tcode += ' \\node'+locCode+' at ('+this.id+') { $'+this.id+'$ };';
+    }
+    return tcode;
+
+  }
+
+  infoRow(){
+    var newRow = document.createElement("TR");
+    let cell_check=newRow.insertCell(0);
+    let cell_id = newRow.insertCell(1);
+    let cell_figure=newRow.insertCell(2);
+
+    let e_figure=document.createTextNode('$\\bullet$');
+    let e_id=document.createTextNode('$'+ this.id+'$');
+
+    let lbl = document.createElement("LABEL");
+    lbl.setAttribute("class","switch");
+    let spnn = document.createElement("SPAN");
+    spnn.setAttribute("class","slider round");
+
+    lbl.appendChild(this.checkBox);
+    lbl.appendChild(spnn);
+
+    cell_check.appendChild(lbl);
+    cell_figure.appendChild(e_figure);
+    cell_id.appendChild(e_id);
+
+
+
+    return newRow;
+  }
+
+  editRow(){
+    var newRow = document.createElement("TR");
+    newRow.setAttribute("class","editrow");
+    let cell_id = newRow.insertCell(0);
+    let cell_cx=newRow.insertCell(1);
+    let cell_cy = newRow.insertCell(2);
+    let cell_labeled=newRow.insertCell(3);
+    let cell_dx=newRow.insertCell(4);
+    let cell_dy=newRow.insertCell(5);
+    let cell_stroke=newRow.insertCell(6);
+
+    this.EditID.value=this.id;
+    this.Editcx.value=this.cx;
+    this.Editcy.value=this.cy;
+    this.Editdx.value=this.dx;
+    //this.Editdy.value=this.dy;
+
+    let dyv;
+    switch(this.dy){
+    case -5:
+      dyv = 1;
+      break;
+
+    case 5:
+      dyv = 0;
+      break;
+
+    case 20:
+      dyv= -1;
+      break;
+    }
+
+    this.Editdy.value = dyv;
+
+
+
+    let idLabel=document.createElement("LABEL");
+    idLabel.setAttribute("for",this.EditID.id);
+    idLabel.innerText="ID";
+
+
+    cell_id.appendChild(idLabel);
+    cell_id.appendChild(this.EditID);
+
+
+    let cxLabel=document.createElement("LABEL");
+    cxLabel.setAttribute("for",this.Editcx.id);
+    cxLabel.innerText="X";
+
+    cell_cx.appendChild(cxLabel);
+    cell_cx.appendChild(this.Editcx) ;
+
+    cell_cy.innerText="Y";
+    cell_cy.appendChild(this.Editcy) ;
+
+    cell_labeled.innerText="label"
+    cell_labeled.appendChild(this.EditLabeled);
+
+
+    cell_dx.appendChild(this.Editdx) ;
+
+    cell_dy.appendChild(this.Editdy) ;
+    cell_stroke.appendChild(this.EditStroke);
+
+    return newRow;
+  }
+}
+
+class circle{
+  constructor(index,Center,r,fill,stroke,circleType,objs){
+    this.index = index;
+    this.center = Center;
+    this.id = Center.id;
+/*
+    
+    this.cx = Center.cx;
+    this.cy = Center.cy;
+*/
+    this.r = r;
+    this.fill = fill;
+    this.stroke=stroke;
+
+    this.figure="Circle";
+    this.circleType=circleType;
+    this.objs= objs;
+
+    let prop = '';
+
+    if( this.circleType =="ABdefined")
+    { prop = "pass "+this.objs[1].id; }
+
+    if( this.circleType =="ORdefined")
+    { prop = "R:"+Number(this.r)/60; }
+
+    if(this.circleType=="Circumcircle"||this.circleType=="Incircle"){
+      prop ="of "+objs[0].id+objs[1].id+objs[2].id;
+    }
+    this.property = prop;
+
+    var newChbox = document.createElement("INPUT");
+    newChbox.setAttribute("type", "checkbox");
+
+
+    let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+');   }  if( this.checked==false){uncheckTheObject('+this.index+');  } ';
+    
+
+
+    newChbox.setAttribute("onchange",chkCode);
+
+    this.checkBox = newChbox;
+
+    let editID=document.createElement("INPUT");
+    editID.setAttribute("type","text");
+    editID.setAttribute("size","2");
+    editID.setAttribute("id","ID"+this.index);
+    this.EditID = editID;
+
+    let editcx=document.createElement("INPUT");
+    editcx.setAttribute("type","number");
+    editcx.setAttribute("size","3");
+    editcx.setAttribute("id","cx"+this.index);
+    this.Editcx = editcx;
+
+    let editcy=document.createElement("INPUT");
+    editcy.setAttribute("type","number");
+    editcy.setAttribute("size","3");
+    this.Editcy = editcy;
+
+    let editR=document.createElement("INPUT");
+    editR.setAttribute("type","number");
+    editR.setAttribute("size","2");
+    this.EditR = editR;
+
+    
+    ///fill colors
+
+    let editFill = document.createElement("DIV");
+    editFill.setAttribute("class","colorsDiv");
+    editFill.setAttribute("id","fColorsDiv"+this.index);
+
+    let fColor1 = document.createElement("INPUT");
+
+    fColor1.setAttribute("type","radio");
+    fColor1.setAttribute("id","col"+1+this.index);
+    fColor1.setAttribute("name","fColor"+this.index);
+    fColor1.setAttribute("value","none");
+    fColor1.setAttribute("style","background-color:none;");
+    fColor1.checked=true;
+
+    let fColor2 = document.createElement("INPUT");
+    fColor2.setAttribute("id","col"+2+this.index);
+    fColor2.setAttribute("type","radio");
+    fColor2.setAttribute("name","fColor"+this.index);
+    fColor2.setAttribute("value","Crimson");
+    fColor2.setAttribute("style","background-color:Crimson;");
+
+    let fColor3 = document.createElement("INPUT");
+    fColor3.setAttribute("id","col"+3+this.index);
+    fColor3.setAttribute("type","radio");
+    fColor3.setAttribute("name","fColor"+this.index);
+    fColor3.setAttribute("value","Mediumseagreen");
+    fColor3.setAttribute("style","background-color:Mediumseagreen;");
+
+    let fColor4 = document.createElement("INPUT");
+    fColor4.setAttribute("id","col"+4+this.index);
+    fColor4.setAttribute("type","radio");
+    fColor4.setAttribute("name","fColor"+this.index);
+    fColor4.setAttribute("value","Lightskyblue");
+    fColor4.setAttribute("style","background-color:Lightskyblue;");
+
+    let fColor5 = document.createElement("INPUT");
+    fColor5.setAttribute("id","col"+5+this.index);
+    fColor5.setAttribute("type","radio");
+    fColor5.setAttribute("name","fColor"+this.index);
+    fColor5.setAttribute("value","Orchid");
+    fColor5.setAttribute("style","background-color:Orchid;");
+
+    let fColor6 = document.createElement("INPUT");
+    fColor6.setAttribute("id","col"+6+this.index);
+    fColor6.setAttribute("type","radio");
+    fColor6.setAttribute("name","fColor"+this.index);
+    fColor6.setAttribute("value","Orange");
+    fColor6.setAttribute("style","background-color:Orange;");
+
+    let fColor7 = document.createElement("INPUT");
+    fColor7.setAttribute("id","col"+7+this.index);
+    fColor7.setAttribute("type","radio");
+    fColor7.setAttribute("name","fColor"+this.index);
+    fColor7.setAttribute("value","Khaki");
+    fColor7.setAttribute("style","background-color:Khaki;");
+
+    editFill.appendChild(fColor1);
+    editFill.appendChild(fColor2);
+    editFill.appendChild(fColor3);
+    editFill.appendChild(fColor4);
+    editFill.appendChild(fColor5);
+    editFill.appendChild(fColor6);
+    editFill.appendChild(fColor7);
+
+  
+    this.EditFill = editFill;
+
+
+     ///Stroke colors
+
+
+    let editStroke = document.createElement("DIV");
+    editStroke.setAttribute("class","colorsDiv");
+    editStroke.setAttribute("id","sColorsDiv"+this.index);
+
+    let sColor1 = document.createElement("INPUT");
+
+    sColor1.setAttribute("type","radio");
+    sColor1.setAttribute("id","col"+1+this.index);
+    sColor1.setAttribute("name","sColor"+this.index);
+    sColor1.setAttribute("value","none");
+    sColor1.setAttribute("style","background-color:none;");
+
+
+    let sColor2 = document.createElement("INPUT");
+    sColor2.setAttribute("id","col"+2+this.index);
+    sColor2.setAttribute("type","radio");
+    sColor2.setAttribute("name","sColor"+this.index);
+    sColor2.setAttribute("value","DarkSlateGrey");
+    sColor2.setAttribute("style","background-color:DarkSlateGrey;");
+    sColor2.checked=true;
+
+    let sColor3 = document.createElement("INPUT");
+    sColor3.setAttribute("id","col"+3+this.index);
+    sColor3.setAttribute("type","radio");
+    sColor3.setAttribute("name","sColor"+this.index);
+    sColor3.setAttribute("value","Midnightblue");
+    sColor3.setAttribute("style","background-color:Midnightblue;");
+
+    let sColor4 = document.createElement("INPUT");
+    sColor4.setAttribute("id","col"+4+this.index);
+    sColor4.setAttribute("type","radio");
+    sColor4.setAttribute("name","sColor"+this.index);
+    sColor4.setAttribute("value","Black");
+    sColor4.setAttribute("style","background-color:Black;");
+
+    let sColor5 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+5+this.index);
+    sColor5.setAttribute("type","radio");
+    sColor5.setAttribute("name","sColor"+this.index);
+    sColor5.setAttribute("value","DarkOliveGreen");
+    sColor5.setAttribute("style","background-color:DarkOliveGreen;");
+
+    let sColor6 = document.createElement("INPUT");
+    sColor6.setAttribute("id","col"+6+this.index);
+    sColor6.setAttribute("type","radio");
+    sColor6.setAttribute("name","sColor"+this.index);
+    sColor6.setAttribute("value","DarkRed");
+    sColor6.setAttribute("style","background-color:DarkRed;");
+
+    let sColor7 = document.createElement("INPUT");
+    sColor7.setAttribute("id","col"+7+this.index);
+    sColor7.setAttribute("type","radio");
+    sColor7.setAttribute("name","sColor"+this.index);
+    sColor7.setAttribute("value","DarkMagenta");
+    sColor7.setAttribute("style","background-color:DarkMagenta;");
+
+    editStroke.appendChild(sColor1);
+    editStroke.appendChild(sColor2);
+    editStroke.appendChild(sColor3);
+    editStroke.appendChild(sColor4);
+    editStroke.appendChild(sColor5);
+    editStroke.appendChild(sColor6);
+    editStroke.appendChild(sColor7);
+
+  
+    this.EditStroke = editStroke;
+    
+
+  }
+
+  SVGcode(){
+    var scode = ' <circle '
+    +' style="fill:'+this.fill
+    +'; stroke:'+ this.stroke
+    +'" id="'+this.id
+    +'" cx = "'+ this.cx.toFixed(1)
+    +'" cy =" '+this.cy.toFixed(1)
+    +'" r = " '+ this.r.toFixed(1)
+    +' " /> ';
+
+    return scode;
+  }
+
+  SVGObject(){
+    let P = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    P.setAttribute("id", "Obj"+this.index );
+    P.setAttribute("cx", this.center.cx );
+    P.setAttribute("cy", this.center.cy);
+    P.setAttribute("r", this.r);
+    P.setAttribute("stroke",this.stroke);
+    P.setAttribute("fill",this.fill);
+    P.setAttribute("fill-opacity","0.2");
+    P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+    P.setAttribute("style", "cursor:all-scroll;z-index:-1;");
+    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+  
+    P.setAttribute("onmouseover",' this.animate( [ {strokeWidth:'+1+'}, {strokeWidth:'+ 4 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    P.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+4+'}, {strokeWidth:'+ 1 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+
+
+    return P;
+  }
+
+  tikZObjectCode(){
+    let cT=toTikz(this.center.cx,this.center.cy);
+
+    let rtkz=Number(this.r)/60;
+    let fillcode='';
+    if(this.fill=="none"||this.fill=="None"){ fillcode=''; }
+    else {
+      fillcode = '[fill='+this.fill+']';
+    }
+    let tcode = '\\draw'+fillcode+' ('+this.center.id+') circle ('+ rtkz.toFixed(2)+');';
+
+    return tcode;
+  }
+
+  infoRow(){
+    var newRow = document.createElement("TR");
+    let cell_check=newRow.insertCell(0);
+    let cell_id = newRow.insertCell(1);
+    let cell_shape=newRow.insertCell(2);
+    let cell_property = newRow.insertCell(3);
+    let cell_label=newRow.insertCell(4);
+    let cell_coordinates=newRow.insertCell(5);
+
+    cell_check.className="tableCheck tableItem2";
+    cell_shape.className="tableShape tableItem2";
+    cell_id.className="tableID";
+    cell_label.className="tableLabel";
+    cell_coordinates.className="tableCoordinates";
+
+    let e_figure=document.createTextNode('$\\bigcirc$');
+    let e_id=document.createTextNode('$\\Omega_{'+ this.center.id + '}$');
+    let e_label=document.createTextNode(this.property);
+    let e_property=document.createTextNode('O:('+this.center.cx.toFixed(0)+','+this.center.cy.toFixed(0)+')' );
+    let e_tikZCoord=document.createTextNode(toTikz(this.center.cx,this.center.cy));
+
+    let lbl = document.createElement("LABEL");
+    lbl.setAttribute("class","switch");
+    let spnn = document.createElement("SPAN");
+    spnn.setAttribute("class","slider round");
+
+    lbl.appendChild(this.checkBox);
+    lbl.appendChild(spnn);
+
+    cell_check.appendChild(lbl);
+
+    cell_shape.appendChild(e_figure);
+    cell_id.appendChild(e_id);
+
+
+
+    return newRow;
+  }
+
+  editRow(){
+
+    var newRow = document.createElement("TR");
+    newRow.setAttribute("class","editrow");
+    let cell_id = newRow.insertCell(0);
+    let cell_cx=newRow.insertCell(1);
+    let cell_cy = newRow.insertCell(2);
+    let cell_r=newRow.insertCell(3);
+    newRow.insertCell(4);
+
+    let cell_fill=newRow.insertCell(5);
+    let cell_stroke = newRow.insertCell(6);
+
+    this.EditID.value=this.id;
+    this.Editcx.value=this.center.cx;
+    this.Editcy.value=this.center.cy;
+    this.EditR.value = this.r;
+    
+
+
+
+    let idLabel=document.createElement("LABEL");
+    idLabel.setAttribute("for",this.EditID.id);
+    idLabel.innerText="ID";
+
+
+    cell_id.appendChild(idLabel);
+    cell_id.appendChild(this.EditID);
+
+
+    let cxLabel=document.createElement("LABEL");
+    cxLabel.setAttribute("for",this.Editcx.id);
+    cxLabel.innerText="X";
+    cell_cx.appendChild(cxLabel);
+    cell_cx.appendChild(this.Editcx) ;
+
+    let cyLabel=document.createElement("LABEL");
+    cyLabel.setAttribute("for",this.Editcy.id);
+    cyLabel.innerText="Y";
+    cell_cy.appendChild(cyLabel);
+    cell_cy.appendChild(this.Editcy) ;
+
+    let rLabel=document.createElement("LABEL");
+    rLabel.setAttribute("for",this.EditR.id);
+    rLabel.innerText="r";
+    cell_r.appendChild(rLabel);
+    cell_r.appendChild(this.EditR) ;
+
+
+    let fillLabel=document.createElement("LABEL");
+    fillLabel.setAttribute("for",this.EditFill.id);
+    fillLabel.innerText="Fill";
+    cell_fill.appendChild(fillLabel);
+    cell_fill.appendChild(this.EditFill);
+
+
+    let strokeLabel=document.createElement("LABEL");
+    strokeLabel.setAttribute("for",this.EditStroke.id);
+    strokeLabel.innerText="Stroke";
+    cell_stroke.appendChild(strokeLabel);
+    cell_stroke.appendChild(this.EditStroke);
+
+
+    return newRow;
+  }
+
+
+}
+
+
+
+class line{
+  constructor(index,point1,point2,stroke,size,pattern){
+    this.index = index;
+    this.id = point1.id+point2.id;
+    this.P1 = point1;
+    this.P2 = point2;
+    this.stroke=stroke;
+    this.property=point1.id+point2.id;
+    this.size=size;
+    this.pattern=pattern;
+    this.figure="Line";
+
+
+    var newChbox = document.createElement("INPUT");
+    newChbox.setAttribute("type", "checkbox");
+
+
+    //let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+');  };  if( this.checked==false){uncheckTheObject('+this.index+'); }; ';
+
+    let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+');   }  if( this.checked==false){uncheckTheObject('+this.index+');  } ';
+
+
+    newChbox.setAttribute("onchange",chkCode);
+
+    this.checkBox = newChbox;
+
+    /*
+    */
+
+    let editPattern=document.createElement("SELECT");
+    let solidOpt = document.createElement("option");
+    solidOpt.text="solid";
+    solidOpt.value = "solid";
+    let dashedOpt= document.createElement("option");
+    dashedOpt.text="dashed";
+    dashedOpt.value = "dashed";
+
+    editPattern.add(solidOpt);
+    editPattern.add(dashedOpt);
+
+    this.EditPattern=editPattern;
+
+
+    ///
+
+    let editStroke = document.createElement("DIV");
+    editStroke.setAttribute("class","colorsDiv")
+    let sColor1 = document.createElement("INPUT");
+
+    sColor1.setAttribute("type","radio");
+    sColor1.setAttribute("id","col"+1+this.index);
+    sColor1.setAttribute("name","sColor"+this.index);
+    sColor1.setAttribute("value","none");
+    sColor1.setAttribute("style","background-color:none;");
+    sColor1.checked=true;
+
+    let sColor2 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+2+this.index);
+    sColor2.setAttribute("type","radio");
+    sColor2.setAttribute("name","sColor"+this.index);
+    sColor2.setAttribute("value","Crimson");
+    sColor2.setAttribute("style","background-color:Crimson;");
+
+    let sColor3 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+3+this.index);
+    sColor3.setAttribute("type","radio");
+    sColor3.setAttribute("name","sColor"+this.index);
+    sColor3.setAttribute("value","Mediumseagreen");
+    sColor3.setAttribute("style","background-color:Mediumseagreen;");
+
+    let sColor4 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+4+this.index);
+    sColor4.setAttribute("type","radio");
+    sColor4.setAttribute("name","sColor"+this.index);
+    sColor4.setAttribute("value","Lightskyblue");
+    sColor4.setAttribute("style","background-color:Lightskyblue;");
+
+    let sColor5 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+5+this.index);
+    sColor5.setAttribute("type","radio");
+    sColor5.setAttribute("name","sColor"+this.index);
+    sColor5.setAttribute("value","Orchid");
+    sColor5.setAttribute("style","background-color:Orchid;");
+
+    let sColor6 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+6+this.index);
+    sColor6.setAttribute("type","radio");
+    sColor6.setAttribute("name","sColor"+this.index);
+    sColor6.setAttribute("value","Orange");
+    sColor6.setAttribute("style","background-color:Orange;");
+
+    let sColor7 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+7+this.index);
+    sColor7.setAttribute("type","radio");
+    sColor7.setAttribute("name","sColor"+this.index);
+    sColor7.setAttribute("value","Khaki");
+    sColor7.setAttribute("style","background-color:Khaki;");
+
+    editStroke.appendChild(sColor1);
+    editStroke.appendChild(sColor2);
+    editStroke.appendChild(sColor3);
+    editStroke.appendChild(sColor4);
+    editStroke.appendChild(sColor5);
+    editStroke.appendChild(sColor6);
+    editStroke.appendChild(sColor7);
+    
+  
+    this.EditStroke = editStroke;
+
+
+ 
+
+  }
+
+  SVGcode(){
+    let scode = ' <line '
+    +' style="stroke :'+this.stroke
+    +';stroke-width:'+this.size+';stroke-linecap:round;" '
+    +'" x1="'+this.P1.cx.toFixed(1)
+    +'" x2="'+this.P2.cx.toFixed(1)
+    +'" y1="' +this.P1.cy.toFixed(1)
+    +'" y2="'+this.P2.cy.toFixed(1)
+    +' "/> ';
+
+    return scode;
+  }
+
+  SVGObject(){
+    let l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    l.setAttribute("x1", this.P1.cx );
+    l.setAttribute("y1", this.P1.cy );
+    l.setAttribute("x2", this.P2.cx );
+    l.setAttribute("y2", this.P2.cy );
+    l.setAttribute("stroke",this.stroke);
+    l.setAttribute("stroke-width",this.size);
+    l.setAttribute("stroke-linecap","round");
+    l.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    l.setAttribute("style", "cursor:all-scroll;");
+
+
+    //l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+
+    l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+
+    l.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+this.size+'}, {strokeWidth:'+ Number(2* Number(this.size) ) +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    l.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+Number(2* Number(this.size) )+'}, {strokeWidth:'+ this.size +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+
+    return l;
+  }
+
+  tikZObjectCode(){
+    let tcode = ' \\draw ('+this.P1.id+')--('+this.P2.id+');';
+    return tcode;
+  }
+
+
+
+  infoRow(){
+    var newRow = document.createElement("TR");
+    let cell_check=newRow.insertCell(0);
+    let cell_id = newRow.insertCell(1);
+    let cell_shape=newRow.insertCell(2);
+    let cell_property = newRow.insertCell(3);
+    let cell_label=newRow.insertCell(4);
+    let cell_coordinates=newRow.insertCell(5);
+
+    cell_check.className="tableCheck tableItem2";
+    cell_shape.className="tableShape tableItem2";
+    cell_id.className="tableID";
+    cell_label.className="tableLabel";
+    cell_coordinates.className="tableCoordinates";
+
+    let e_figure=document.createTextNode(this.figure);
+    let e_id=document.createTextNode('$\\ell_{'+this.P1.id+this.P2.id+'}$');
+    let e_label=document.createTextNode(this.property);
+    let e_property=document.createTextNode('' );
+    let e_tikZCoord=document.createTextNode('');
+
+    let lbl = document.createElement("LABEL");
+    lbl.setAttribute("class","switch");
+    let spnn = document.createElement("SPAN");
+    spnn.setAttribute("class","slider round");
+
+    lbl.appendChild(this.checkBox);
+    lbl.appendChild(spnn);
+
+    cell_check.appendChild(lbl);
+
+    //cell_check.appendChild(this.checkBox);
+    cell_shape.appendChild(e_figure);
+    cell_id.appendChild(e_id);
+
+    return newRow;
+  }
+
+  editRow(){
+    var newRow = document.createElement("TR");
+    newRow.setAttribute("class","editrow");
+    let cell_stroke = newRow.insertCell(0);
+    //let cell_pattern = newRow.insertCell(1);
+    
+    cell_stroke.appendChild(this.EditStroke);
+    //cell_pattern.appendChild(this.EditPattern);
+
+    return newRow;
+
+  }
+
+}
+
+
+
+class polygon{
+  constructor(index,points,fill,stroke,property,size){
+    this.index = index;
+    this.points = points;
+    this.fill = fill;
+    this.stroke = stroke;
+    this.size=size;
+    this.property = property;
+
+
+    var newChbox = document.createElement("INPUT");
+    newChbox.setAttribute("type", "checkbox");
+
+
+    let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+');   }  if( this.checked==false){uncheckTheObject('+this.index+');  } ';
+
+
+    newChbox.setAttribute("onchange",chkCode);
+
+    this.checkBox = newChbox;
+
+    let p_id=this.points[0].id ;
+    let p_figure="Polygon";
+
+    let poly_shape=points[0].cx.toFixed(1)+',' +points[0].cy.toFixed(1);
+
+    for(let i=0;i<points.length;i++)
+      {
+        poly_shape += ' '+ points[i].cx.toFixed(1)+',' +points[i].cy.toFixed(1);
+      }
+
+    switch(this.points.length)
+    {
+    case 3:
+      p_id =  this.points[0].id+this.points[1].id+this.points[2].id;
+      p_figure="Triangle";
+      break;
+    case 4:
+      p_id = this.points[0].id+this.points[1].id+this.points[2].id+this.points[3].id;
+      p_figure="Quad";
+      break;
+    default:
+      p_id = this.points[0].id+'...'+this.points[this.points.length-1].id;
+    }
+
+    this.id = p_id;
+    this.figure=p_figure;
+    this.polyshape=poly_shape;
+
+
+    ///fill colors
+
+    let editFill = document.createElement("DIV");
+    editFill.setAttribute("class","colorsDiv");
+    editFill.setAttribute("id","fColorsDiv"+this.index);
+
+    let fColor1 = document.createElement("INPUT");
+
+    fColor1.setAttribute("type","radio");
+    fColor1.setAttribute("id","col"+1+this.index);
+    fColor1.setAttribute("name","fColor"+this.index);
+    fColor1.setAttribute("value","none");
+    fColor1.setAttribute("style","background-color:none;");
+    fColor1.checked=true;
+
+    let fColor2 = document.createElement("INPUT");
+    fColor2.setAttribute("id","col"+2+this.index);
+    fColor2.setAttribute("type","radio");
+    fColor2.setAttribute("name","fColor"+this.index);
+    fColor2.setAttribute("value","Crimson");
+    fColor2.setAttribute("style","background-color:Crimson;");
+
+    let fColor3 = document.createElement("INPUT");
+    fColor3.setAttribute("id","col"+3+this.index);
+    fColor3.setAttribute("type","radio");
+    fColor3.setAttribute("name","fColor"+this.index);
+    fColor3.setAttribute("value","Mediumseagreen");
+    fColor3.setAttribute("style","background-color:Mediumseagreen;");
+
+    let fColor4 = document.createElement("INPUT");
+    fColor4.setAttribute("id","col"+4+this.index);
+    fColor4.setAttribute("type","radio");
+    fColor4.setAttribute("name","fColor"+this.index);
+    fColor4.setAttribute("value","Lightskyblue");
+    fColor4.setAttribute("style","background-color:Lightskyblue;");
+
+    let fColor5 = document.createElement("INPUT");
+    fColor5.setAttribute("id","col"+5+this.index);
+    fColor5.setAttribute("type","radio");
+    fColor5.setAttribute("name","fColor"+this.index);
+    fColor5.setAttribute("value","Orchid");
+    fColor5.setAttribute("style","background-color:Orchid;");
+
+    let fColor6 = document.createElement("INPUT");
+    fColor6.setAttribute("id","col"+6+this.index);
+    fColor6.setAttribute("type","radio");
+    fColor6.setAttribute("name","fColor"+this.index);
+    fColor6.setAttribute("value","Orange");
+    fColor6.setAttribute("style","background-color:Orange;");
+
+    let fColor7 = document.createElement("INPUT");
+    fColor7.setAttribute("id","col"+7+this.index);
+    fColor7.setAttribute("type","radio");
+    fColor7.setAttribute("name","fColor"+this.index);
+    fColor7.setAttribute("value","Khaki");
+    fColor7.setAttribute("style","background-color:Khaki;");
+
+    editFill.appendChild(fColor1);
+    editFill.appendChild(fColor2);
+    editFill.appendChild(fColor3);
+    editFill.appendChild(fColor4);
+    editFill.appendChild(fColor5);
+    editFill.appendChild(fColor6);
+    editFill.appendChild(fColor7);
+
+  
+    this.EditFill = editFill;
+
+
+     ///Stroke colors
+
+
+    let editStroke = document.createElement("DIV");
+    editStroke.setAttribute("class","colorsDiv");
+    editStroke.setAttribute("id","sColorsDiv"+this.index);
+
+    let sColor1 = document.createElement("INPUT");
+
+    sColor1.setAttribute("type","radio");
+    sColor1.setAttribute("id","col"+1+this.index);
+    sColor1.setAttribute("name","sColor"+this.index);
+    sColor1.setAttribute("value","none");
+    sColor1.setAttribute("style","background-color:none;");
+
+
+    let sColor2 = document.createElement("INPUT");
+    sColor2.setAttribute("id","col"+2+this.index);
+    sColor2.setAttribute("type","radio");
+    sColor2.setAttribute("name","sColor"+this.index);
+    sColor2.setAttribute("value","DarkSlateGrey");
+    sColor2.setAttribute("style","background-color:DarkSlateGrey;");
+    sColor2.checked=true;
+
+    let sColor3 = document.createElement("INPUT");
+    sColor3.setAttribute("id","col"+3+this.index);
+    sColor3.setAttribute("type","radio");
+    sColor3.setAttribute("name","sColor"+this.index);
+    sColor3.setAttribute("value","Midnightblue");
+    sColor3.setAttribute("style","background-color:Midnightblue;");
+
+    let sColor4 = document.createElement("INPUT");
+    sColor4.setAttribute("id","col"+4+this.index);
+    sColor4.setAttribute("type","radio");
+    sColor4.setAttribute("name","sColor"+this.index);
+    sColor4.setAttribute("value","Black");
+    sColor4.setAttribute("style","background-color:Black;");
+
+    let sColor5 = document.createElement("INPUT");
+    sColor1.setAttribute("id","col"+5+this.index);
+    sColor5.setAttribute("type","radio");
+    sColor5.setAttribute("name","sColor"+this.index);
+    sColor5.setAttribute("value","DarkOliveGreen");
+    sColor5.setAttribute("style","background-color:DarkOliveGreen;");
+
+    let sColor6 = document.createElement("INPUT");
+    sColor6.setAttribute("id","col"+6+this.index);
+    sColor6.setAttribute("type","radio");
+    sColor6.setAttribute("name","sColor"+this.index);
+    sColor6.setAttribute("value","DarkRed");
+    sColor6.setAttribute("style","background-color:DarkRed;");
+
+    let sColor7 = document.createElement("INPUT");
+    sColor7.setAttribute("id","col"+7+this.index);
+    sColor7.setAttribute("type","radio");
+    sColor7.setAttribute("name","sColor"+this.index);
+    sColor7.setAttribute("value","DarkMagenta");
+    sColor7.setAttribute("style","background-color:DarkMagenta;");
+
+    editStroke.appendChild(sColor1);
+    editStroke.appendChild(sColor2);
+    editStroke.appendChild(sColor3);
+    editStroke.appendChild(sColor4);
+    editStroke.appendChild(sColor5);
+    editStroke.appendChild(sColor6);
+    editStroke.appendChild(sColor7);
+
+  
+    this.EditStroke = editStroke;
+
+
+
+
+
+  }
+  
+
+
+  SVGcode(){
+
+    let poly_shape=this.points[0].cx.toFixed(1)+',' +this.points[0].cy.toFixed(1);
+
+    for(let i=0;i<this.points.length;i++)
+     {poly_shape += ' '+ this.points[i].cx.toFixed(1)+',' +this.points[i].cy.toFixed(1);}
+
+   let scode = ' <polygon '
+     +' style="stroke-linejoin:round;  fill :'+ this.fill
+     +';stroke-width:'+this.size 
+     + '; stroke:'+this.stroke
+     +';" points=" '+ this.polyshape
+     + ' " /> ';
+
+    return scode;
+  }
+  
+
+
+
+  SVGObject(){
+    let poly_shape=this.points[0].cx.toFixed(1)+',' +this.points[0].cy.toFixed(1);
+
+    for(let i=0;i<this.points.length;i++)
+      {
+        poly_shape += ' '+ this.points[i].cx.toFixed(1)+',' +this.points[i].cy.toFixed(1);
+      }
+
+    let pl = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    pl.setAttribute("fill", this.fill );
+    pl.setAttribute("fill-opacity", "0.2" );
+    pl.setAttribute("points", poly_shape);
+    pl.setAttribute("stroke",this.stroke);
+    pl.setAttribute("stroke-width",this.size);
+    pl.setAttribute("stroke-linejoin","round");
+    pl.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    pl.setAttribute("style", "cursor:all-scroll;");
+  
+    pl.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ; this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+    //pl.setAttribute("onmousemove",'this.style.strokeWidth = '+Number(2* Number(this.size) ) +';');
+    //pl.setAttribute("onmouseleave",'this.style.strokeWidth = '+this.size+';');
+
+    pl.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+this.size+'}, {strokeWidth:'+ Number(2* Number(this.size) ) +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    pl.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+Number(2* Number(this.size) )+'}, {strokeWidth:'+ this.size +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+
+
+    
+    return pl;
+  }
+  
+
+ 
+
+
+  tikZObjectCode()
+  {
+    let tcode='\\draw ';
+
+    for(let i=0;i<this.points.length;i++)
+      {tcode += ' ('+ this.points[i].id+')--';}
+
+    tcode+='cycle;';
+
+    return tcode;
+  }
+
+  infoRow(){
+    var newRow = document.createElement("TR");
+    let cell_check=newRow.insertCell(0);
+    let cell_id = newRow.insertCell(1);
+    let cell_figure=newRow.insertCell(2);
+
+    let e_figure=document.createTextNode('P-gon');
+    let e_id=document.createTextNode('$'+ this.id+'$');
+
+    let lbl = document.createElement("LABEL");
+    lbl.setAttribute("class","switch");
+    let spnn = document.createElement("SPAN");
+    spnn.setAttribute("class","slider round");
+
+    lbl.appendChild(this.checkBox);
+    lbl.appendChild(spnn);
+
+    cell_check.appendChild(lbl);
+    cell_figure.appendChild(e_figure);
+    cell_id.appendChild(e_id);
+
+    
+    return newRow;
+  }
+
+  editRow(){
+
+    var newRow = document.createElement("TR");
+    newRow.setAttribute("class","editrow");
+    let cell_id = newRow.insertCell(0);
+    newRow.insertCell(1);
+    newRow.insertCell(2);
+    newRow.insertCell(3);
+    newRow.insertCell(4);
+
+    let cell_fill=newRow.insertCell(5);
+    let cell_stroke = newRow.insertCell(6);
+
+    cell_id.innerText=this.id;
+
+
+
+    let fillLabel=document.createElement("LABEL");
+    fillLabel.setAttribute("for",this.EditFill.id);
+    fillLabel.innerText="Fill";
+    cell_fill.appendChild(fillLabel);
+    cell_fill.appendChild(this.EditFill);
+
+
+    let strokeLabel=document.createElement("LABEL");
+    strokeLabel.setAttribute("for",this.EditStroke.id);
+    strokeLabel.innerText="Stroke";
+    cell_stroke.appendChild(strokeLabel);
+    cell_stroke.appendChild(this.EditStroke);
+
+
+    return newRow;
+  }
+
+}
+
+
+
+class midText{
+  constructor(index,text,P1,P2,fill,dx,dy,location,sloped){
+    this.index = index;
+    this.id = text;
+    this.P1=P1;
+    this.P2=P2;
+    this.fill=fill;
+
+    this.location=location;
+    let wP = weightedPoint(P1,P2,Number(location),1-Number(location));
+
+    this.cx = Number(P1.cx)*(1-Number(location)) +Number(P2.cx)*Number(location)  ;
+    this.cy =Number(P1.cy)*(1-Number(location)) +Number(P2.cy)*Number(location)  ;
+    this.dx=dx;
+    this.dy=dy;
+
+    this.sloped=sloped;
+    this.figure="MidText";
+    this.property = 'on '+P1.id+P2.id;
+
+
+    var newChbox = document.createElement("INPUT");
+    newChbox.setAttribute("type", "checkbox");
+
+
+    //let chkCode= ' if( this.checked==true){ addToChecked('
+    //            +this.index
+    //            +')  }  if( this.checked==false){removeFromChecked('
+    //            +this.index+')}';
+
+    let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.color="red"   };  if( this.checked==false){uncheckTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.color= " '+this.stroke+'  " ; }; ';
+
+    newChbox.setAttribute("onchange",chkCode);
+
+    this.checkBox = newChbox;
+
+
+    let editText=document.createElement("INPUT");
+    editText.setAttribute("type","text");
+    this.EditText = editText;
+
+    let editdx=document.createElement("SELECT");
+    let dxOptNone = document.createElement("option");
+    dxOptNone.text="";
+    dxOptNone.value = -5;
+    let dxOptLeft= document.createElement("option");
+    dxOptLeft.text="left";
+    dxOptLeft.value = -20;
+    let dxOptRight= document.createElement("option");
+    dxOptRight.text="right";
+    dxOptRight.value = 10;
+    editdx.add(dxOptNone);
+    editdx.add(dxOptRight);
+    editdx.add(dxOptLeft);
+
+    this.Editdx=editdx;
+
+    let editdy=document.createElement("SELECT");
+    let dyOptNone = document.createElement("option");
+    dyOptNone.text="";
+    dyOptNone.value =5;
+    let dyOptAbove= document.createElement("option");
+    dyOptAbove.text="above";
+    dyOptAbove.value = -5;
+    let dyOptBelow= document.createElement("option");
+    dyOptBelow.text="below";
+    dyOptBelow.value = 20;
+    editdy.add(dyOptNone);
+    editdy.add(dyOptAbove);
+    editdy.add(dyOptBelow);
+
+    this.Editdy=editdy;
+
+
+
+    let editLocation=document.createElement("SELECT");
+    let locMidway = document.createElement("option");
+    locMidway.text="Midway";
+    locMidway.value =1/2;
+
+    let locAtStart= document.createElement("option");
+    locAtStart.text="at start";
+    locAtStart.value = 0;
+
+    let locVeryNearStart= document.createElement("option");
+    locVeryNearStart.text="very near start";
+    locVeryNearStart.value = 1/8;
+
+    let locNearStart= document.createElement("option");
+    locNearStart.text="near start";
+    locNearStart.value = 1/4;
+
+    let locNearEnd= document.createElement("option");
+    locNearEnd.text="near end";
+    locNearEnd.value = 3/4;
+
+    let locVeryNearEnd= document.createElement("option");
+    locVeryNearEnd.text="very near end";
+    locVeryNearEnd.value = 7/8;
+
+    let locAtEnd= document.createElement("option");
+    locAtEnd.text="at end";
+    locAtEnd.value = 1;
+
+
+    editLocation.add(locMidway);
+    editLocation.add(locAtStart);
+    editLocation.add(locVeryNearStart);
+    editLocation.add(locNearStart);
+    editLocation.add(locAtEnd);
+    editLocation.add(locVeryNearEnd);
+    editLocation.add(locNearEnd);
+
+    this.EditLocation=editLocation;
+
+
+    let editSloped=document.createElement("SELECT");
+    let slopedFalse = document.createElement("option");
+    slopedFalse.text="";
+    slopedFalse.value =false;
+    let slopedTrue= document.createElement("option");
+    slopedTrue.text="sloped";
+    slopedTrue.value = true;
+
+    editSloped.add(slopedFalse);
+    editSloped.add(slopedTrue);
+
+    this.EditSloped=editSloped;
+
+    //// SVG Object
+
+    let coorx = Number(this.P1.cx)*(1-Number(this.location)) +Number(this.P2.cx)*Number(this.location)  ;
+    let coory =Number(this.P1.cy)*(1-Number(this.location)) +Number(this.P2.cy)*Number(this.location)  ;
+    let sl = this.id.length;
+    let wd = Number(sl)*9;
+
+
+    let P = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+    P.setAttribute("x", Number(coorx)+Number(this.dx) );
+    P.setAttribute("y", Number(coory)+Number(this.dy) -10 );
+    P.setAttribute("width", wd);
+    P.setAttribute("height", 20);
+    P.setAttribute("style", "font-family:Arial; font-size:18;");
+    P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    P.setAttribute("style","cursor:all-scroll;");
+    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + this.fill + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
+
+    let textNode = document.createTextNode( '$'+ this.id+'$'); 
+    P.appendChild(textNode);
+
+    this.SVGobj = P;
+
+
+  }
+
+  SVGcode(){
+    scode=' <text '
+    +' style="font-size:18;font-family:Arial;'
+    +'fill:'+ 'Black'
+    +';" x = "' +Number(this.cx)
+    +'" y =" '+Number(this.cy)
+    +'" dx = "' +Number(this.dx).toFixed(1)
+    +'" dy =" '+Number(this.dy).toFixed(1)
+    +'" >'+this.id+' </text>';
+
+    return scode;
+  }
+
+  SVGObject(){
+    let coorx = Number(this.P1.cx)*(1-Number(this.location)) +Number(this.P2.cx)*Number(this.location)  ;
+    let coory =Number(this.P1.cy)*(1-Number(this.location)) +Number(this.P2.cy)*Number(this.location)  ;
+    let sl = this.id.length;
+    let wd = Number(sl)*9;
+
+
+    let P = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+    P.setAttribute("x", Number(coorx)+Number(this.dx) );
+    P.setAttribute("y", Number(coory)+Number(this.dy) -10 );
+    P.setAttribute("width", wd);
+    P.setAttribute("height", 20);
+    P.setAttribute("style", "font-family:Arial; font-size:18;");
+    P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    P.setAttribute("style","cursor:all-scroll;");
+    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + this.fill + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
+
+    let textNode = document.createTextNode( '$'+ this.id+'$'); 
+    P.appendChild(textNode);
+
+    return P;
+
+  }
+
+  tikZObjectCode(){
+    var tcode;
+
+    let A = this.P1;
+    let B = this.P2;
+
+    let t_loc = '';
+    switch (Number(this.location)) {
+      case 0: t_loc = "at start";
+        break;
+     case 0.125: t_loc = "very near start";
+        break;
+     case 0.25: t_loc = "near start";
+       break;
+     case 0.75: t_loc = "near end";
+       break;
+     case 0.875: t_loc = "very near end";
+         break;
+     case 1: t_loc = "at end";
+           break;
+     default:
+      t_loc = "midway";
+    }
+
+    let t_dydx = '';
+
+
+
+    if(Number(this.dy)==20){t_dydx += 'below';}
+    if(Number(this.dy)==-5){t_dydx += 'above';}
+    if(Number(this.dx)==10){t_dydx += ' right';}
+    if(Number(this.dx)==-20){t_dydx += ' left';}
+
+    if(t_dydx!=''){t_dydx = ','+t_dydx;}
+
+    var slopedcode;
+    if(this.sloped){slopedcode = ',sloped';}
+    else {
+      slopedcode='';
+    }
+
+    tcode= '\\path ('+A.id+')--('+B.id+') node['+t_loc+t_dydx+slopedcode+']{$'+Obj.id +'$};';
+
+    return tcode;
+
+  }
+
+  infoRow(){
+    var newRow = document.createElement("TR");
+    let cell_check=newRow.insertCell(0);
+    let cell_id = newRow.insertCell(1);
+    let cell_shape=newRow.insertCell(2);
+    let cell_property = newRow.insertCell(3);
+    let cell_label=newRow.insertCell(4);
+    let cell_coordinates=newRow.insertCell(5);
+
+
+    cell_check.className="tableCheck tableItem2";
+    cell_shape.className="tableShape tableItem2";
+    cell_id.className="tableID";
+    cell_label.className="tableLabel";
+    cell_coordinates.className="tableCoordinates";
+
+    let lbl = document.createElement("LABEL");
+    lbl.setAttribute("class","switch");
+    let spnn = document.createElement("SPAN");
+    spnn.setAttribute("class","slider round");
+
+    lbl.appendChild(this.checkBox);
+    lbl.appendChild(spnn);
+
+    cell_check.appendChild(lbl);
+
+
+    //cell_check.appendChild(this.checkBox);
+    cell_shape.innerText=this.figure;
+
+    let textNode = document.createTextNode( '$'+ this.id+'$'); 
+    cell_id.appendChild(textNode);
+    /*
+    cell_id.innerHTML='$'+ this.id+'$' ;
+    */
+    cell_label.innerHTML='';
+    cell_coordinates.innerText='';
+    cell_property.innerHTML=this.property;
+
+
+    return newRow;
+
+  }
+
+  editRow(){
+    var newRow = document.createElement("TR");
+    let cell_text = newRow.insertCell(0);
+    let cell_dx=newRow.insertCell(1);
+    let cell_dy = newRow.insertCell(2);
+    let cell_loc=newRow.insertCell(3);
+    let cell_sloped = newRow.insertCell(4);
+
+    this.EditText.value=this.id;
+    this.Editdx.value=this.dx;
+    this.Editdy.value=this.dy;
+    this.EditLocation.value=this.location;
+    this.EditSloped.value = this.sloped;
+
+
+    cell_text.innerText='text';
+    cell_text.appendChild(this.EditText);
+
+    cell_dx.innerText='R/L';
+    cell_dx.appendChild(this.Editdx) ;
+
+    cell_dy.innerText='A/B';
+    cell_dy.appendChild(this.Editdy) ;
+
+    cell_loc.innerText='loc';
+    cell_loc.appendChild(this.EditLocation);
+
+    cell_sloped.innerText='sloped';
+    cell_sloped.appendChild(this.EditSloped);
+
+    return newRow;
+  }
+
+}
+
+
+
+class angle{
+  constructor(index,points,scale,fill,stroke,rightAngle,text,eccentricity,draw){
+    this.index = index;
+    this.text = text;
+    this.id ='&#8737;'+points[0].id+points[1].id+points[2].id;
+    this.points = points;
+    this.scale = scale;
+    this.fill = fill;
+    this.stroke = stroke;
+    this.rightAngle = rightAngle;
+
+    this.eccentricity=eccentricity;
+    this.draw=draw;
+
+    this.figure="Angle";
+
+    var newChbox = document.createElement("INPUT");
+    newChbox.setAttribute("type", "checkbox");
+
+    let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.stroke="red"   };  if( this.checked==false){uncheckTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.stroke= " '+this.stroke+'  " ; }; ';
+
+    newChbox.setAttribute("onchange",chkCode);
+
+    this.checkBox = newChbox;
+
+    let editText=document.createElement("INPUT");
+    editText.setAttribute("type","text");
+    editText.setAttribute("size","3");
+    this.EditText = editText;
+
+    let editScale=document.createElement("INPUT");
+    editScale.setAttribute("type","range");
+    editScale.setAttribute("size","4");
+    editScale.setAttribute("min","0");
+    editScale.setAttribute("max","2");
+    editScale.setAttribute("step","0.1");
+    editScale.setAttribute("value","0.4");
+
+
+    this.EditScale = editScale;
+
+    let editEccent=document.createElement("INPUT");
+    editEccent.setAttribute("type","number");
+    editEccent.setAttribute("size","2");
+    this.EditEccent = editEccent;
+
+    let editRightAngle=document.createElement("INPUT");
+    editRightAngle.setAttribute("type","checkbox");
+    this.EditRightAngle = editRightAngle;
+
+    let editDraw=document.createElement("INPUT");
+    editDraw.setAttribute("type","checkbox");
+    this.EditDraw = editDraw;
+
+    ///SVG Object
+
+    let A1 = this.points[0];
+    let B1 = this.points[1];
+    let C1 = this.points[2];
+
+    let r = Number(this.scale)*30;
+    let a = sideLength(B1,A1);
+    let c = sideLength(B1,C1);
+
+    let Bs = weightedPoint(B1,A1,Number(r),Number(a)-Number(r));
+    let Be = weightedPoint(B1,C1,Number(r),Number(c)-Number(r));
+    let pth;
+
+    if(this.draw){
+
+      if(!this.rightAngle){
+        pth= 'M '+Number(B1.cx)+" "+Number(B1.cy)+" L "+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+' Z ';
+      }
+
+      else if(this.rightAngle){
+        let Px= Number(Be.cx)+Number(Bs.cx)-Number(B1.cx);
+        let Py = Number(Be.cy)+Number(Bs.cy)-Number(B1.cy);
+
+        pth= 'M '+Number(B1.cx)+" "+Number(B1.cy)+" L "+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+' Z ';
+      }
+
+    }
+
+    else {pth='';}
+
+    let Pth = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+    Pth.setAttribute("stroke",this.stroke);
+    Pth.setAttribute("fill",this.fill);
+    Pth.setAttribute("stroke-width","2");
+    Pth.setAttribute("d",pth);
+    Pth.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    Pth.setAttribute("style", "cursor:all-scroll;");
+    Pth.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+    //Pth.setAttribute("onmousemove",'this.style.strokeWidth = 4;');
+    //Pth.setAttribute("onmouseleave",'this.style.strokeWidth = 2;');
+    Pth.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+2+'}, {strokeWidth:'+4 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    Pth.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+4+'}, {strokeWidth:'+ 2 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+
+    this.SVGobj = Pth;
+
+
+  }
+
+  SVGcode(){
+    let poly_shape=this.points[0].cx.toFixed(1)+',' +this.points[0].cy.toFixed(1);
+
+    for(let i=0;i<this.points.length;i++)
+     {
+     poly_shape += ' '+ this.points[i].cx.toFixed(1)+',' +this.points[i].cy.toFixed(1);
+     }
+     let scode = ' <clipPath id='+this.id+' > <polygon  points=" '+ poly_shape + ' " /> </clipPath>';
+
+     /*
+     <circle style="fill:blue; fill-opacity:0.2; stroke:red;stroke-width:3;" cx = "267.0" cy =" 78.0" r = " 20 " clip-path="url(#tri1)" />
+     */
+     scode+= ' <circle style="fill:'+this.fill+'; stroke:'+this.stroke
+     +';stroke-width:3;" cx ='+this.points[1].cx
+     +' cy ='+this.points[1].cy
+     +' r = '+Number( Number(this.scale)*15)+' clip-path="url(#'+this.id+' )" /> ';
+
+     return scode;
+
+  }
+
+  SVGObject(){
+    let A1 = this.points[0];
+    let B1 = this.points[1];
+    let C1 = this.points[2];
+
+    let r = Number(this.scale)*30;
+    let a = sideLength(B1,A1);
+    let c = sideLength(B1,C1);
+
+    let Bs = weightedPoint(B1,A1,Number(r),Number(a)-Number(r));
+    let Be = weightedPoint(B1,C1,Number(r),Number(c)-Number(r));
+    let pth;
+
+    if(this.draw){
+
+      if(!this.rightAngle){
+        pth= 'M '+Number(B1.cx)+" "+Number(B1.cy)+" L "+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+' Z ';
+      }
+
+      else if(this.rightAngle){
+        let Px= Number(Be.cx)+Number(Bs.cx)-Number(B1.cx);
+        let Py = Number(Be.cy)+Number(Bs.cy)-Number(B1.cy);
+
+        pth= 'M '+Number(B1.cx)+" "+Number(B1.cy)+" L "+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+' Z ';
+      }
+
+    }
+
+    else {pth='';}
+
+    let Pth = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+    Pth.setAttribute("stroke",this.stroke);
+    Pth.setAttribute("fill",this.fill);
+    Pth.setAttribute("stroke-width","2");
+    Pth.setAttribute("d",pth);
+    Pth.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    Pth.setAttribute("style", "cursor:all-scroll;");
+    Pth.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+    //Pth.setAttribute("onmousemove",'this.style.strokeWidth = 4;');
+    //Pth.setAttribute("onmouseleave",'this.style.strokeWidth = 2;');
+    Pth.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+2+'}, {strokeWidth:'+4 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    Pth.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+4+'}, {strokeWidth:'+ 2 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+
+    return Pth;
+  }
+
+  SVGLabel(){
+    let A1 = this.points[0];
+    let B1 = this.points[1];
+    let C1 = this.points[2];
+
+    let ee = Number(this.eccentricity)*20;
+    let cc = sideLength(B1,A1);
+    let aa = sideLength(B1,C1);
+
+    let B1bottom = weightedPoint(B1,A1,Number(ee),Number(cc)-Number(ee));
+
+    let B1top = weightedPoint(B1,C1,Number(ee),Number(aa)-Number(ee));
+
+    let BM = weightedPoint(B1bottom,B1top,1,1);
+
+    let dd= sideLength(B1,BM);
+
+    let Bx = weightedPoint(BM,B1,Number(dd) - Number(ee),Number(ee));
+
+
+
+    let L = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+    L.setAttribute("x",Number(Bx.cx)   );
+    L.setAttribute("y", Number(Bx.cy)-10 );
+    L.setAttribute("width", 40);
+    L.setAttribute("height", 32);
+    L.setAttribute("style","font-size:18;font-family:Arial;");
+
+    L.setAttribute("color",this.stroke);
+    L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+    /*
+
+    L.setAttribute("style","cursor:all-scroll;");
+    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
+    */
+
+    let textNode = document.createTextNode( '$'+ this.text+'$'); 
+    L.appendChild(textNode);
+
+
+    return L;
+  }
+
+  tikZObjectCode(){
+    var tcode;
+
+    let A = this.points[0];
+    let B = this.points[1];
+    let C = this.points[2];
+
+    let rcode='';
+    if(this.rightAngle){rcode ='right ';}
+
+    let aIn_code='';
+
+    if(this.text!=''){aIn_code='"$'+this.text+'$",';}
+
+    let a_draw='';
+    if(this.draw){a_draw = 'draw,'; }
+
+
+    tcode= '\\path ('+A.id+') coordinate ('+A.id+') -- ('+B.id+ ') coordinate ('+B.id+') -- ('+C.id+') coordinate ('+C.id+') pic['+aIn_code+a_draw+'angle eccentricity='+this.eccentricity+',scale='+this.scale+ '] {'+rcode+'angle='+A.id+'--'+B.id+'--'+C.id+'};';
+
+    return tcode;
+
+  }
+
+  infoRow(){
+    var newRow = document.createElement("TR");
+    let cell_check=newRow.insertCell(0);
+    let cell_id = newRow.insertCell(1);
+    let cell_shape=newRow.insertCell(2);
+    let cell_property = newRow.insertCell(3);
+    let cell_label=newRow.insertCell(4);
+    let cell_coordinates=newRow.insertCell(5);
+
+    cell_check.className="tableCheck tableItem2";
+    cell_shape.className="tableShape tableItem2";
+    cell_id.className="tableID";
+    cell_label.className="tableLabel";
+    cell_coordinates.className="tableCoordinates";
+
+    let lbl = document.createElement("LABEL");
+    lbl.setAttribute("class","switch");
+    let spnn = document.createElement("SPAN");
+    spnn.setAttribute("class","slider round");
+
+    lbl.appendChild(this.checkBox);
+    lbl.appendChild(spnn);
+
+    cell_check.appendChild(lbl);
+
+    //cell_check.appendChild(this.checkBox);
+    cell_shape.innerText= '$\\measuredangle$' ;
+    cell_id.innerHTML=this.id;
+    cell_property.innerText = "$\\square$:"+this.rightAngle ;
+    cell_coordinates.innerText = "("+this.scale+","+this.eccentricity+")";
+    cell_label.innerText = '$'+this.text+'$' ;
+
+    return newRow;
+  }
+
+  editRow(){
+    var newRow = document.createElement("TR");
+    let cell_text = newRow.insertCell(0);
+    let cell_scale=newRow.insertCell(1);
+    let cell_eccent = newRow.insertCell(2);
+    let cell_rightAngle=newRow.insertCell(3);
+    let cell_draw=newRow.insertCell(4);
+
+    this.EditText.value=this.text;
+    this.EditScale.value=this.scale;
+    this.EditEccent.value=this.eccentricity;
+    this.EditRightAngle.checked=this.rightAngle;
+    this.EditDraw.checked=this.draw;
+
+    cell_text.innerText="Ang";
+    cell_text.appendChild(this.EditText );
+
+    cell_scale.innerText="Scale";
+    cell_scale.appendChild(this.EditScale);
+
+    cell_eccent.innerText="Eccnt";
+    cell_eccent.appendChild(this.EditEccent);
+
+    cell_rightAngle.innerText="$\\square$";
+    cell_rightAngle.appendChild(this.EditRightAngle);
+
+    cell_draw.innerText="$\\measuredangle$";
+    cell_draw.appendChild(this.EditDraw);
+
+    return newRow;
+  }
+
+}
+
+
+
+
+function toTikz(x,y)
+{
+  let Tx = Number(x/60)-1;
+  let Ty = 9-Number(y/60);
+  if(Number.isInteger(Tx)==false){ Tx=Tx.toFixed(2); }
+
+  if(Number.isInteger(Ty)==false){Ty=Ty.toFixed(2)};
+
+  let PTikZ = '(' +Tx +','+Ty +')';
+  return PTikZ;
+}
+
+
+
+
+document.getElementById("drawingFrame").ondblclick = function(event) {CreatePoint(event)};
+
+function CreatePoint(e)
+{
+
+  /*
+  (index,id,cx,cy,r,fill,stroke,property,dx,dy,labeled,pointType,Objs)
+  */
+
+  let oo = [];
+
+  let P= new point(ObjectCounter,labels[0],e.clientX-11,e.clientY-52,3,"none","Gray",-5,-5,false,"base",oo);
+
+
+  ObjectCounter++;
+
+  allObjects.push(P);
+  Objects.push(P);
+  
+  SVGObjects.push(P.SVGObject());
+  
+
+  reBuild(Objects);
+  clearButtons();
+}
+
+
+function reBuild(Objs)
+{  
+  loadSVGDrawing(Objs);
+  MathJax.typeset();
+
+  loadTable(Objs);
+  MathJax.typeset();
+
+  /*
+
+  loadSVGCode(Objs);
+  MathJax.typeset();
+  */
+
+  loadCheckBoxes(Objs);
+  MathJax.typeset();
+
+  loadLabel(Objs);
+    MathJax.typeset();
+
+   loadTikZCode(Objs);
+    MathJax.typeset();
+
+}
+
+
+function clickLine()
+{
+  if(CheckedPoints.length==2&& CheckedLines.length== 0&&CheckedCircles.length==0)
+  {
+    let A = CheckedPoints[0];
+    let B = CheckedPoints[1];
+
+    let L = new line(ObjectCounter,A,B,"MidnightBlue",2,"solid");
+    ObjectCounter++;
+
+
+
+    allObjects.push(L);
+    Objects.push(L);
+    let LSVG = L.SVGObject();
+    SVGObjects.push(LSVG);
+
+  }
+
+  reBuild(Objects);
+  clearButtons();
+}
+
+
+function clickFillPoint()
+{
+  for(let i=0;i<CheckedPoints.length;i++)
+  {
+    CheckedPoints[i].fill="black";
+  }
+
+  reBuild(Objects);
+  clearButtons();
+}
+
+
+function clickAddLabel()
+{
+  for(let i=0;i<CheckedPoints.length;i++){
+    CheckedPoints[i].labeled=true;
+  }
+
+  reBuild(Objects);
+  clearButtons();
+}
+
+function clickMidText(){
+  /*
+  EditText
+  Editdx
+  Editdy
+  EditLocation
+  EditSloped
+  constructor(index,text,P1,P2,fill,dx,dy,location,sloped)
+  */
+
+
+  if(CheckedObjects.length==2&& CheckedPoints.length==2)
+  {
+    CheckedPoints[0].checkBox.disabled=true;
+    CheckedPoints[1].checkBox.disabled=true;
+
+
+    let nMT = new midText(ObjectCounter,'',CheckedPoints[0],CheckedPoints[1],'black',0,0,1/2,false);
+
+    ObjectCounter++;
+    allObjects.push(nMT);
+    Objects.push(nMT);
+
+    document.getElementById("midTextEditTable").appendChild(nMT.editRow());
+    document.getElementById("midTextModal").style.display="block";
+
+    MathJax.typeset();
+  }
+
+}
+
+
+
+
+function clickMidTextOK(){
+  CheckedPoints[0].checkBox.disabled=false;
+  CheckedPoints[1].checkBox.disabled=false;
+
+  let O = allObjects[ allObjects.length-1];
+  O.id = O.EditText.value;
+  O.dx = O.Editdx.value;
+  O.dy = O.Editdy.value;
+  O.location = O.EditLocation.value;
+  O.sloped = O.EditSloped.value;
+
+  
+  reBuild(Objects);
+
+  document.getElementById("midTextModal").style.display="none";
+  document.getElementById("midTextEditTable").innerHTML = "";
+
+  clearButtons();
+
+  
+
+
+
+}
+
+
+function clickDrawPolygon(){
+  if(CheckedPoints.length>2 && CheckedPoints.length==CheckedObjects.length)
+  {
+    let Pol=new polygon(ObjectCounter, CheckedPoints, "none","MidnightBlue","","2");
+    ObjectCounter++;
+    
+    allObjects.push(Pol);
+    Objects.push(Pol);
+  }
+  
+  reBuild(Objects);
+  clearButtons();
+}
+
+function clickDrawCirle(){
+
+  if(CheckedPoints.length==3&& CheckedObjects.length==3)
+  {
+    let A = CheckedPoints[0];
+    let B = CheckedPoints[1];
+    let C = CheckedPoints[2];
+
+    let CCirc = CircumCircle(A,B,C);
+
+    let cx = CCirc.O.cx
+    let cy = CCirc.O.cy;
+    let cR = CCirc.R;
+
+     let c_id='&#9711;'+ A.id+B.id+C.id;
+
+    let o_prop = "&#9711; <sub>"+A.id+B.id+C.id+"</sub>";
+    let c_prop = "R:"+cR.toFixed(0);
+
+    let cO_id='&#9737;'+ A.id+B.id+C.id;
+
+    /*
+
+    (index,id,cx,cy,r,fill,stroke,dx,dy,labeled,pointType,objs)
+    */
+    let NO = new point(ObjectCounter,labels[0],cx,cy,3,"none","Maroon",-5,-5,false,"Circumcenter",CheckedPoints);
+
+
+    ObjectCounter++;
+    allObjects.push(NO);
+    Objects.push(NO);
+
+    let NC = new circle(ObjectCounter,NO,cR,"none","DarkSlateGrey","Circumcircle",CheckedObjects);
+
+    ObjectCounter++;
+
+    allObjects.push(NC);
+    Objects.push(NC);
+  }
+
+  reBuild(Objects);
+  clearButtons();
+}
+
+
+function clickIncircle(){
+
+  if(CheckedPoints.length==3&& CheckedObjects.length==3)
+  {
+    let A = CheckedPoints[0];
+    let B = CheckedPoints[1];
+    let C = CheckedPoints[2];
+
+    let ICirc = InnerCircle(A,B,C);
+
+    let cx = ICirc.I.cx;
+    let cy = ICirc.I.cy;
+    let cR = ICirc.r;
+
+     let c_id='&#9711;'+ A.id+B.id+C.id;
+
+    let o_prop = "&#9711; <sub>"+A.id+B.id+C.id+"</sub>";
+    let c_prop = "r:"+cR.toFixed(0);
+    let cO_id='&#9737;'+ A.id+B.id+C.id;
+
+    let NO = new point(ObjectCounter,labels[0],cx,cy,3,"none","Maroon",-5,-5,false,"Incenter",CheckedPoints);
+
+
+
+    ObjectCounter++;
+    allObjects.push(NO);
+    Objects.push(NO);
+
+    let NC = new circle(ObjectCounter,NO,cR,"none","DarkSlateGrey","Incircle",CheckedPoints);
+
+    ObjectCounter++;
+
+    allObjects.push(NC);
+    Objects.push(NC);
+  }
+
+  reBuild(Objects);
+  clearButtons();
+}
+
+
+
+  function rCircleOKbutton(){
+  /*
+  CheckedObjects[0].checkBox.disabled=false;
+  */
+
+  let P = CheckedPoints[0];
+  let cR = document.getElementById("rNumberInput").value;
+
+  let NC = new circle(ObjectCounter,P,Number(cR)*60,"none","DarkSlateGrey","ORdefined",[P,cR]);
+
+  ObjectCounter++;
+
+  allObjects.push(NC);
+  Objects.push(NC);
+  rModal.style.display = "none";
+
+  /*
+
+  document.getElementById("OKCircleWithR").style.display="none";
+
+  while ( document.getElementById("editTable").rows.length > 0 ) {
+    document.getElementById("editTable").deleteRow(0);
+  }
+  */
+
+  reBuild(Objects);
+  clearButtons();
+
+
+}
+
+
+
+
+
+function clickOKCircleWithR(){
+  CheckedObjects[0].checkBox.disabled=false;
+  let P = CheckedObjects[0];
+  let cR = document.getElementById("Rinput").value;
+
+  let NC = new circle(ObjectCounter,P,Number(cR)*60,"none","DarkSlateGrey","ORdefined",[P,cR]);
+
+  ObjectCounter++;
+
+  allObjects.push(NC);
+  Objects.push(NC);
+
+  document.getElementById("OKCircleWithR").style.display="none";
+
+  while ( document.getElementById("editTable").rows.length > 0 ) {
+    document.getElementById("editTable").deleteRow(0);
+  }
+
+  reBuild(Objects);
+  clearButtons();
+
+}
+
+function clickCircAB(){
+
+  if(CheckedObjects.length==2&&CheckedPoints.length==2)
+  {
+    let A = CheckedObjects[ 0] ;
+  let B = CheckedObjects[ 1] ;
+  let cR = Number(sideLength( CheckedObjects[0],CheckedObjects[1] )).toFixed(2);
+
+  let NC = new circle(ObjectCounter,A,Number(cR),"none","DarkSlateGrey","ABdefined",[A,B,cR]);
+
+  ObjectCounter++;
+
+  allObjects.push(NC);
+  Objects.push(NC);
+
+  SVGObjects.push(NC.SVGObject());
+
+  reBuild(Objects);
+  clearButtons();
+
+  }
+
+}
+
+
+
+/*
+
+function clickWP(){
+
+  if(CheckedObjects.length==2&&CheckedPoints.length==2){
+
+    CheckedPoints[0].checkBox.disabled=true;
+    CheckedPoints[1].checkBox.disabled=true;
+
+    let eth = document.createElement("TR");
+    let ethuw = eth.insertCell(0);
+
+    let e0=document.createTextNode(CheckedObjects[0].id+"X:"+"X"+CheckedObjects[1].id);
+
+    let uInput = document.createElement("INPUT");
+    uInput.setAttribute("type","number");
+    uInput.setAttribute("id","WPuInput");
+
+    let wInput = document.createElement("INPUT");
+    wInput.setAttribute("type","number");
+    wInput.setAttribute("id","WPwInput");
+
+    ethuw.appendChild(e0);
+    ethuw.appendChild(uInput);
+    ethuw.appendChild(wInput);
+
+
+    document.getElementById("editTable").appendChild(eth);
+
+    document.getElementById("OKWP").style.display="block";
+
+  }
+
+}
+*/
+
+function clickOKWP(){
+
+
+
+  let A = CheckedObjects[0];
+  let B = CheckedObjects[1];
+  let u= document.getElementById("wpNumberInput1").value;
+  let w= document.getElementById("wpNumberInput2").value;
+
+  let u1 = Number(u)/(Number(u)+Number(w));
+  let w1 = Number(w)/(Number(u)+Number(w));
+
+  let wP = weightedPoint(A,B,u1,w1);
+
+
+  /*(index,id,cx,cy,r,fill,stroke,dx,dy,labeled,pointType,objs)  */
+
+  let NP = new point(ObjectCounter,labels[0],wP.cx,wP.cy,3,"none","Gray",-5,-5,false,"weighted",[A,B,u,w]);
+
+  ObjectCounter++;
+
+  allObjects.push(NP);
+  Objects.push(NP);
+
+  SVGObjects.push(NP.SVGObject());
+
+
+
+  CheckedPoints[0].checkBox.disabled=false;
+  CheckedPoints[1].checkBox.disabled=false;
+
+  document.getElementById("wpNumberInput1").value = "1";
+  document.getElementById("wpNumberInput1").value = "1";
+
+  document.getElementById("wpRangeInput1").value = "1";
+  document.getElementById("wpRangeInput1").value = "1";
+  wpModal.style.display = "none";
+
+ // while ( document.getElementById("editTable").rows.length > 0 ) {
+ //   document.getElementById("editTable").deleteRow(0);c}
+
+  reBuild(Objects);
+  clearButtons();
+
+}
+
+
+/*
+function clickWA(){
+
+  if(CheckedObjects.length==3&&CheckedPoints.length==3)
+  {
+    CheckedPoints[0].checkBox.disabled=true;
+    CheckedPoints[1].checkBox.disabled=true;
+    CheckedPoints[2].checkBox.disabled=true;
+
+
+    let eth = document.createElement("TR");
+    let ethAnguw = eth.insertCell(0);
+
+    let e0=document.createTextNode(CheckedObjects[0].id+CheckedObjects[1].id+"X:"+"X"+CheckedObjects[1].id+CheckedObjects[2].id);
+
+    let AnguInput = document.createElement("INPUT");
+    AnguInput.setAttribute("type","number");
+    AnguInput.setAttribute("id","WAuInput");
+
+    let AngwInput = document.createElement("INPUT");
+    AngwInput.setAttribute("type","number");
+    AngwInput.setAttribute("id","WAwInput");
+
+    ethAnguw.appendChild(e0);
+    ethAnguw.appendChild(AnguInput);
+    ethAnguw.appendChild(AngwInput);
+
+
+    document.getElementById("editTable").appendChild(eth);
+
+    document.getElementById("OKWA").style.display="block";
+
+  }
+
+}
+*/
+
+function clickWA() {
+  waModal.style.display = "block";
+
+}
+
+
+
+function clickOKWA(){
+  CheckedPoints[0].checkBox.disabled=false;
+  CheckedPoints[1].checkBox.disabled=false;
+  CheckedPoints[2].checkBox.disabled=false;
+  
+  let A = CheckedObjects[0];
+  let B = CheckedObjects[1];
+  let C = CheckedObjects[2];
+
+  let u= document.getElementById("waNumberInput1").value;
+  let w= document.getElementById("waNumberInput2").value;
+
+  let u1 = Number(u)/(Number(u)+Number(w));
+  let w1 = Number(w)/(Number(u)+Number(w));
+
+  let wP = weightedAngle(A,C,B,u,w);
+
+
+  let NP = new point(ObjectCounter,labels[0],wP.cx,wP.cy,3,"none","Gray",-5,-5,false,"weightedAngle",[A,B,C,u,w]);
+
+  ObjectCounter++;
+
+  allObjects.push(NP);
+  Objects.push(NP);
+
+  SVGObjects.push(NP.SVGObject());
+
+
+
+  CheckedPoints[0].checkBox.disabled=false;
+  CheckedPoints[1].checkBox.disabled=false;
+
+  document.getElementById("waNumberInput1").value = "1";
+  document.getElementById("waNumberInput1").value = "1";
+
+  document.getElementById("waRangeInput1").value = "1";
+  document.getElementById("waRangeInput1").value = "1";
+  waModal.style.display = "none";
+
+
+  reBuild(Objects);
+  clearButtons();
+
+
+
+}
+
+
+
+/*
+function clickOKWA(){
+
+
+
+  let A = CheckedObjects[0];
+  let B = CheckedObjects[1];
+  let u= document.getElementById("waNumberInput1").value;
+  let w= document.getElementById("waNumberInput2").value;
+
+  let u1 = Number(u)/(Number(u)+Number(w));
+  let w1 = Number(w)/(Number(u)+Number(w));
+
+  let wP = weightedPoint(A,B,u1,w1);
+
+
+
+
+  let NP = new point(ObjectCounter,labels[0],wP.cx,wP.cy,3,"none","Gray",-5,-5,false,"weighted",[A,B,u,w]);
+
+  ObjectCounter++;
+
+  allObjects.push(NP);
+  Objects.push(NP);
+
+  SVGObjects.push(NP.SVGObject());
+
+
+
+  CheckedPoints[0].checkBox.disabled=false;
+  CheckedPoints[1].checkBox.disabled=false;
+
+  document.getElementById("wpNumberInput1").value = "1";
+  document.getElementById("wpNumberInput1").value = "1";
+
+  document.getElementById("wpRangeInput1").value = "1";
+  document.getElementById("wpRangeInput1").value = "1";
+  wpModal.style.display = "none";
+
+
+  reBuild(Objects);
+  clearButtons();
+
+}
+
+*/
+
+
+
+
+
+
+
+function clickAngle()
+{
+  if(CheckedObjects.length==3&&CheckedPoints.length==3)
+  {
+    CheckedPoints[0].checkBox.disabled=true;
+    CheckedPoints[1].checkBox.disabled=true;
+    CheckedPoints[2].checkBox.disabled=true;
+
+    let nA = new angle(ObjectCounter,CheckedObjects,0.4,"none",'MidnightBlue',false,' ',1,true);
+    ObjectCounter++;
+    allObjects.push(nA);
+    Objects.push(nA);
+    reBuild(Objects);
+
+    document.getElementById("angleEditTable").appendChild(nA.editRow());
+
+    MathJax.typeset();
+    document.getElementById("angleModal").style.display = "block";
+  }
+}
+
+
+function clickAngleOK()
+{
+  CheckedPoints[0].checkBox.disabled=false;
+  CheckedPoints[1].checkBox.disabled=false;
+  CheckedPoints[2].checkBox.disabled=false;
+
+  let Ang = Objects[ Objects.length-1];
+  Ang.text=Ang.EditText.value;
+  Ang.scale=Ang.EditScale.value;
+  Ang.eccentricity=Ang.EditEccent.value;
+  Ang.rightAngle=Ang.EditRightAngle.checked;
+  Ang.draw=Ang.EditDraw.checked;
+
+
+  document.getElementById("angleEditTable").innerHTML = " ";
+  document.getElementById("angleModal").style.display = "none";
+
+  reBuild(Objects);
+  clearButtons();
+
+}
+
+
+
+function clickEditRow(){
+  document.getElementById("editTable").innerHTML = '';
+
+
+  for(let i=0;i<CheckedObjects.length;i++){
+    let P = CheckedObjects[i];
+     document.getElementById("editTable").appendChild(P.editRow());
+  }
+
+  MathJax.typeset();
+
+  document.getElementById("editModal").style.display="block";
+
+}
+
+
+
+
+
+function toTIKZCoordinates(){
+  for(let i =0;i<CheckedObjects.length;i++){
+    if(CheckedObjects[i].figure=="Point"){
+      let x = CheckedObjects[i].cx;
+      let y = CheckedObjects[i].cy;
+
+      let Tx = Number(Number(Number(x)/60)-1).toFixed(0);
+      let Ty = Number(9-Number(Number(y)/60)).toFixed(0);
+
+      CheckedObjects[i].cx = Number(60*(Number(Tx)+1));
+      CheckedObjects[i].cy = Number(60*(9-Number(Ty)));
+    }
+  }
+
+  reBuild(Objects);
+  clearButtons();
+
+}
+
+function clickOKEditMultiple(){
+  for(let i=0;i<CheckedObjects.length;i++){
+    let P = CheckedObjects[i];
+
+    if(P.figure=="Point"){
+      P.id=P.EditID.value;
+      P.cx = Number(P.Editcx.value);
+      P.cy = Number(P.Editcy.value);
+      P.labeled = P.EditLabeled.checked;
+      P.dx = Number(P.Editdx.value);
+    switch(Number(P.Editdy.value) ){
+      case 1:
+        P.dy = -5;
+        break;
+
+      case 0:
+        P.dy = 5;
+        break;
+
+      case -1:
+        P.dy = 20;
+        break;
+      }
+
+      sColors = document.getElementsByName("sColor"+P.index);
+      for(let j=0;j<sColors.length;j++)
+      {
+        if( sColors[j].checked ){
+          P.fill = sColors[j].value;
+        }
+      }
+
+
+
+     
+
+
+    }
+
+    if(P.figure=="Circle"){
+      P.id=P.EditID.value;
+      P.cx = Number(P.Editcx.value);
+      P.cy = Number(P.Editcy.value);
+      P.r = Number(P.EditR.value);
+
+      fColors = document.getElementsByName("fColor"+P.index);
+      for(let j=0;j<fColors.length;j++)
+      {
+        if( fColors[j].checked ){
+          P.fill = fColors[j].value;
+        }
+      }
+
+      sColors = document.getElementsByName("sColor"+P.index);
+      for(let j=0;j<sColors.length;j++)
+      {
+        if( sColors[j].checked ){
+          P.stroke = sColors[j].value;
+        }
+      }
+
+    }
+
+    if(P.figure=="Triangle"||P.figure=="Quad"||P.figure=="Polygon"){
+    
+
+      fColors = document.getElementsByName("fColor"+P.index);
+      for(let j=0;j<fColors.length;j++)
+      {
+        if( fColors[j].checked ){
+          P.fill = fColors[j].value;
+        }
+      }
+
+      sColors = document.getElementsByName("sColor"+P.index);
+      for(let j=0;j<sColors.length;j++)
+      {
+        if( sColors[j].checked ){
+          P.stroke = sColors[j].value;
+        }
+      }
+
+    }
+
+    if(P.figure=="Line"){
+      P.pattern=P.EditPattern.value;
+    }
+
+    if(P.figure=="Angle"){
+      P.text=P.EditText.value;
+      P.scale = Number(P.EditScale.value);
+      P.eccentricity = Number(P.EditEccent.value);
+      P.rightAngle = P.EditRightAngle.checked;
+      P.draw = P.EditDraw.checked;
+    }
+
+    if(P.figure=="MidText"){
+      P.id=P.EditText.value;
+      P.dx =  Number(P.Editdx.value);
+      P.dy =  Number(P.Editdy.value);
+      P.location = Number(P.EditLocation.value);
+      P.sloped = P.EditSloped.value;
+
+    }
+
+  }
+  document.getElementById("editModal").style.display="none";
+
+
+  reBuild(Objects);
+  clearButtons();
+
+  
+
+
+}
+
+function clickEditOK(){
+  reBuild(Objects);
+  clearButtons();
+}
+
+
+
+function clickPerp(){
+  
+  if(CheckedObjects.length=3||CheckedObjects.length==2)
+  {
+    var A;
+    var B;
+    var C;
+    var objs=[];
+
+    if(CheckedPoints.length==3)
+      {
+        C=CheckedPoints[0];
+        A=CheckedPoints[1];
+        B=CheckedPoints[2];
+
+        let l = new line('nn',A,B,"MidnightBlue",2,"solid");
+        objs.push(l);
+        objs.push(C);
+      }
+
+      else if(CheckedPoints.length==1&&CheckedLines.length==1)
+      {
+        C=CheckedPoints[0];
+        A=CheckedLines[0].P1;
+        B=CheckedLines[0].P2;
+
+        objs.push(CheckedLines[0]);
+        objs.push(CheckedPoints[0]);
+      }
+
+      let PP = Perpendicular(C,A,B);
+
+      let NP = new point(ObjectCounter,labels[0],Number(PP.cx),Number(PP.cy),3,"none","Gray",-5,-5,false,"perpendicularLP",objs);
+      ObjectCounter++;
+
+      allObjects.push(NP);
+      Objects.push(NP);
+  }
+
+  reBuild(Objects);
+  clearButtons();
+}
+
+function clickMerge()
+{
+  if(CheckedObjects.length==2)
+  {
+    if(CheckedPoints.length==1&&CheckedCircles.length==1)
+    {mergeCP( CheckedCircles[0],CheckedPoints[0]);}
+
+    else if(CheckedPoints.length==1&&CheckedLines.length==1)
+    {mergeLP(CheckedLines[0],CheckedPoints[0]);}
+  }
+
+  else if(CheckedObjects.length==3)
+  {
+    if(CheckedPoints.length==1&&CheckedCircles.length==2)
+      {mergeCCP( CheckedCircles[0],CheckedCircles[1],CheckedPoints[0] ); }
+
+    else if(CheckedPoints.length==1&&CheckedCircles.length==1&&CheckedLines.length==1)
+    {
+      mergeCLP( CheckedCircles[0],CheckedLines[0],CheckedPoints[0] );
+    }
+  }
+
+  reBuild(Objects);
+  clearButtons();
+}
+
+
+
+function mergeCP(Circ,Pt)
+{
+  let d=sideLength(Circ.center,Pt);
+  let newPt = weightedPoint(Pt,Circ.center,Number(d - Number(Circ.r)),Number(Circ.r));
+  Pt.cx = Number(newPt.cx);
+  Pt.cy = Number(newPt.cy);
+}
+
+function mergeLP(Ln,Pt)
+{
+  let newPt = Perpendicular(Pt,Ln.P1,Ln.P2);
+  Pt.cx = Number(newPt.cx);
+  Pt.cy = Number(newPt.cy);
+}
+
+function mergeCCP(C1,C2,Pt)
+{
+
+  for(let i =0;i<20;i++)
+  {
+    mergeCP(C1,Pt);
+    mergeCP(C2,Pt);
+  }
+}
+
+function mergeCLP(C,L,Pt)
+{
+  for(let i =0;i<10;i++)
+  {
+    mergeCP(C,Pt);
+    mergeLP(L,Pt);
+  }
+}
+
+
+
+function clickPerpSign(){
+  for(let i=0;i<CheckedObjects.length;i++){
+    if(CheckedObjects.figure=="Angle"){
+      CheckedObjects.rightAngle=true;
+    }
+  }
+  
+
+  reBuild(Objects);
+  clearButtons();
+
+}
+
+
+
+
+function clickIntersection(){
+  if(CheckedObjects.length==4 || CheckedObjects.length==2 ){
+    let pts=[];
+
+    if(CheckedPoints.length==4)
+    {
+      pts = CheckedPoints;
+    }
+
+    else if(CheckedLines.length==2)
+    {
+      pts.push(CheckedLines[0].P1);
+      pts.push(CheckedLines[0].P2);
+      pts.push(CheckedLines[1].P1);
+      pts.push(CheckedLines[1].P2);
+    }
+    let P=new point(ObjectCounter,labels[0],0,0,3,"none","Gray",-5,-5,false,"intersectionLL",pts);
+
+    ObjectCounter++;
+
+    allObjects.push(P);
+    Objects.push(P);
+  }
+  reBuild(Objects);
+  clearButtons();
+}
+
+
+function loadSVGDrawing(Objs){
+
+  // drawing the coordinate lines:
+
+  document.getElementById("drawingFrame").innerHTML="";
+
+  let patrn = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
+  patrn.setAttribute("id","coorsystem");
+  patrn.setAttribute("viewBox","0,0,10,10");
+  patrn.setAttribute("width","10%");
+  patrn.setAttribute("height","10%");
+
+  let rct = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  rct.setAttribute("width","10");
+  rct.setAttribute("height","10");
+  rct.setAttribute("style","fill:none;stroke:#85BBB6;stroke-width:0.1");
+
+  patrn.appendChild(rct);
+
+  let coorect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  coorect.setAttribute("width","600");
+  coorect.setAttribute("height","600");
+  coorect.setAttribute("style","fill:url(#coorsystem);");
+
+  document.getElementById("drawingFrame").appendChild(patrn);
+  document.getElementById("drawingFrame").appendChild(coorect);
+
+  //drawing everything else:
+
+
+
+
+
+  for(let i=0;i<Objs.length-1;i++)
+  {
+    let P = Objs[i];
+    let fig = P.figure;
+    document.getElementById("drawingFrame").appendChild(P.SVGObject());
+
+    if(fig=="Point"||fig=="Angle")
+      {document.getElementById("drawingFrame").appendChild(P.SVGLabel());}
+  }
+
+  let Pl=Objs[Objs.length-1 ];
+  
+  switch(Pl.figure)
+  {
+  case "Line":
+    let llO = Pl.SVGObject();
+
+    ll = totalLength2(Pl);
+    //let ll=llO.getTotalLength();
+    let Pinit = Pl.P1.SVGObject();
+    let Pend = Pl.P2.SVGObject();
+
+    Pinit.style="fill-opacity:0; animation: 0.2s pointBounce ease-out forwards; animation-delay:0s; fill:"+Pl.P1.fill+";";
+    llO.style = "stroke :MidnightBlue;stroke-width:2;stroke-linecap:round; stroke-dasharray:"+ll+"; stroke-dashoffset:"+ll+"; animation: stroke 0.5s ease-out forwards; animation-delay:0.2s;";
+    Pend.style="fill-opacity:0; animation: 0.2s pointBounce ease-out forwards; animation-delay:0.7s; fill:"+Pl.P2.fill+";";
+
+    document.getElementById("drawingFrame").appendChild(Pinit);
+    document.getElementById("drawingFrame").appendChild(llO);
+    document.getElementById("drawingFrame").appendChild(Pend);
+
+    break;
+
+
+  case "Point":
+    let P0 = Pl.SVGObject();
+    let LP0 = Pl.SVGLabel();
+    let strk= Pl.stroke;
+
+    P0.style = "fill-opacity:0; animation: 0.2s pointBounce ease-out forwards; animation-delay:0s; fill:"+Pl.fill+";";
+    LP0.style = "animation:0.2s bumpy ease-out forwards; animation-delay:0.0s;";
+
+    document.getElementById("drawingFrame").appendChild( P0 );
+    document.getElementById("drawingFrame").appendChild( LP0 );
+    
+    
+    break;
+
+  case "Angle":
+    document.getElementById("drawingFrame").appendChild(Pl.SVGLabel());
+
+    let AO = Pl.SVGObject();
+    let Al=AO.getTotalLength();
+    AO.setAttribute("stroke-dashoffset",Al);
+    AO.setAttribute("stroke-dasharray",Al);
+    document.getElementById("drawingFrame").appendChild(AO);
+    AO.animate(  [{ strokeDashoffset : Al }, { strokeDashoffset : "0"} ], { duration: 500, iterations: 1, begin:0, fill:"forwards", easing:"ease-in-out"}  );
+
+  
+    break;
+
+
+  case "Circle":
+    let CO = Pl.SVGObject();
+    let Oc= Pl.center.SVGObject();
+
+    Oc.style = "fill-opacity:0; animation: 0.2s pointBounce ease-out forwards; animation-delay:0s; fill:"+Pl.center.fill+";";
+    document.getElementById("drawingFrame").appendChild(Oc);
+
+    CO.style = "stroke-linecap:round; stroke-dasharray:"+totalLength2(Pl)+"; stroke-dashoffset:"+totalLength2(Pl)+"; animation: stroke 0.5s ease-out forwards; animation-delay:0.2s;";
+    document.getElementById("drawingFrame").appendChild(CO);
+    break;
+
+
+  case "Polygon":
+    let PoO = Pl.SVGObject();
+    for(let i =0; i<Pl.points.length;i++){
+      let PPl= Pl.points[i].SVGObject();
+      PPl.style="fill-opacity:0; animation: 0.3s pointBounce ease-out forwards; animation-delay:"+Number(i)*0.07+"s; fill:"+Pl.points[i].fill+";";
+    document.getElementById("drawingFrame").appendChild(PPl);
+    }
+    PoO.style = "stroke-linecap:round; stroke-dasharray:"+totalLength2(Pl)+"; stroke-dashoffset:"+totalLength2(Pl)+"; animation: stroke 0.7s linear forwards; animation-delay:0.4s;";
+    document.getElementById("drawingFrame").appendChild(PoO);
+    break;
+
+  case "Triangle":
+    let ToO = Pl.SVGObject();
+    for(let i =0; i<Pl.points.length;i++){
+      let PPl= Pl.points[i].SVGObject();
+      PPl.style="fill-opacity:0; animation: 0.3s pointBounce ease-out forwards; animation-delay:"+Number(i)*0.05+"s; fill:"+Pl.points[i].fill+";";
+    document.getElementById("drawingFrame").appendChild(PPl);
+    }
+    ToO.style = "stroke-linecap:round; stroke-dasharray:"+totalLength2(Pl)+"; stroke-dashoffset:"+totalLength2(Pl)+"; animation: stroke 0.5s linear forwards; animation-delay:0.3s;";
+    document.getElementById("drawingFrame").appendChild(ToO);
+    break;
+
+  case "Quad":
+    let QoO = Pl.SVGObject();
+    for(let i =0; i<Pl.points.length;i++){
+      let PPl= Pl.points[i].SVGObject();
+      PPl.style="fill-opacity:0; animation: 0.3s pointBounce ease-out forwards; animation-delay:"+Number(i)*0.05+"s; fill:"+Pl.points[i].fill+";";
+    document.getElementById("drawingFrame").appendChild(PPl);
+    }
+
+    QoO.style = "stroke-linecap:round; stroke-dasharray:"+totalLength2(Pl)+"; stroke-dashoffset:"+totalLength2(Pl)+"; animation: stroke 0.7s linear forwards; animation-delay:0.3s;";
+    document.getElementById("drawingFrame").appendChild(QoO);
+    break;
+
+  default:
+    document.getElementById("drawingFrame").appendChild(Pl.SVGObject());
+  }
+
+
+}
+
+function copySVGcode()
+{
+   let copySVGcode = document.getElementById("test");
+   /*
+  
+  navigator.clipboard.writeText(copySVGcode.innerText);
+  */
+
+
+  var SVGcodeWindow = window.open("", "MsgWindow", "width=600,height=600");
+    SVGcodeWindow.document.write(copySVGcode.innerHTML);
+
+}
+
+function copyTIKZcode()
+{
+  let tikzCode = document.createElement("P");
+  tikzCode.innerText="";
+
+  let t1 = document.createElement( "textNode" );
+  t1.innerText="\\begin{center}";
+  tikzCode.appendChild(t1);
+
+  let t1br = document.createElement( "BR" );
+  tikzCode.appendChild(t1br);
+
+  let t1brr = document.createElement( "BR" );
+  tikzCode.appendChild(t1brr);
+
+
+
+  let t2 = document.createElement( "textNode" );
+  t2.innerText="\\begin{tikzpicture}[scale=1] ";
+  tikzCode.appendChild(t2);
+
+  let t2br = document.createElement( "BR" );
+  tikzCode.appendChild(t2br);
+
+
+
+  for(let i=0;i<Objects.length;i++)
+  {
+    let P = Objects[i];
+    let fig = P.figure;
+
+    txt = document.createElement( "textNode" );
+    txt.innerText= P.tikZObjectCode();
+    tikzCode.appendChild(txt);
+
+    let tbr = document.createElement( "BR" );
+    tikzCode.appendChild(tbr);
+
+  }
+
+
+  let t3 = document.createElement( "textNode" );
+  t3.innerText="\\end{tikzpicture}";
+  tikzCode.appendChild(t3);
+
+  let t3br = document.createElement( "BR" );
+  tikzCode.appendChild(t3br);
+
+  let t3brr = document.createElement( "BR" );
+  tikzCode.appendChild(t3brr);
+
+
+
+  let t4 = document.createElement( "textNode" );
+  t4.innerText="\\end{center}";
+  tikzCode.appendChild(t4);
+  
+   
+  
+  navigator.clipboard.writeText(tikzCode.innerText);
+  
+
+
+  var SVGcodeWindow = window.open("", "MsgWindow", "width=600,height=600");
+  SVGcodeWindow.document.write(" ");
+  SVGcodeWindow.document.write(tikzCode.innerHTML);
+
+}
+
+
+
+function loadSVGCode(Objs){
+  document.getElementById("test").innerText="";
+  for(let i=0;i<Objs.length;i++){
+    let P = Objs[i];
+    let fig = P.figure;
+    document.getElementById("test").innerHTML+='<br>';
+    if(fig=="Point"||fig=="Line"||fig=="Circle"){
+      document.getElementById("test").innerText+= P.SVGcode();
+    }
+    else{
+      document.getElementById("test").innerText+= SVGcode(Objs[i]);
+    }
+
+  }
+
+
+
+}
+
+
+
+function loadTikZCode(Objs){
+  document.getElementById("tikZcode").innerText="";
+  let t1 = document.getElementById("tikZcode");
+  t1.innerText+="\\begin{center}";
+  t1.innerHTML+='<br>';
+  t1.innerText+="\\begin{tikzpicture}[scale=1] ";
+  t1.innerHTML+='<br>';
+  
+
+
+
+  for(let i=0;i<Objs.length;i++)
+  {
+    document.getElementById("tikZcode").innerHTML+='<br>';
+    let P = Objs[i];
+    let fig = P.figure;
+    if(fig=="Point" || fig=="Line" || fig=="Circle"|| fig=="Angle" )
+    {
+      document.getElementById("tikZcode").innerText+=P.tikZObjectCode();
+      if(fig=="Point"){document.getElementById("tikZcode").innerText+=P.tikZLabelCode();}
+    }
+
+    else
+    {
+      document.getElementById("tikZcode").innerText+= tikZcode(Objs[i]);
+    }
+
+  }
+
+  t1.innerHTML+='<br>';
+  t1.innerHTML+='<br>';
+  t1.innerText+="\\end{tikzpicture}";
+  t1.innerHTML+="<br>";
+  t1.innerText+="\\end{center}";
+
+
+}
+
+/*
+
+function loadTikZCode(Objs){
+  
+  tikzCode.innerText="";
+
+  let t1 = document.createElement( "textNode" );
+  t1.innerText="\\begin{center}";
+  tikzCode.appendChild(t1);
+
+  let t1br = document.createElement( "BR" );
+  tikzCode.appendChild(t1br);
+
+  let t1brr = document.createElement( "BR" );
+  tikzCode.appendChild(t1brr);
+
+
+
+  let t2 = document.createElement( "textNode" );
+  t2.innerText="\\begin{tikzpicture}[scale=1] ";
+  tikzCode.appendChild(t2);
+
+  let t2br = document.createElement( "BR" );
+  tikzCode.appendChild(t2br);
+
+
+
+  for(let i=0;i<Objs.length;i++)
+  {
+    let P = Objs[i];
+    let fig = P.figure;
+
+    txt = document.createElement( "textNode" );
+    txt.innerText= P.tikZObjectCode();
+    tikzCode.appendChild(txt);
+
+    let tbr = document.createElement( "BR" );
+    tikzCode.appendChild(tbr);
+
+  }
+  
+
+  let t3 = document.createElement( "textNode" );
+  t3.innerText="\\end{tikzpicture}";
+  tikzCode.appendChild(t3);
+
+  let t3br = document.createElement( "BR" );
+  tikzCode.appendChild(t3br);
+
+  let t3brr = document.createElement( "BR" );
+  tikzCode.appendChild(t3brr);
+
+
+
+  let t4 = document.createElement( "textNode" );
+  t4.innerText="\\end{center}";
+  tikzCode.appendChild(t4);
+}
+*/
+
+
+
+function loadCheckBoxes(Objs){
+  Checkboxes.splice(0,Checkboxes.length);
+
+  for(let i=0;i<Objs.lengh;i++){
+    Checkboxes.push(Objs[i].checkBox);
+  }
+}
+
+
+
+function loadTable(Objs){
+//theTable.innerHTML="";
+
+  while(theTable.rows.length > 0){
+    theTable.deleteRow(0);
+  }
+
+if(Objs.length>0)
+{
+    for(let i=0;i<Objs.length;i++){
+    let P = Objs[i];
+    theTable.appendChild( P.infoRow() );
+
+  }
+}
+
+
+
+}
+
+
+function loadLabel(Objs){
+  labels= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+  for(let i=0;i<Objs.length;i++){
+    labels.splice( labels.indexOf(Objs[i].id),1 );
+  }
+}
+
+
+function SVGcode(Obj){
+  var scode;
+  if(Obj.figure=="Point"){
+    scode = ' <circle '
+    +' style="fill:'+Obj.fill
+    +'; stroke:'+ Obj.stroke
+    +'" id="'+Obj.id
+    +'" cx = "'+ Obj.cx.toFixed(1)
+    +'" cy =" '+Obj.cy.toFixed(1)
+    +'" r = " '+ Obj.r.toFixed(1)
+    +' " /> ';
+
+    let fillcode='';
+    if(Obj.label==false){fillcode='Gray'; }
+    if(Obj.label==true){fillcode='Black'; }
+
+    scode+=' <text '
+    +' style="font-size:18;font-family:Arial;'
+    +'fill:'+ fillcode
+    +';" x = "' +Obj.cx.toFixed(1)
+    +'" y =" '+Obj.cy.toFixed(1)
+    +'" dx = "' +Obj.dx.toFixed(1)
+    +'" dy =" '+Obj.dy.toFixed(1)
+    +'" >'+Obj.id+' </text>';
+  }
+
+  if(Obj.figure=="MidText"){
+    let A= Obj.P1;
+    let B=Obj.P2;
+    let l = Obj.location;
+    let P = weightedPoint(A,B,Number(l),1-Number(l));
+
+    scode=' <text '
+    +' style="font-size:18;font-family:Arial;'
+    +'fill:'+ 'Black'
+    +';" x = "' +Number(P.cx)
+    +'" y =" '+Number(P.cy)
+    +'" dx = "' +Number(Obj.dx).toFixed(1)
+    +'" dy =" '+Number(Obj.dy).toFixed(1)
+    +'" >'+Obj.id+' </text>';
+  }
+
+
+  if(Obj.figure=="Angle"){
+    /*
+    <clipPath id="tri1">
+      <polygon points="  267.0,78.0 267.0,78.0  45.0,340.0  490.0,374.0 " />
+   </clipPath>
+    */
+    let poly_shape=Obj.points[0].cx.toFixed(1)+',' +Obj.points[0].cy.toFixed(1);
+
+    for(let i=0;i<Obj.points.length;i++)
+     {
+     poly_shape += ' '+ Obj.points[i].cx.toFixed(1)+',' +Obj.points[i].cy.toFixed(1);
+     }
+     scode = ' <clipPath id='+Obj.id+' > <polygon  points=" '+ poly_shape + ' " /> </clipPath>';
+
+     /*
+     <circle style="fill:blue; fill-opacity:0.2; stroke:red;stroke-width:3;" cx = "267.0" cy =" 78.0" r = " 20 " clip-path="url(#tri1)" />
+     */
+     scode+= ' <circle style="fill:'+Obj.fill+'; stroke:'+Obj.stroke
+     +';stroke-width:3;" cx ='+Obj.points[1].cx
+     +' cy ='+Obj.points[1].cy
+     +' r = '+Number( Number(Obj.scale)*15)+' clip-path="url(#'+Obj.id+' )" /> ';
+
+  }
+
+  if(Obj.figure=="Circle"){
+    scode = ' <circle '
+    +' style="fill:'+Obj.fill
+    +'; stroke:'+ Obj.stroke
+    +'" id="'+Obj.id
+    +'" cx = "'+ Obj.cx.toFixed(1)
+    +'" cy =" '+Obj.cy.toFixed(1)
+    +'" r = " '+ Obj.r.toFixed(1)
+    +' " /> ';
+  }
+
+  if(Obj.figure=="Line"){
+    scode = ' <line '
+    +' style="stroke :'+Obj.stroke
+    +';stroke-width:'+Obj.size+';stroke-linecap:round;" '
+    +'" x1="'+Obj.x1.toFixed(1)
+    +'" x2="'+Obj.x2.toFixed(1)
+    +'" y1="' +Obj.y1.toFixed(1)
+    +'" y2="'+Obj.y2.toFixed(1)
+    +' "/> ';
+  }
+
+  if(Obj.figure=="Triangle"||Obj.figure=="Quad"||Obj.figure=="Polygon"||Obj.figure=="Sign"){
+
+    let poly_shape=Obj.points[0].cx.toFixed(1)+',' +Obj.points[0].cy.toFixed(1);
+
+    for(let i=0;i<Obj.points.length;i++)
+     {
+     poly_shape += ' '+ Obj.points[i].cx.toFixed(1)+',' +Obj.points[i].cy.toFixed(1);
+     }
+
+    scode = ' <polygon '
+     +' style="stroke-linejoin:round;  fill :'+ Obj.fill
+     +';stroke-width:'+Obj.size + '; stroke:'+Obj.stroke
+     +';" points=" '+ poly_shape + ' " /> ';
+   }
+
+
+  return scode;
+}
+
+function tikZcode(Obj){
+  var tcode;
+  if(Obj.figure=="Point" || Obj.figure=="Intersection Point" ){
+    let cT=toTikz(Obj.cx,Obj.cy);
+    tcode = ' \\coordinate ('+Obj.id+') at '+cT+';' ;
+
+    if(Obj.label==true){
+      let locCode = '';
+
+      if(Obj.dy==20){locCode += 'below';}
+      if(Obj.dy==-5){locCode += 'above';}
+      if(Obj.dx==10){locCode += ' right';}
+      if(Obj.dx==-20){locCode += ' left';}
+
+      if(locCode!=''){locCode = '['+locCode+']';}
+
+      tcode += ' \\node'+locCode+' at ('+Obj.id+') { $'+Obj.id+'$ };';
+    }
+
+
+
+    if(Obj.fill=="black"){
+    tcode +=  '\\filldraw['+Obj.fill+'] ('+Obj.id+') circle (1pt);';
+    }
+
+  }
+
+if(Obj.figure=="Circle"){
+  let rtkz=Number(Obj.r)/60;
+
+    tcode = '\\draw ('+Obj.id+') circle ('+ rtkz.toFixed(2)+');';
+  }
+
+  if(Obj.figure=="Line"){
+    tcode = ' \\draw ('+Obj.P1.id+')--('+Obj.P2.id+');';
+  }
+
+
+  if(Obj.figure=="Triangle"||Obj.figure=="Quad"||Obj.figure=="Polygon"){
+     tcode='\\draw ';
+
+    for(let i=0;i<Obj.points.length;i++)
+     {
+     tcode += ' ('+ Obj.points[i].id+')--';
+     }
+
+     tcode+='cycle;';
+   }
+
+   if(Obj.figure=="Angle"){
+
+     /*
+     \draw (C) coordinate (C) -- (B) coordinate (B) -- (A) coordinate (A) pic["$30^{\circ}$",draw,angle eccentricity=1.4] {angle=A--C--B};
+     */
+     let A = Obj.points[0];
+     let B = Obj.points[1];
+     let C = Obj.points[2];
+
+     let rcode='';
+     if(Obj.rightAngle){rcode ='right ';}
+
+     let aIn_code='';
+
+     if(Obj.text!=''){aIn_code='"$'+Obj.text+'$",';}
+
+     let a_draw='';
+     if(Obj.draw){a_draw = 'draw,'; }
+
+
+     tcode= '\\path ('+A.id+') coordinate ('+A.id+') -- ('+B.id+ ') coordinate ('+B.id+') -- ('+C.id+') coordinate ('+C.id+') pic['+aIn_code+a_draw+'angle eccentricity='+Obj.eccentricity+',scale='+Obj.scale+ '] {'+rcode+'angle='+A.id+'--'+B.id+'--'+C.id+'};';
+   }
+
+   if(Obj.figure=="MidText"){
+     /*
+     \path(A)--(C) node[midway,above right]{$8$};
+     */
+     let A = Obj.P1;
+     let B = Obj.P2;
+
+     let t_loc = '';
+     switch (Number(Obj.location)) {
+       case 0: t_loc = "at start";
+         break;
+      case 0.125: t_loc = "very near start";
+         break;
+      case 0.25: t_loc = "near start";
+        break;
+      case 0.75: t_loc = "near end";
+        break;
+      case 0.875: t_loc = "very near end";
+          break;
+      case 1: t_loc = "at end";
+            break;
+      default:
+       t_loc = "midway";
+     }
+     let t_dydx = '';
+
+     if(Obj.dy==20){t_dydx += 'below';}
+     if(Obj.dy==-5){t_dydx += 'above';}
+     if(Obj.dx==10){t_dydx += ' right';}
+     if(Obj.dx==-20){t_dydx += ' left';}
+     if(t_dydx!=''){t_dydx = ','+t_dydx;}
+
+     let slopedcode=''
+     if(Obj.sloped=='true'){slopedcode = ',sloped';}
+
+
+     tcode= '\\path ('+A.id+')--('+B.id+') node['+t_loc+t_dydx+slopedcode+']{$'+Obj.id +'$};';
+     }
+
+  return tcode;
+}
+
+
+
+
+function infoRow(Obj){
+  var newRow = document.createElement("TR");
+  let cell_check=newRow.insertCell(0);
+   let cell_id = newRow.insertCell(1);
+  let cell_property=newRow.insertCell(2);
+  let cell_shape = newRow.insertCell(3);
+  let cell_label=newRow.insertCell(4);
+  let cell_coordinates=newRow.insertCell(5);
+
+
+  cell_check.className="tableCheck tableItem2";
+  cell_shape.className="tableShape tableItem2";
+  cell_id.className="tableID";
+  cell_label.className="tableLabel";
+  cell_coordinates.className="tableCoordinates";
+
+  let coor_text="";
+  if(Obj.figure=="Point"||Obj.figure=="Circle"){
+    coor_text = '('+Obj.cx.toFixed(0)+','+Obj.cy.toFixed(0)+')';
+  }
+
+
+  cell_check.appendChild(Obj.checkBox);
+  cell_shape.innerText=Obj.figure;
+  cell_id.innerHTML=Obj.id;
+  cell_label.innerHTML='';
+  cell_coordinates.innerText=coor_text;
+  cell_property.innerHTML=Obj.property;
+
+  if(Obj.figure=="Point"){
+    cell_property.innerHTML = toTikz(Obj.cx,Obj.cy);
+  }
+
+  return newRow;
+}
+
+
+
+function addToChecked(i){
+  CheckedObjects.push( allObjects[i] );
+}
+
+function removeFromChecked(i){
+  CheckedObjects.splice( CheckedObjects.indexOf(allObjects[i]) ,1);
+} 
+
+
+
+function clickRemoveObject(){
+  if(CheckedObjects.length==Objects.length)
+    {resetAll();}
+
+  else{
+
+     while (CheckedObjects.length>0){
+        let Obj = CheckedObjects[0];
+        allObjects[Obj.index].checkBox.checked=false;
+        CheckedObjects.splice( 0,1  );
+        Objects.splice( Objects.indexOf(Obj),1  );
+      }
+
+      reBuild(Objects);
+      clearButtons();
+    }
+
+}
+
+
+
+function clearButtons()
+{
+  for(let i=0;i<allObjects.length;i++)
+  {
+    allObjects[i].checkBox.checked=false;
+  }
+
+
+
+  CheckedObjects=[];
+  CheckedPoints=[];
+  CheckedLines=[];
+  CheckedCircles=[];
+
+  showButtons(CheckedPoints,CheckedLines,CheckedCircles);
+
+  clickEditBACK();
+
+  Pselected=0;
+  Cselected=0;
+  Lselected=0;
+
+}
+
+function resetAll(){
+  location.reload();
+}
+
+////// Functions of Geometric objects /////
+
+function sideLength(A,B){
+  return Number( Math.sqrt( ( Number(A.cx) - Number(B.cx) ) ** 2 + ( Number(A.cy) - Number(B.cy) ) ** 2 ) );
+}
+
+function sides(A,B,C){
+  let a_val = Math.sqrt( ( Number(B.cx) - Number(C.cx) ) ** 2 + ( Number(B.cy) - Number(C.cy) ) ** 2 );
+  let b_val = Math.sqrt( ( Number(A.cx) - Number(C.cx) ) ** 2 + ( Number(A.cy) - Number(C.cy) ) ** 2 );
+  let c_val = Math.sqrt( ( Number(A.cx) - Number(B.cx) ) ** 2 + ( Number(A.cy) - Number(B.cy) ) ** 2 );
+
+  return {a:a_val, b:b_val, c:c_val};
+}
+
+function triangleArea(A,B,C){
+  let TriangleSides = sides(A,B,C);
+  let s = (Number(TriangleSides.a)+Number(TriangleSides.b)+Number(TriangleSides.c))/2;
+  let area = Math.sqrt( Number(s-TriangleSides.a)*Number(s-TriangleSides.b)*Number(s-TriangleSides.c)*Number(s) );
+
+  return area;
+}
+
+// P on AB where AP:PB is x:y
+
+function weightedPoint(A,B,x,y){
+  let Px= (Number(A.cx)*Number(y) + Number(B.cx)*Number(x))/Number(x+y);
+  let Py= (Number(A.cy)*Number(y) + Number(B.cy)*Number(x))/Number(x+y);
+  return {cx:Px, cy:Py};
+}
+
+function PinABCwithSides(A,B,C,BD,AE){
+  let triangleSides = sides(A,B,C);
+  let x1= Number(BD);
+  let y1= Number(AE);
+
+  let P_x = Number( Number(x1)*Number(y1)*Number(C.cx) + Number(x1)*Number(triangleSides.b-y1)*Number(A.cx) + Number(y1)*Number(triangleSides.a-x1)*Number(B.cx) ) / Number( Number(triangleSides.b)*Number(x1) +Number(y1)*Number(triangleSides.a-x1) );
+
+  let P_y = Number( Number(x1)*Number(y1)*Number(C.cy) + Number(x1)*Number(triangleSides.b-y1)*Number(A.cy) + Number(y1)*Number(triangleSides.a-x1)*Number(B.cy) ) / Number( Number(triangleSides.b)*Number(x1) +Number(y1)*Number(triangleSides.a-x1) );
+
+  return {cx:P_x,cy:P_y};
+}
+
+function OrthoCentre(A,B,C){
+  let triangleSides= sides(A,B,C);
+  let S = Number( triangleArea(A,B,C) ) ;
+  let h = Number(2*S/triangleSides.c);
+  let x = Math.sign( Number(triangleSides.b)**2 + Number(triangleSides.c)**2 - Number(triangleSides.a)**2     )*Math.sqrt(triangleSides.b**2 - h**2 );
+  let y = Math.sign( Number(triangleSides.a)**2 + Number(triangleSides.c)**2 - Number(triangleSides.b)**2     )*Math.sqrt(triangleSides.a**2 - h**2 );
+
+  let AE = Number(triangleSides.c)*Number(x)/Number(triangleSides.b);
+  let BD = Number(triangleSides.c)*Number(y)/Number(triangleSides.a);
+
+  return PinABCwithSides(A,B,C,BD,AE);
+}
+
+function CircumCircle(A,B,C){
+  let D = weightedPoint(B,C,1,1);
+  let E = weightedPoint(A,C,1,1);
+  let F = weightedPoint(A,B,1,1);
+
+  let O_val= OrthoCentre(D,E,F);
+  let R_val =  Number( Math.sqrt( (A.cx - O_val.cx)**2 + (A.cy-O_val.cy)**2 ) );
+
+  return {O: O_val, R: R_val};
+}
+
+
+//perpendicular from C to AB
+
+function Perpendicular(C,A,B){
+  let triangleSides= sides(A,B,C);
+  let S = Number( triangleArea(A,B,C) ) ;
+  let h = Number(2*S/triangleSides.c);
+  let x =Math.sign( Number(triangleSides.b)**2 + Number(triangleSides.c)**2 - Number(triangleSides.a)**2     )*Math.sqrt(triangleSides.b**2 - h**2 );
+  let y = Math.sign( Number(triangleSides.a)**2 + Number(triangleSides.c)**2 - Number(triangleSides.b)**2     )*Math.sqrt(triangleSides.a**2 - h**2 );
+
+  return weightedPoint(A,B,x,y);
+}
+
+function weightedAngle(A,B,C,m,n)
+{
+let TS = sides(A,B,C);
+let Area = triangleArea(A,B,C);
+let angC = Math.asin( Number( 2*Number(Area)/Number(TS.a * TS.b ) ) );
+let alpha = Number(m)*Number(angC)/( Number(m)+Number(n));
+let beta = Number(n)*Number(angC)/( Number(m)+Number(n));
+
+let x = Number(TS.b)*Number(TS.c)*Math.sin(alpha);
+let y = Number(TS.a)*Number(TS.c)*Math.sin(beta);
+
+return weightedPoint(A,B,x,y);
+
+}
+
+
+
+function intersectionPoint(A,B,C,D)
+{
+  let sABC = triangleArea(A,B,C);
+  let sABD = triangleArea(A,B,D);
+  let sACD = triangleArea(A,C,D);
+  let sBCD = triangleArea(B,C,D);
+
+  let X_AB = weightedPoint(A,B,sACD,sBCD);
+  let Y_AB = weightedPoint(A,B,1,0);
+
+  if( sACD > sBCD )
+  {
+    Y_AB = weightedPoint(A,B,sACD,-sBCD);
+  }
+
+  else if(sACD < sBCD)
+  {
+    Y_AB = weightedPoint(A,B,-sACD,sBCD);
+  }
+
+  let X_CD = weightedPoint(C,D,sABC,sABD);
+  let Y_CD = weightedPoint(C,D,1,0);
+
+  if( sABC > sABD )
+  {
+    Y_CD = weightedPoint(C,D,sABC,-sABD);
+  }
+  else if(sABC < sABD)
+  {
+    Y_CD = weightedPoint(C,D,-sABC,sABD);
+  }
+
+  let intPoint={cx:-1,cy:-1};
+  let d1 = sideLength(X_AB,X_CD);
+  let d2 = sideLength(X_AB,Y_CD);
+  let d3 = sideLength(Y_AB,X_CD);
+  let d4 = sideLength(Y_AB,Y_CD);
+
+  if( d1 < 0.1 )
+  {intPoint = X_AB;}
+
+  else if (d2<0.1)
+  {intPoint = X_AB;}
+
+  else
+  {intPoint = Y_AB;}
+
+return intPoint;
+}
+
+function InnerCircle(A,B,C){
+
+triangleSides= sides(A,B,C);
+
+let s = (Number(triangleSides.a)+Number(triangleSides.b)+Number(triangleSides.c))/2;
+
+let D_val = weightedPoint(B,C, s - triangleSides.b, s - triangleSides.c );
+let E_val = weightedPoint(A,C, s - triangleSides.a, s - triangleSides.c );
+let F_val = weightedPoint(A,B, s - triangleSides.a, s - triangleSides.b );
+
+let CC = CircumCircle(D_val,E_val,F_val);
+
+return {I:CC.O,r:CC.R, D:D_val, E:E_val, F:F_val};
+
+}
+
+
+function totalLength2(Obj){
+  let ttl = 0;
+  switch(Obj.figure){
+  case "Circle":
+    ttl = Number( 2*Math.PI*Number( Obj.r ) );
+    break;
+
+  case "Line":
+    ttl = sideLength(Obj.P1,Obj.P2);
+    break;
+
+  case "Triangle":
+    ttl = Number( sideLength( Obj.points[0],Obj.points[ Obj.points.length-1] ));
+    for(let i=0;i<Obj.points.length-1;i++){
+      ttl += Number( sideLength(Obj.points[i], Obj.points[i+1]));
+    }
+    break;
+
+  case "Quad":
+    ttl = Number( sideLength( Obj.points[0],Obj.points[ Obj.points.length-1] ));
+    for(let i=0;i<Obj.points.length-1;i++){
+      ttl += Number( sideLength(Obj.points[i], Obj.points[i+1]));
+    }
+    break;
+
+  case "Polygon":
+    ttl = Number( sideLength( Obj.points[0],Obj.points[ Obj.points.length-1] ));
+    for(let i=0;i<Obj.points.length-1;i++){
+      ttl += Number( sideLength(Obj.points[i], Obj.points[i+1]));
+    }
+    break;
+
+  default:
+    ttl=0;
+  }
+  return ttl;
+}
+
+
+function chooseP(){
+//  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  }
+  for(let i=0;i<Pbtns.length;i++){
+    Pbtns[i].style.display = "block";
+  }
+}
+
+function choosePP(){
+//  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  }
+
+  for(let i=0;i<PPbtns.length;i++){
+    PPbtns[i].style.display = "block";
+  }
+}
+
+function choosePPP(){
+//  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  }
+  
+  for(let i=0;i<PPPbtns.length;i++){
+    PPPbtns[i].style.display = "block";
+  }
+}
+
+function choosePPPP(){
+//  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  }
+  
+  for(let i=0;i<PPPPbtns.length;i++){
+    PPPPbtns[i].style.display = "block";
+  }
+}
+
+function chooseAllP(){
+//  hidebuttons();
+
+  for(let i=0;i<AllPbtns.length;i++){
+    AllPbtns[i].style.display = "block";
+  } 
+}
+
+function hidebuttons(){
+  for(let i=0;i<Hbtns.length;i++){
+    Hbtns[i].style.display = "none";
+  }
+}
+
+
+</script>
+
+</html> 
