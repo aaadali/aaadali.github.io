@@ -139,6 +139,7 @@ display: inline-block;
   border: 1px solid #888;
   border-radius:20px;
   width: 50%;
+  overflow: auto;
 }
 
 /* The Close Button */
@@ -1113,70 +1114,73 @@ class point{
     this.Editdy=editdy;
 
 
-    let editStroke = document.createElement("DIV");
-    editStroke.setAttribute("class","colorsDiv")
-    let sColor1 = document.createElement("INPUT");
+    ///fill colors
 
-    sColor1.setAttribute("type","radio");
-    sColor1.setAttribute("id","col"+1+this.index);
-    sColor1.setAttribute("name","sColor"+this.index);
-    sColor1.setAttribute("value","none");
-    sColor1.setAttribute("style","background-color:none;");
-    sColor1.checked=true;
+    let editFill = document.createElement("DIV");
+    editFill.setAttribute("class","colorsDiv");
+    editFill.setAttribute("id","fColorsDiv"+this.index);
 
-    let sColor2 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+2+this.index);
-    sColor2.setAttribute("type","radio");
-    sColor2.setAttribute("name","sColor"+this.index);
-    sColor2.setAttribute("value","Crimson");
-    sColor2.setAttribute("style","background-color:Crimson;");
+    let fColor1 = document.createElement("INPUT");
 
-    let sColor3 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+3+this.index);
-    sColor3.setAttribute("type","radio");
-    sColor3.setAttribute("name","sColor"+this.index);
-    sColor3.setAttribute("value","Mediumseagreen");
-    sColor3.setAttribute("style","background-color:Mediumseagreen;");
+    fColor1.setAttribute("type","radio");
+    fColor1.setAttribute("id","col"+1+this.index);
+    fColor1.setAttribute("name","fColor"+this.index);
+    fColor1.setAttribute("value","none");
+    fColor1.setAttribute("style","background-color:none;");
+    fColor1.checked=true;
 
-    let sColor4 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+4+this.index);
-    sColor4.setAttribute("type","radio");
-    sColor4.setAttribute("name","sColor"+this.index);
-    sColor4.setAttribute("value","Lightskyblue");
-    sColor4.setAttribute("style","background-color:Lightskyblue;");
+    let fColor2 = document.createElement("INPUT");
+    fColor2.setAttribute("id","col"+2+this.index);
+    fColor2.setAttribute("type","radio");
+    fColor2.setAttribute("name","fColor"+this.index);
+    fColor2.setAttribute("value","Crimson");
+    fColor2.setAttribute("style","background-color:Crimson;");
 
-    let sColor5 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+5+this.index);
-    sColor5.setAttribute("type","radio");
-    sColor5.setAttribute("name","sColor"+this.index);
-    sColor5.setAttribute("value","Orchid");
-    sColor5.setAttribute("style","background-color:Orchid;");
+    let fColor3 = document.createElement("INPUT");
+    fColor3.setAttribute("id","col"+3+this.index);
+    fColor3.setAttribute("type","radio");
+    fColor3.setAttribute("name","fColor"+this.index);
+    fColor3.setAttribute("value","Mediumseagreen");
+    fColor3.setAttribute("style","background-color:Mediumseagreen;");
 
-    let sColor6 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+6+this.index);
-    sColor6.setAttribute("type","radio");
-    sColor6.setAttribute("name","sColor"+this.index);
-    sColor6.setAttribute("value","Orange");
-    sColor6.setAttribute("style","background-color:Orange;");
+    let fColor4 = document.createElement("INPUT");
+    fColor4.setAttribute("id","col"+4+this.index);
+    fColor4.setAttribute("type","radio");
+    fColor4.setAttribute("name","fColor"+this.index);
+    fColor4.setAttribute("value","Lightskyblue");
+    fColor4.setAttribute("style","background-color:Lightskyblue;");
 
-    let sColor7 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+7+this.index);
-    sColor7.setAttribute("type","radio");
-    sColor7.setAttribute("name","sColor"+this.index);
-    sColor7.setAttribute("value","Khaki");
-    sColor7.setAttribute("style","background-color:Khaki;");
+    let fColor5 = document.createElement("INPUT");
+    fColor5.setAttribute("id","col"+5+this.index);
+    fColor5.setAttribute("type","radio");
+    fColor5.setAttribute("name","fColor"+this.index);
+    fColor5.setAttribute("value","Orchid");
+    fColor5.setAttribute("style","background-color:Orchid;");
 
-    editStroke.appendChild(sColor1);
-    editStroke.appendChild(sColor2);
-    editStroke.appendChild(sColor3);
-    editStroke.appendChild(sColor4);
-    editStroke.appendChild(sColor5);
-    editStroke.appendChild(sColor6);
-    editStroke.appendChild(sColor7);
+    let fColor6 = document.createElement("INPUT");
+    fColor6.setAttribute("id","col"+6+this.index);
+    fColor6.setAttribute("type","radio");
+    fColor6.setAttribute("name","fColor"+this.index);
+    fColor6.setAttribute("value","Orange");
+    fColor6.setAttribute("style","background-color:Orange;");
+
+    let fColor7 = document.createElement("INPUT");
+    fColor7.setAttribute("id","col"+7+this.index);
+    fColor7.setAttribute("type","radio");
+    fColor7.setAttribute("name","fColor"+this.index);
+    fColor7.setAttribute("value","Khaki");
+    fColor7.setAttribute("style","background-color:Khaki;");
+
+    editFill.appendChild(fColor1);
+    editFill.appendChild(fColor2);
+    editFill.appendChild(fColor3);
+    editFill.appendChild(fColor4);
+    editFill.appendChild(fColor5);
+    editFill.appendChild(fColor6);
+    editFill.appendChild(fColor7);
 
   
-    this.EditStroke = editStroke;
-
+    this.EditFill = editFill;
 
 
     /// SVG Object
@@ -1362,7 +1366,7 @@ class point{
     let cell_labeled=newRow.insertCell(3);
     let cell_dx=newRow.insertCell(4);
     let cell_dy=newRow.insertCell(5);
-    let cell_stroke=newRow.insertCell(6);
+    let cell_fill=newRow.insertCell(6);
 
     this.EditID.value=this.id;
     this.Editcx.value=this.cx;
@@ -1415,17 +1419,18 @@ class point{
     cell_dx.appendChild(this.Editdx) ;
 
     cell_dy.appendChild(this.Editdy) ;
-    cell_stroke.appendChild(this.EditStroke);
+    cell_fill.appendChild(this.EditFill);
 
     return newRow;
   }
 }
 
 class circle{
-  constructor(index,Center,r,fill,stroke,circleType,objs){
+  constructor(index,Center,r,fill,stroke,size,circleType,objs){
     this.index = index;
     this.center = Center;
     this.id = Center.id;
+    this.size = size;
 /*
     
     this.cx = Center.cx;
@@ -1485,6 +1490,27 @@ class circle{
     editR.setAttribute("type","number");
     editR.setAttribute("size","2");
     this.EditR = editR;
+
+    let editPattern=document.createElement("SELECT");
+    let solidOpt = document.createElement("option");
+    solidOpt.text="solid";
+    solidOpt.value = "solid";
+    solidOpt.checked;
+
+
+    let dashedOpt= document.createElement("option");
+    dashedOpt.text="dashed";
+    dashedOpt.value = "dashed";
+
+    let dottedOpt= document.createElement("option");
+    dottedOpt.text="dotted";
+    dottedOpt.value = "dotted";
+
+    editPattern.add(solidOpt);
+    editPattern.add(dashedOpt);
+    editPattern.add(dottedOpt);
+
+    this.EditPattern=editPattern;
 
     
     ///fill colors
@@ -1649,14 +1675,34 @@ class circle{
     P.setAttribute("cy", this.center.cy);
     P.setAttribute("r", this.r);
     P.setAttribute("stroke",this.stroke);
+
+    let ptrn="";
+    let p2 = this.size;
+
+    switch(this.pattern){
+    case "dashed":
+      ptrn = Number(4*Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    case "dotted":
+      ptrn = Number(Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    default:
+      ptrn = "0,0";
+    }
+
+    P.setAttribute("stroke-dasharray",ptrn);
+
+
     P.setAttribute("fill",this.fill);
     P.setAttribute("fill-opacity","0.2");
     P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
     P.setAttribute("style", "cursor:all-scroll;z-index:-1;");
     P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
   
-    P.setAttribute("onmouseover",' this.animate( [ {strokeWidth:'+1+'}, {strokeWidth:'+ 4 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
-    P.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+4+'}, {strokeWidth:'+ 1 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    P.setAttribute("onmouseover",' this.animate( [ {strokeWidth:'+this.size+'}, {strokeWidth:'+ Number(4*Number(this.size)) +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    P.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+Number(4*Number(this.size))+'}, {strokeWidth:'+ this.size +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
 
 
     return P;
@@ -1723,7 +1769,8 @@ class circle{
     let cell_cx=newRow.insertCell(1);
     let cell_cy = newRow.insertCell(2);
     let cell_r=newRow.insertCell(3);
-    newRow.insertCell(4);
+    //cell_pattern.appendChild(this.EditPattern);
+    let cell_pattern=newRow.insertCell(4);
 
     let cell_fill=newRow.insertCell(5);
     let cell_stroke = newRow.insertCell(6);
@@ -1762,6 +1809,8 @@ class circle{
     rLabel.innerText="r";
     cell_r.appendChild(rLabel);
     cell_r.appendChild(this.EditR) ;
+
+    cell_pattern.appendChild(this.EditPattern);
 
 
     let fillLabel=document.createElement("LABEL");
@@ -1803,7 +1852,6 @@ class line{
     newChbox.setAttribute("type", "checkbox");
 
 
-    //let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+');  };  if( this.checked==false){uncheckTheObject('+this.index+'); }; ';
 
     let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+');   }  if( this.checked==false){uncheckTheObject('+this.index+');  } ';
 
@@ -1812,27 +1860,38 @@ class line{
 
     this.checkBox = newChbox;
 
-    /*
-    */
+
 
     let editPattern=document.createElement("SELECT");
     let solidOpt = document.createElement("option");
     solidOpt.text="solid";
     solidOpt.value = "solid";
+    solidOpt.checked;
+
+
     let dashedOpt= document.createElement("option");
     dashedOpt.text="dashed";
     dashedOpt.value = "dashed";
 
+    let dottedOpt= document.createElement("option");
+    dottedOpt.text="dotted";
+    dottedOpt.value = "dotted";
+
     editPattern.add(solidOpt);
     editPattern.add(dashedOpt);
+    editPattern.add(dottedOpt);
 
     this.EditPattern=editPattern;
+
+
 
 
     ///
 
     let editStroke = document.createElement("DIV");
-    editStroke.setAttribute("class","colorsDiv")
+    editStroke.setAttribute("class","colorsDiv");
+    editStroke.setAttribute("id","sColorsDiv"+this.index);
+
     let sColor1 = document.createElement("INPUT");
 
     sColor1.setAttribute("type","radio");
@@ -1840,49 +1899,52 @@ class line{
     sColor1.setAttribute("name","sColor"+this.index);
     sColor1.setAttribute("value","none");
     sColor1.setAttribute("style","background-color:none;");
-    sColor1.checked=true;
+
 
     let sColor2 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+2+this.index);
+    sColor2.setAttribute("id","col"+2+this.index);
     sColor2.setAttribute("type","radio");
     sColor2.setAttribute("name","sColor"+this.index);
-    sColor2.setAttribute("value","Crimson");
-    sColor2.setAttribute("style","background-color:Crimson;");
+    sColor2.setAttribute("value","DarkSlateGrey");
+    sColor2.setAttribute("style","background-color:DarkSlateGrey;");
+   
 
     let sColor3 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+3+this.index);
+    sColor3.setAttribute("id","col"+3+this.index);
     sColor3.setAttribute("type","radio");
     sColor3.setAttribute("name","sColor"+this.index);
-    sColor3.setAttribute("value","Mediumseagreen");
-    sColor3.setAttribute("style","background-color:Mediumseagreen;");
+    sColor3.setAttribute("value","Midnightblue");
+    sColor3.setAttribute("style","background-color:Midnightblue;");
+
+    sColor3.checked=true;
 
     let sColor4 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+4+this.index);
+    sColor4.setAttribute("id","col"+4+this.index);
     sColor4.setAttribute("type","radio");
     sColor4.setAttribute("name","sColor"+this.index);
-    sColor4.setAttribute("value","Lightskyblue");
-    sColor4.setAttribute("style","background-color:Lightskyblue;");
+    sColor4.setAttribute("value","Black");
+    sColor4.setAttribute("style","background-color:Black;");
 
     let sColor5 = document.createElement("INPUT");
     sColor1.setAttribute("id","col"+5+this.index);
     sColor5.setAttribute("type","radio");
     sColor5.setAttribute("name","sColor"+this.index);
-    sColor5.setAttribute("value","Orchid");
-    sColor5.setAttribute("style","background-color:Orchid;");
+    sColor5.setAttribute("value","DarkOliveGreen");
+    sColor5.setAttribute("style","background-color:DarkOliveGreen;");
 
     let sColor6 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+6+this.index);
+    sColor6.setAttribute("id","col"+6+this.index);
     sColor6.setAttribute("type","radio");
     sColor6.setAttribute("name","sColor"+this.index);
-    sColor6.setAttribute("value","Orange");
-    sColor6.setAttribute("style","background-color:Orange;");
+    sColor6.setAttribute("value","DarkRed");
+    sColor6.setAttribute("style","background-color:DarkRed;");
 
     let sColor7 = document.createElement("INPUT");
-    sColor1.setAttribute("id","col"+7+this.index);
+    sColor7.setAttribute("id","col"+7+this.index);
     sColor7.setAttribute("type","radio");
     sColor7.setAttribute("name","sColor"+this.index);
-    sColor7.setAttribute("value","Khaki");
-    sColor7.setAttribute("style","background-color:Khaki;");
+    sColor7.setAttribute("value","DarkMagenta");
+    sColor7.setAttribute("style","background-color:DarkMagenta;");
 
     editStroke.appendChild(sColor1);
     editStroke.appendChild(sColor2);
@@ -1891,7 +1953,7 @@ class line{
     editStroke.appendChild(sColor5);
     editStroke.appendChild(sColor6);
     editStroke.appendChild(sColor7);
-    
+
   
     this.EditStroke = editStroke;
 
@@ -1922,12 +1984,30 @@ class line{
     l.setAttribute("stroke",this.stroke);
     l.setAttribute("stroke-width",this.size);
     l.setAttribute("stroke-linecap","round");
+
+    let ptrn="";
+    let p2 = this.size;
+
+    switch(this.pattern){
+    case "dashed":
+      ptrn = Number(4*Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    case "dotted":
+      ptrn = Number(Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    default:
+      ptrn = "0,0";
+    }
+
+    l.setAttribute("stroke-dasharray",ptrn);
     l.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 
     l.setAttribute("style", "cursor:all-scroll;");
 
 
-    //l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+
 
     l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
 
@@ -1985,11 +2065,25 @@ class line{
   editRow(){
     var newRow = document.createElement("TR");
     newRow.setAttribute("class","editrow");
-    let cell_stroke = newRow.insertCell(0);
-    //let cell_pattern = newRow.insertCell(1);
-    
+    let cell_id = newRow.insertCell(0);
+    let cell_pattern = newRow.insertCell(1);
+    newRow.insertCell(2);
+    newRow.insertCell(3);
+    newRow.insertCell(4);
+    newRow.insertCell(5);
+    let cell_stroke = newRow.insertCell(6);
+
+    cell_id.innerText=this.id;
+
+    cell_pattern.appendChild(this.EditPattern);
+
+
+    let strokeLabel=document.createElement("LABEL");
+    strokeLabel.setAttribute("for",this.EditStroke.id);
+    strokeLabel.innerText="Stroke";
+    cell_stroke.appendChild(strokeLabel);
     cell_stroke.appendChild(this.EditStroke);
-    //cell_pattern.appendChild(this.EditPattern);
+
 
     return newRow;
 
@@ -2047,6 +2141,27 @@ class polygon{
     this.id = p_id;
     this.figure=p_figure;
     this.polyshape=poly_shape;
+
+    let editPattern=document.createElement("SELECT");
+    let solidOpt = document.createElement("option");
+    solidOpt.text="solid";
+    solidOpt.value = "solid";
+    solidOpt.checked;
+
+
+    let dashedOpt= document.createElement("option");
+    dashedOpt.text="dashed";
+    dashedOpt.value = "dashed";
+
+    let dottedOpt= document.createElement("option");
+    dottedOpt.text="dotted";
+    dottedOpt.value = "dotted";
+
+    editPattern.add(solidOpt);
+    editPattern.add(dashedOpt);
+    editPattern.add(dottedOpt);
+
+    this.EditPattern=editPattern;
 
 
     ///fill colors
@@ -2231,13 +2346,30 @@ class polygon{
     pl.setAttribute("stroke",this.stroke);
     pl.setAttribute("stroke-width",this.size);
     pl.setAttribute("stroke-linejoin","round");
+
+    let ptrn="";
+    let p2 = this.size;
+
+    switch(this.pattern){
+    case "dashed":
+      ptrn = Number(4*Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    case "dotted":
+      ptrn = Number(Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    default:
+      ptrn = "0,0";
+    }
+
+    pl.setAttribute("stroke-dasharray",ptrn);
     pl.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 
     pl.setAttribute("style", "cursor:all-scroll;");
   
     pl.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ; this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
-    //pl.setAttribute("onmousemove",'this.style.strokeWidth = '+Number(2* Number(this.size) ) +';');
-    //pl.setAttribute("onmouseleave",'this.style.strokeWidth = '+this.size+';');
+  
 
     pl.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+this.size+'}, {strokeWidth:'+ Number(2* Number(this.size) ) +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
     pl.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+Number(2* Number(this.size) )+'}, {strokeWidth:'+ this.size +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
@@ -2293,7 +2425,7 @@ class polygon{
     var newRow = document.createElement("TR");
     newRow.setAttribute("class","editrow");
     let cell_id = newRow.insertCell(0);
-    newRow.insertCell(1);
+    let cell_pattern=newRow.insertCell(1);
     newRow.insertCell(2);
     newRow.insertCell(3);
     newRow.insertCell(4);
@@ -2303,7 +2435,7 @@ class polygon{
 
     cell_id.innerText=this.id;
 
-
+    cell_pattern.appendChild(this.EditPattern);
 
     let fillLabel=document.createElement("LABEL");
     fillLabel.setAttribute("for",this.EditFill.id);
@@ -3180,7 +3312,7 @@ function clickDrawCirle(){
     allObjects.push(NO);
     Objects.push(NO);
 
-    let NC = new circle(ObjectCounter,NO,cR,"none","DarkSlateGrey","Circumcircle",CheckedObjects);
+    let NC = new circle(ObjectCounter,NO,cR,"none","DarkSlateGrey",1,"Circumcircle",CheckedObjects);
 
     ObjectCounter++;
 
@@ -3221,7 +3353,7 @@ function clickIncircle(){
     allObjects.push(NO);
     Objects.push(NO);
 
-    let NC = new circle(ObjectCounter,NO,cR,"none","DarkSlateGrey","Incircle",CheckedPoints);
+    let NC = new circle(ObjectCounter,NO,cR,"none","DarkSlateGrey",1,"Incircle",CheckedPoints);
 
     ObjectCounter++;
 
@@ -3243,7 +3375,7 @@ function clickIncircle(){
   let P = CheckedPoints[0];
   let cR = document.getElementById("rNumberInput").value;
 
-  let NC = new circle(ObjectCounter,P,Number(cR)*60,"none","DarkSlateGrey","ORdefined",[P,cR]);
+  let NC = new circle(ObjectCounter,P,Number(cR)*60,"none","DarkSlateGrey",1,"ORdefined",[P,cR]);
 
   ObjectCounter++;
 
@@ -3275,7 +3407,7 @@ function clickOKCircleWithR(){
   let P = CheckedObjects[0];
   let cR = document.getElementById("Rinput").value;
 
-  let NC = new circle(ObjectCounter,P,Number(cR)*60,"none","DarkSlateGrey","ORdefined",[P,cR]);
+  let NC = new circle(ObjectCounter,P,Number(cR)*60,"none","DarkSlateGrey",1,"ORdefined",[P,cR]);
 
   ObjectCounter++;
 
@@ -3301,7 +3433,7 @@ function clickCircAB(){
   let B = CheckedObjects[ 1] ;
   let cR = Number(sideLength( CheckedObjects[0],CheckedObjects[1] )).toFixed(2);
 
-  let NC = new circle(ObjectCounter,A,Number(cR),"none","DarkSlateGrey","ABdefined",[A,B,cR]);
+  let NC = new circle(ObjectCounter,A,Number(cR),"none","DarkSlateGrey",1,"ABdefined",[A,B,cR]);
 
   ObjectCounter++;
 
@@ -3656,11 +3788,11 @@ function clickOKEditMultiple(){
         break;
       }
 
-      sColors = document.getElementsByName("sColor"+P.index);
-      for(let j=0;j<sColors.length;j++)
+      fColors = document.getElementsByName("fColor"+P.index);
+      for(let j=0;j<fColors.length;j++)
       {
-        if( sColors[j].checked ){
-          P.fill = sColors[j].value;
+        if( fColors[j].checked ){
+          P.fill = fColors[j].value;
         }
       }
 
@@ -3676,6 +3808,8 @@ function clickOKEditMultiple(){
       P.cx = Number(P.Editcx.value);
       P.cy = Number(P.Editcy.value);
       P.r = Number(P.EditR.value);
+
+      P.pattern=P.EditPattern.value;
 
       fColors = document.getElementsByName("fColor"+P.index);
       for(let j=0;j<fColors.length;j++)
@@ -3696,6 +3830,8 @@ function clickOKEditMultiple(){
     }
 
     if(P.figure=="Triangle"||P.figure=="Quad"||P.figure=="Polygon"){
+
+      P.pattern=P.EditPattern.value;
     
 
       fColors = document.getElementsByName("fColor"+P.index);
@@ -3718,6 +3854,16 @@ function clickOKEditMultiple(){
 
     if(P.figure=="Line"){
       P.pattern=P.EditPattern.value;
+
+      sColors = document.getElementsByName("sColor"+P.index);
+      for(let j=0;j<sColors.length;j++)
+      {
+        if( sColors[j].checked ){
+          P.stroke = sColors[j].value;
+        }
+      }
+
+
     }
 
     if(P.figure=="Angle"){
@@ -3963,7 +4109,7 @@ function loadSVGDrawing(Objs){
     let Pend = Pl.P2.SVGObject();
 
     Pinit.style="fill-opacity:0; animation: 0.2s pointBounce ease-out forwards; animation-delay:0s; fill:"+Pl.P1.fill+";";
-    llO.style = "stroke :MidnightBlue;stroke-width:2;stroke-linecap:round; stroke-dasharray:"+ll+"; stroke-dashoffset:"+ll+"; animation: stroke 0.5s ease-out forwards; animation-delay:0.2s;";
+    llO.style = "stroke :"+Pl.stroke+";stroke-width:"+Pl.size+";stroke-linecap:round; stroke-dasharray:"+ll+"; stroke-dashoffset:"+ll+"; animation: stroke 0.5s ease-out forwards; animation-delay:0.2s;";
     Pend.style="fill-opacity:0; animation: 0.2s pointBounce ease-out forwards; animation-delay:0.7s; fill:"+Pl.P2.fill+";";
 
     document.getElementById("drawingFrame").appendChild(Pinit);
