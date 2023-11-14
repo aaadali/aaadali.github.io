@@ -345,13 +345,13 @@ box-shadow: 2px 2px 2px 0px lightgray;
 
   <div class="modal-content">
     <span>
-      r = <input id="rRangeInput" onmousemove ='document.getElementById("rNumberInput").value=this.value;' type="range" min="0" max="6"  size="4" step="0.5" value="1">
-    </span>
-
+    <label for="rRangeInput" style="font-size: 24;font-weight: bold;"> r </label> 
     <br>
 
-    r =  <input id="rNumberInput" oninput ='document.getElementById("rRangeInput").value=this.value;' type=number size="2" value="1"> 
-
+    <input id="rRangeInput" onmousemove ='document.getElementById("rNumberInput").value=this.value;' type="range" min="0" max="6"  size="3" step="0.5" value="1">
+    </span>
+     <input id="rNumberInput" oninput ='document.getElementById("rRangeInput").value=this.value;' type=number size="1" value="1"> 
+<br>
     <span >
       <button onclick="rCircleOKbutton();" class="close"> OK </button>
     </span>
@@ -1512,6 +1512,21 @@ class circle{
 
     this.EditPattern=editPattern;
 
+    ///
+    let editSize=document.createElement("INPUT");
+    editSize.setAttribute("type","range");
+    editSize.setAttribute("min","1");
+    editSize.setAttribute("max","10");
+    editSize.setAttribute("step","1");
+    editSize.setAttribute("size","3");
+    editSize.setAttribute("value",this.size);
+    editSize.setAttribute("id","sizeRange"+this.index);
+    editSize.setAttribute("style", "width:80px; background-color:white;" )
+
+
+    this.EditSize = editSize;
+
+
     
     ///fill colors
 
@@ -1675,6 +1690,9 @@ class circle{
     P.setAttribute("cy", this.center.cy);
     P.setAttribute("r", this.r);
     P.setAttribute("stroke",this.stroke);
+    P.setAttribute("stroke-width",this.size);
+    P.setAttribute("stroke-linecap","round");
+
 
     let ptrn="";
     let p2 = this.size;
@@ -1701,8 +1719,8 @@ class circle{
     P.setAttribute("style", "cursor:all-scroll;z-index:-1;");
     P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
   
-    P.setAttribute("onmouseover",' this.animate( [ {strokeWidth:'+this.size+'}, {strokeWidth:'+ Number(4*Number(this.size)) +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
-    P.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+Number(4*Number(this.size))+'}, {strokeWidth:'+ this.size +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    P.setAttribute("onmouseover",' this.animate( [ {strokeWidth:'+this.size+'}, {strokeWidth:'+ Number(2*Number(this.size)) +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    P.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+Number(2*Number(this.size))+'}, {strokeWidth:'+ this.size +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
 
 
     return P;
@@ -1766,49 +1784,50 @@ class circle{
     var newRow = document.createElement("TR");
     newRow.setAttribute("class","editrow");
     let cell_id = newRow.insertCell(0);
-    let cell_cx=newRow.insertCell(1);
-    let cell_cy = newRow.insertCell(2);
+    newRow.insertCell(1);
+    let cell_size = newRow.insertCell(2);
     let cell_r=newRow.insertCell(3);
-    //cell_pattern.appendChild(this.EditPattern);
+
     let cell_pattern=newRow.insertCell(4);
 
     let cell_fill=newRow.insertCell(5);
     let cell_stroke = newRow.insertCell(6);
 
-    this.EditID.value=this.id;
-    this.Editcx.value=this.center.cx;
+
+
     this.Editcy.value=this.center.cy;
     this.EditR.value = this.r;
+
+    this.EditSize.value = this.size;
     
 
+    cell_id.innerText = this.id;
 
 
-    let idLabel=document.createElement("LABEL");
-    idLabel.setAttribute("for",this.EditID.id);
-    idLabel.innerText="ID";
 
 
-    cell_id.appendChild(idLabel);
-    cell_id.appendChild(this.EditID);
-
-
-    let cxLabel=document.createElement("LABEL");
-    cxLabel.setAttribute("for",this.Editcx.id);
-    cxLabel.innerText="X";
-    cell_cx.appendChild(cxLabel);
-    cell_cx.appendChild(this.Editcx) ;
-
-    let cyLabel=document.createElement("LABEL");
-    cyLabel.setAttribute("for",this.Editcy.id);
-    cyLabel.innerText="Y";
-    cell_cy.appendChild(cyLabel);
-    cell_cy.appendChild(this.Editcy) ;
+  
 
     let rLabel=document.createElement("LABEL");
     rLabel.setAttribute("for",this.EditR.id);
     rLabel.innerText="r";
     cell_r.appendChild(rLabel);
     cell_r.appendChild(this.EditR) ;
+
+
+    let sizeLabel=document.createElement("LABEL");
+    sizeLabel.setAttribute("for",this.EditSize.id);
+    sizeLabel.innerText="Size";
+
+
+    cell_size.appendChild(sizeLabel);
+    cell_size.appendChild(this.EditSize);
+
+
+
+
+
+
 
     cell_pattern.appendChild(this.EditPattern);
 
@@ -1882,6 +1901,27 @@ class line{
     editPattern.add(dottedOpt);
 
     this.EditPattern=editPattern;
+
+    ////
+
+    //<input id="rRangeInput" onmousemove ='document.getElementById("rNumberInput").value=this.value;' type="range" min="0" max="6"  size="3" step="0.5" value="1">
+
+    let editSize=document.createElement("INPUT");
+    editSize.setAttribute("type","range");
+    editSize.setAttribute("min","1");
+    editSize.setAttribute("max","10");
+    editSize.setAttribute("step","1");
+    editSize.setAttribute("size","3");
+    editSize.setAttribute("value",this.size);
+    editSize.setAttribute("id","sizeRange"+this.index);
+    editSize.setAttribute("style", "width:80px; background-color:white;" )
+
+
+    this.EditSize = editSize;
+    
+
+
+
 
 
 
@@ -2067,22 +2107,37 @@ class line{
     newRow.setAttribute("class","editrow");
     let cell_id = newRow.insertCell(0);
     let cell_pattern = newRow.insertCell(1);
-    newRow.insertCell(2);
+    let cell_size=newRow.insertCell(2);
     newRow.insertCell(3);
     newRow.insertCell(4);
     newRow.insertCell(5);
     let cell_stroke = newRow.insertCell(6);
 
     cell_id.innerText=this.id;
-
     cell_pattern.appendChild(this.EditPattern);
+
+    let sizeLabel=document.createElement("LABEL");
+    sizeLabel.setAttribute("for",this.EditSize.id);
+    sizeLabel.innerText="Size";
+
+    cell_size.style.width = "80px"; 
+
+    cell_size.appendChild(sizeLabel);
+    cell_size.appendChild(this.EditSize);
 
 
     let strokeLabel=document.createElement("LABEL");
     strokeLabel.setAttribute("for",this.EditStroke.id);
     strokeLabel.innerText="Stroke";
+
     cell_stroke.appendChild(strokeLabel);
     cell_stroke.appendChild(this.EditStroke);
+
+    
+
+
+
+
 
 
     return newRow;
@@ -3808,6 +3863,7 @@ function clickOKEditMultiple(){
       P.cx = Number(P.Editcx.value);
       P.cy = Number(P.Editcy.value);
       P.r = Number(P.EditR.value);
+      P.size = P.EditSize.value;
 
       P.pattern=P.EditPattern.value;
 
@@ -3854,6 +3910,7 @@ function clickOKEditMultiple(){
 
     if(P.figure=="Line"){
       P.pattern=P.EditPattern.value;
+      P.size = P.EditSize.value;
 
       sColors = document.getElementsByName("sColor"+P.index);
       for(let j=0;j<sColors.length;j++)
