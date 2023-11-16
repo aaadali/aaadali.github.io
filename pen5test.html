@@ -640,14 +640,6 @@ box-shadow: 2px 2px 2px 0px lightgray;
     </table>
   </div>
 
-  <div style="float:left;">
-    <button onclick="chooseP()"> P </button>
-    <button onclick="choosePP()" > 2P </button>
-    <button onclick="choosePPP()"> 3P </button>
-    <button onclick="choosePPPP()"> 4P </button>
-    <button onclick="chooseAllP()" > All P </button>
-
-  </div>
       
     
 </div>
@@ -1068,6 +1060,8 @@ class point{
     editID.setAttribute("type","text");
     editID.setAttribute("size","2");
     editID.setAttribute("id","ID"+this.index);
+
+
     this.EditID = editID;
 
     let editcx=document.createElement("INPUT");
@@ -1079,20 +1073,23 @@ class point{
     let editcy=document.createElement("INPUT");
     editcy.setAttribute("type","number");
     editcy.setAttribute("size","3");
+    editcy.setAttribute("id","cy"+this.index);
     this.Editcy = editcy;
 
     let editLabeled=document.createElement("INPUT");
     editLabeled.setAttribute("type","checkbox");
+    editLabeled.setAttribute("id","labeled"+this.index);
     this.EditLabeled = editLabeled;
 
 
     let editdx=document.createElement("INPUT");
     editdx.setAttribute("type","range");
-    editdx.setAttribute("style","width:60px;height:60px;");
+    editdx.setAttribute("style","width:60px;height:20px");
     editdx.setAttribute("name","L/R");
     editdx.setAttribute("min","-20");
     editdx.setAttribute("max","10");
     editdx.setAttribute("step","15");
+    editdx.setAttribute("id","dx"+this.index);
     //editdx.setAttribute("orient","vertical");
     
 
@@ -1107,8 +1104,9 @@ class point{
     editdy.setAttribute("min","-1");
     editdy.setAttribute("max","1");
     editdy.setAttribute("step","1");
-    editdy.setAttribute("orient","vertical");
+    //editdy.setAttribute("orient","vertical");
     editdy.setAttribute("list",ABList);
+    editdy.setAttribute("id","dy"+this.index);
 
 
     this.Editdy=editdy;
@@ -1183,43 +1181,8 @@ class point{
     this.EditFill = editFill;
 
 
-    /// SVG Object
-
-    let P = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    P.setAttribute("cx", this.cx );
-    P.setAttribute("cy", this.cy);
-    P.setAttribute("r", this.r);
-    P.setAttribute("stroke",this.stroke);
-    P.setAttribute("fill",this.fill);
-    P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    this.SVGobj = P;
     ///
 
-    ///SGV Label
-
-    let L = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-    L.setAttribute("id", "Obj"+this.index );
-    L.setAttribute("x", Number(this.cx) + Number(this.dx)   );
-    L.setAttribute("y", Number(this.cy) + Number(this.dy) -15);
-    L.setAttribute("width", 30);
-    L.setAttribute("height", 20);
-
-
-    let labd ="Gray";
-
-    if(this.labeled){
-      labd = "Black";
-    }
-  
-    L.setAttribute("style","font-size:17;font-family:Arial;cursor:all-scroll;transition: all 0.2s;");
-    L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + labd + '";this.style.fontWeight="900";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
-    L.setAttribute("color",labd);
-    L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-
-    let textNode = document.createTextNode( '$'+ this.id+'$'); 
-    L.appendChild(textNode);
-
-    this.SVGlab = L;
   }
 
   SVGcode(){
@@ -1261,7 +1224,10 @@ class point{
     L.setAttribute("id", "Obj"+this.index );
     L.setAttribute("x", Number(this.cx) + Number(this.dx)   );
     L.setAttribute("y", Number(this.cy) + Number(this.dy) -15);
-    L.setAttribute("width", 20);
+
+    let sl = this.id.length;
+    let wd = (Number(sl)+1)*10;
+    L.setAttribute("width", wd);
     L.setAttribute("height", 20);
 
 
@@ -1270,6 +1236,10 @@ class point{
     if(this.labeled){
       labd = "Black";
     }
+
+    // let sl = this.id.length;
+    // let wd = Number(sl)*10;
+    // P.setAttribute("width", wd);
   
     L.setAttribute("style","font-size:15;font-family:Arial;cursor:all-scroll;");
     L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + labd + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
@@ -1396,8 +1366,6 @@ class point{
     let idLabel=document.createElement("LABEL");
     idLabel.setAttribute("for",this.EditID.id);
     idLabel.innerText="ID";
-
-
     cell_id.appendChild(idLabel);
     cell_id.appendChild(this.EditID);
 
@@ -1405,20 +1373,38 @@ class point{
     let cxLabel=document.createElement("LABEL");
     cxLabel.setAttribute("for",this.Editcx.id);
     cxLabel.innerText="X";
-
     cell_cx.appendChild(cxLabel);
     cell_cx.appendChild(this.Editcx) ;
 
-    cell_cy.innerText="Y";
+
+    let cyLabel=document.createElement("LABEL");
+    cyLabel.setAttribute("for",this.Editcy.id);
+    cyLabel.innerText="Y";
+    cell_cy.appendChild(cyLabel);
     cell_cy.appendChild(this.Editcy) ;
 
-    cell_labeled.innerText="label"
+
+    let labeledLabel=document.createElement("LABEL");
+    labeledLabel.setAttribute("for",this.EditLabeled.id);
+    labeledLabel.innerText="Label";
+    cell_labeled.appendChild(labeledLabel);
     cell_labeled.appendChild(this.EditLabeled);
 
 
+    let dxLabel=document.createElement("LABEL");
+    dxLabel.setAttribute("for",this.Editdx.id);
+    dxLabel.innerHTML="&larr;  &rarr;";
+    cell_dx.appendChild(dxLabel);
     cell_dx.appendChild(this.Editdx) ;
 
-    cell_dy.appendChild(this.Editdy) ;
+
+    let dyLabel=document.createElement("LABEL");
+    dyLabel.setAttribute("for",this.Editdy.id);
+    dyLabel.innerHTML="&darr;  &uarr;";
+    cell_dy.appendChild(dyLabel);
+    cell_dy.appendChild(this.Editdy);
+
+
     cell_fill.appendChild(this.EditFill);
 
     return newRow;
@@ -1703,7 +1689,7 @@ class circle{
       break;
 
     case "dotted":
-      ptrn = Number(Number(p2))+","+Number(2*Number(p2));
+      ptrn = "1"+","+Number(2*Number(p2));
       break;
 
     default:
@@ -2034,7 +2020,7 @@ class line{
       break;
 
     case "dotted":
-      ptrn = Number(Number(p2))+","+Number(2*Number(p2));
+      ptrn = "1"+","+Number(2*Number(p2));
       break;
 
     default:
@@ -2108,6 +2094,15 @@ class line{
     let cell_id = newRow.insertCell(0);
     let cell_pattern = newRow.insertCell(1);
     let cell_size=newRow.insertCell(2);
+
+    //let cell_size=newRow.insertCell(2);
+    //let sizeLabel=document.createElement("LABEL");
+    //sizeLabel.setAttribute("for",this.EditSize.id);
+    //sizeLabel.innerText="Size";
+    //cell_size.appendChild(sizeLabel);
+    //cell_size.appendChild(this.EditSize);
+
+
     newRow.insertCell(3);
     newRow.insertCell(4);
     newRow.insertCell(5);
@@ -2120,7 +2115,6 @@ class line{
     sizeLabel.setAttribute("for",this.EditSize.id);
     sizeLabel.innerText="Size";
 
-    cell_size.style.width = "80px"; 
 
     cell_size.appendChild(sizeLabel);
     cell_size.appendChild(this.EditSize);
@@ -2134,12 +2128,6 @@ class line{
     cell_stroke.appendChild(this.EditStroke);
 
     
-
-
-
-
-
-
     return newRow;
 
   }
@@ -2217,6 +2205,21 @@ class polygon{
     editPattern.add(dottedOpt);
 
     this.EditPattern=editPattern;
+
+    ///
+
+    let editSize=document.createElement("INPUT");
+    editSize.setAttribute("type","range");
+    editSize.setAttribute("min","1");
+    editSize.setAttribute("max","10");
+    editSize.setAttribute("step","1");
+    editSize.setAttribute("size","3");
+    editSize.setAttribute("value",this.size);
+    editSize.setAttribute("id","sizeRange"+this.index);
+    editSize.setAttribute("style", "width:80px; background-color:white;" )
+
+
+    this.EditSize = editSize;
 
 
     ///fill colors
@@ -2401,6 +2404,7 @@ class polygon{
     pl.setAttribute("stroke",this.stroke);
     pl.setAttribute("stroke-width",this.size);
     pl.setAttribute("stroke-linejoin","round");
+    pl.setAttribute("stroke-linecap","round");
 
     let ptrn="";
     let p2 = this.size;
@@ -2411,7 +2415,7 @@ class polygon{
       break;
 
     case "dotted":
-      ptrn = Number(Number(p2))+","+Number(2*Number(p2));
+      ptrn = "1"+","+Number(2*Number(p2));
       break;
 
     default:
@@ -2481,16 +2485,30 @@ class polygon{
     newRow.setAttribute("class","editrow");
     let cell_id = newRow.insertCell(0);
     let cell_pattern=newRow.insertCell(1);
-    newRow.insertCell(2);
+    let cell_size=newRow.insertCell(2);
     newRow.insertCell(3);
     newRow.insertCell(4);
-
     let cell_fill=newRow.insertCell(5);
     let cell_stroke = newRow.insertCell(6);
+
+    //let cell_size=newRow.insertCell(2);
+    //let sizeLabel=document.createElement("LABEL");
+    //sizeLabel.setAttribute("for",this.EditSize.id);
+    //sizeLabel.innerText="Size";
+    //cell_size.appendChild(sizeLabel);
+    //cell_size.appendChild(this.EditSize);
+
+    
 
     cell_id.innerText=this.id;
 
     cell_pattern.appendChild(this.EditPattern);
+
+    let sizeLabel=document.createElement("LABEL");
+    sizeLabel.setAttribute("for",this.EditSize.id);
+    sizeLabel.innerText="Size";
+    cell_size.appendChild(sizeLabel);
+    cell_size.appendChild(this.EditSize);
 
     let fillLabel=document.createElement("LABEL");
     fillLabel.setAttribute("for",this.EditFill.id);
@@ -2686,7 +2704,12 @@ class midText{
     let coorx = Number(this.P1.cx)*(1-Number(this.location)) +Number(this.P2.cx)*Number(this.location)  ;
     let coory =Number(this.P1.cy)*(1-Number(this.location)) +Number(this.P2.cy)*Number(this.location)  ;
     let sl = this.id.length;
-    let wd = Number(sl)*9;
+    let wd = Number(sl)*10;
+
+    // let sl = this.id.length;
+    // let wd = Number(sl)*10;
+    // P.setAttribute("width", wd);
+
 
 
     let P = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
@@ -2758,17 +2781,7 @@ class midText{
     var newRow = document.createElement("TR");
     let cell_check=newRow.insertCell(0);
     let cell_id = newRow.insertCell(1);
-    let cell_shape=newRow.insertCell(2);
-    let cell_property = newRow.insertCell(3);
-    let cell_label=newRow.insertCell(4);
-    let cell_coordinates=newRow.insertCell(5);
-
-
-    cell_check.className="tableCheck tableItem2";
-    cell_shape.className="tableShape tableItem2";
-    cell_id.className="tableID";
-    cell_label.className="tableLabel";
-    cell_coordinates.className="tableCoordinates";
+    
 
     let lbl = document.createElement("LABEL");
     lbl.setAttribute("class","switch");
@@ -2781,17 +2794,9 @@ class midText{
     cell_check.appendChild(lbl);
 
 
-    //cell_check.appendChild(this.checkBox);
-    cell_shape.innerText=this.figure;
 
     let textNode = document.createTextNode( '$'+ this.id+'$'); 
     cell_id.appendChild(textNode);
-    /*
-    cell_id.innerHTML='$'+ this.id+'$' ;
-    */
-    cell_label.innerHTML='';
-    cell_coordinates.innerText='';
-    cell_property.innerHTML=this.property;
 
 
     return newRow;
@@ -2836,7 +2841,7 @@ class midText{
 
 
 class angle{
-  constructor(index,points,scale,fill,stroke,rightAngle,text,eccentricity,draw){
+  constructor(index,points,scale,fill,stroke,size,rightAngle,text,eccentricity,draw){
     this.index = index;
     this.text = text;
     this.id ='&#8737;'+points[0].id+points[1].id+points[2].id;
@@ -2844,6 +2849,9 @@ class angle{
     this.scale = scale;
     this.fill = fill;
     this.stroke = stroke;
+    this.size = size;
+
+
     this.rightAngle = rightAngle;
 
     this.eccentricity=eccentricity;
@@ -2854,7 +2862,9 @@ class angle{
     var newChbox = document.createElement("INPUT");
     newChbox.setAttribute("type", "checkbox");
 
-    let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.stroke="red"   };  if( this.checked==false){uncheckTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.stroke= " '+this.stroke+'  " ; }; ';
+    //let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.stroke="red"   };  if( this.checked==false){uncheckTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.stroke= " '+this.stroke+'  " ; }; ';
+
+    let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+');   }  if( this.checked==false){uncheckTheObject('+this.index+');  } ';
 
     newChbox.setAttribute("onchange",chkCode);
 
@@ -2889,52 +2899,6 @@ class angle{
     editDraw.setAttribute("type","checkbox");
     this.EditDraw = editDraw;
 
-    ///SVG Object
-
-    let A1 = this.points[0];
-    let B1 = this.points[1];
-    let C1 = this.points[2];
-
-    let r = Number(this.scale)*30;
-    let a = sideLength(B1,A1);
-    let c = sideLength(B1,C1);
-
-    let Bs = weightedPoint(B1,A1,Number(r),Number(a)-Number(r));
-    let Be = weightedPoint(B1,C1,Number(r),Number(c)-Number(r));
-    let pth;
-
-    if(this.draw){
-
-      if(!this.rightAngle){
-        pth= 'M '+Number(B1.cx)+" "+Number(B1.cy)+" L "+Number(Bs.cx)+' '+Number(Bs.cy) +' A '+r+','+r+' 0 0,0 '+Be.cx+','+Be.cy+' Z ';
-      }
-
-      else if(this.rightAngle){
-        let Px= Number(Be.cx)+Number(Bs.cx)-Number(B1.cx);
-        let Py = Number(Be.cy)+Number(Bs.cy)-Number(B1.cy);
-
-        pth= 'M '+Number(B1.cx)+" "+Number(B1.cy)+" L "+Number(Bs.cx)+' '+Number(Bs.cy) +' L '+Number(Px)+' '+Number(Py)+' L '+Be.cx+','+Be.cy+' Z ';
-      }
-
-    }
-
-    else {pth='';}
-
-    let Pth = document.createElementNS("http://www.w3.org/2000/svg", 'path');
-    Pth.setAttribute("stroke",this.stroke);
-    Pth.setAttribute("fill",this.fill);
-    Pth.setAttribute("stroke-width","2");
-    Pth.setAttribute("d",pth);
-    Pth.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-
-    Pth.setAttribute("style", "cursor:all-scroll;");
-    Pth.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
-    //Pth.setAttribute("onmousemove",'this.style.strokeWidth = 4;');
-    //Pth.setAttribute("onmouseleave",'this.style.strokeWidth = 2;');
-    Pth.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+2+'}, {strokeWidth:'+4 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
-    Pth.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+4+'}, {strokeWidth:'+ 2 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
-
-    this.SVGobj = Pth;
 
 
   }
@@ -2993,16 +2957,29 @@ class angle{
     let Pth = document.createElementNS("http://www.w3.org/2000/svg", 'path');
     Pth.setAttribute("stroke",this.stroke);
     Pth.setAttribute("fill",this.fill);
-    Pth.setAttribute("stroke-width","2");
+    Pth.setAttribute("stroke-width",this.size);
+    Pth.setAttribute("stroke-linecap","round");
+    Pth.setAttribute("stroke-linejoin","round");
+
+
     Pth.setAttribute("d",pth);
     Pth.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 
     Pth.setAttribute("style", "cursor:all-scroll;");
+
+    //l.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
+
+    //l.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+this.size+'}, {strokeWidth:'+ Number(2* Number(this.size) ) +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    //l.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+Number(2* Number(this.size) )+'}, {strokeWidth:'+ this.size +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+
+
+
     Pth.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.stroke = "' + this.stroke + '";} else { selectTheObject('+this.index+') ; this.style.stroke = "red";   }' );
-    //Pth.setAttribute("onmousemove",'this.style.strokeWidth = 4;');
-    //Pth.setAttribute("onmouseleave",'this.style.strokeWidth = 2;');
-    Pth.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+2+'}, {strokeWidth:'+4 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
-    Pth.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+4+'}, {strokeWidth:'+ 2 +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+
+
+
+    Pth.setAttribute("onmouseenter",' this.animate( [ {strokeWidth:'+this.size+'}, {strokeWidth:'+Number(2* Number(this.size) )  +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
+    Pth.setAttribute("onmouseleave",' this.animate( [ {strokeWidth:'+Number(2* Number(this.size) ) +'}, {strokeWidth:'+ this.size +'} ], {duration:300,iterations:1, begin:0,fill:"forwards"} ) ');
 
     return Pth;
   }
@@ -3037,6 +3014,8 @@ class angle{
 
     L.setAttribute("color",this.stroke);
     L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+
 
     /*
 
@@ -3080,15 +3059,8 @@ class angle{
     let cell_check=newRow.insertCell(0);
     let cell_id = newRow.insertCell(1);
     let cell_shape=newRow.insertCell(2);
-    let cell_property = newRow.insertCell(3);
-    let cell_label=newRow.insertCell(4);
-    let cell_coordinates=newRow.insertCell(5);
+  
 
-    cell_check.className="tableCheck tableItem2";
-    cell_shape.className="tableShape tableItem2";
-    cell_id.className="tableID";
-    cell_label.className="tableLabel";
-    cell_coordinates.className="tableCoordinates";
 
     let lbl = document.createElement("LABEL");
     lbl.setAttribute("class","switch");
@@ -3099,13 +3071,12 @@ class angle{
     lbl.appendChild(spnn);
 
     cell_check.appendChild(lbl);
+    cell_id.innerHTML=this.id;
 
     //cell_check.appendChild(this.checkBox);
     cell_shape.innerText= '$\\measuredangle$' ;
-    cell_id.innerHTML=this.id;
-    cell_property.innerText = "$\\square$:"+this.rightAngle ;
-    cell_coordinates.innerText = "("+this.scale+","+this.eccentricity+")";
-    cell_label.innerText = '$'+this.text+'$' ;
+
+
 
     return newRow;
   }
@@ -3189,9 +3160,34 @@ function CreatePoint(e)
 }
 
 
-function reBuild(Objs)
-{  
+function reBuild(Objs){  
   loadSVGDrawing(Objs);
+  MathJax.typeset();
+
+  loadTable(Objs);
+  MathJax.typeset();
+
+  /*
+
+  loadSVGCode(Objs);
+  MathJax.typeset();
+  */
+
+  loadCheckBoxes(Objs);
+  MathJax.typeset();
+
+  loadLabel(Objs);
+    MathJax.typeset();
+
+   loadTikZCode(Objs);
+    MathJax.typeset();
+
+}
+
+
+function reBuild2(Objs)
+{  
+  loadSVGDrawing2(Objs);
   MathJax.typeset();
 
   loadTable(Objs);
@@ -3743,7 +3739,7 @@ function clickAngle()
     CheckedPoints[1].checkBox.disabled=true;
     CheckedPoints[2].checkBox.disabled=true;
 
-    let nA = new angle(ObjectCounter,CheckedObjects,0.4,"none",'MidnightBlue',false,' ',1,true);
+    let nA = new angle(ObjectCounter,CheckedObjects,0.4,"none",'MidnightBlue',2,false,' ',1,true);
     ObjectCounter++;
     allObjects.push(nA);
     Objects.push(nA);
@@ -3888,6 +3884,7 @@ function clickOKEditMultiple(){
     if(P.figure=="Triangle"||P.figure=="Quad"||P.figure=="Polygon"){
 
       P.pattern=P.EditPattern.value;
+      P.size = P.EditSize.value;
     
 
       fColors = document.getElementsByName("fColor"+P.index);
@@ -3944,7 +3941,7 @@ function clickOKEditMultiple(){
   document.getElementById("editModal").style.display="none";
 
 
-  reBuild(Objects);
+  reBuild2(Objects);
   clearButtons();
 
   
@@ -4254,8 +4251,55 @@ function loadSVGDrawing(Objs){
     document.getElementById("drawingFrame").appendChild(Pl.SVGObject());
   }
 
+}
+
+
+function loadSVGDrawing2(Objs){
+
+  // drawing the coordinate lines:
+
+  document.getElementById("drawingFrame").innerHTML="";
+
+  let patrn = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
+  patrn.setAttribute("id","coorsystem");
+  patrn.setAttribute("viewBox","0,0,10,10");
+  patrn.setAttribute("width","10%");
+  patrn.setAttribute("height","10%");
+
+  let rct = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  rct.setAttribute("width","10");
+  rct.setAttribute("height","10");
+  rct.setAttribute("style","fill:none;stroke:#85BBB6;stroke-width:0.1");
+
+  patrn.appendChild(rct);
+
+  let coorect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  coorect.setAttribute("width","600");
+  coorect.setAttribute("height","600");
+  coorect.setAttribute("style","fill:url(#coorsystem);");
+
+  document.getElementById("drawingFrame").appendChild(patrn);
+  document.getElementById("drawingFrame").appendChild(coorect);
+
+  //drawing everything else:
+
+
+
+
+
+  for(let i=0;i<Objs.length;i++)
+  {
+    let P = Objs[i];
+    let fig = P.figure;
+    document.getElementById("drawingFrame").appendChild(P.SVGObject());
+
+    if(fig=="Point"||fig=="Angle")
+      {document.getElementById("drawingFrame").appendChild(P.SVGLabel());}
+  }
 
 }
+
+
 
 function copySVGcode()
 {
