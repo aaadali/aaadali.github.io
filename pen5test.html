@@ -67,7 +67,7 @@ body {font-family: Arial; background-color: #b0cf98;}
   cursor: crosshair;
   float:left;
   box-shadow: 3px 3px 3px 0px gray;
-  
+
 }
 
 .mainbuttoncontainer {
@@ -480,7 +480,7 @@ box-shadow: 2px 2px 2px 0px lightgray;
 <div class="tab">
   <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'figureTab')">Figure</button>
   <button class="tablinks" onclick="openTab(event, 'tikzTab'); loadTikZCode(Objects);">TikZ</button>
-  <button class="tablinks" onclick="openTab(event, 'Tokyo')">SVG</button>
+  <button class="tablinks" onclick="openTab(event, 'SVGcodeTab')">SVG</button>
 </div>
 
 <div id="figureTab" class="tabcontent">
@@ -654,9 +654,13 @@ box-shadow: 2px 2px 2px 0px lightgray;
     </div>
 </div>
 
-<div id="Tokyo" class="tabcontent">
-  <h3>Tokyo</h3>
-  <p>Tokyo is the capital of Japan.</p>
+<div id="SVGcodeTab" class="tabcontent">
+  <div id="SVGc" style='height: 600px; width: 590px; border: 1px solid black; overflow-y: auto; background-color: #ecece9;font-family: "Lucida Console", monospace; font-size: 13px; padding-left: 10px; border-radius: 0px 0px 0px 0px; box-shadow: 3px 3px 3px 0px gray;'>
+      
+        <p id="SVGcode" style="font-family: inherit; "> abbydick gubby dick </p>
+
+      
+    </div>
 </div>
 
 
@@ -1191,10 +1195,12 @@ class point{
     +' style="fill:'+this.fill
     +'; stroke:'+ this.stroke
     +'" id="'+this.id
-    +'" cx = "'+ this.cx.toFixed(1)
-    +'" cy =" '+this.cy.toFixed(1)
-    +'" r = " '+ this.r.toFixed(1)
-    +' " /> ';
+    +'" cx="'+this.cx.toFixed(1)
+    +'" cy="'+this.cy.toFixed(1)
+    +'" r = "'+ this.r.toFixed(1)
+    +'" /> ';
+
+    /*
 
     scode+=' <text '
     +' style="font-size:18;font-family:Arial;'
@@ -1204,8 +1210,22 @@ class point{
     +'" dx = "' +this.dx.toFixed(1)
     +'" dy =" '+this.dy.toFixed(1)
     +'" >'+this.id+' </text>';
+    */
 
     return scode;
+  }
+
+  SVGLabelCode(){
+    var slcode =' <foreignObject '
+    +' id="Obj'+this.index+' "'
+    +' style="font-size:15;font-family:Arial;'
+    +'fill:'+ 'Black'
+    +';" x="' +(Number(this.cx) + Number(this.dx))
+    +'" y="'+(Number(this.cy) + Number(this.dy) -15)
+    +'" >'+'$'+ this.id+'$'+' </foreignObject>';
+
+    return slcode;
+
   }
 
   SVGObject(){
@@ -1242,7 +1262,7 @@ class point{
     // let wd = Number(sl)*10;
     // P.setAttribute("width", wd);
   
-    L.setAttribute("style","font-size:15;font-family:Arial;cursor:all-scroll;");
+    L.setAttribute("style","font-size:15;font-family:Lucida Console;cursor:all-scroll;");
     L.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + labd + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
     L.setAttribute("color",labd);
     L.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
@@ -1418,11 +1438,6 @@ class circle{
     this.center = Center;
     this.id = Center.id;
     this.size = size;
-/*
-    
-    this.cx = Center.cx;
-    this.cy = Center.cy;
-*/
     this.r = r;
     this.fill = fill;
     this.stroke=stroke;
@@ -1658,14 +1673,36 @@ class circle{
   }
 
   SVGcode(){
+
+    let ptrn="";
+    let p2 = this.size;
+
+    switch(this.pattern){
+    case "dashed":
+      ptrn = Number(4*Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    case "dotted":
+      ptrn = "1"+","+Number(2*Number(p2));
+      break;
+
+    default:
+      ptrn = "0,0";
+    }
+
+
     var scode = ' <circle '
     +' style="fill:'+this.fill
     +'; stroke:'+ this.stroke
-    +'" id="'+this.id
-    +'" cx = "'+ this.cx.toFixed(1)
-    +'" cy =" '+this.cy.toFixed(1)
-    +'" r = " '+ this.r.toFixed(1)
-    +' " /> ';
+    +'; stroke-width:'+this.size
+    +'; stroke-linecap:round'
+    +'; stroke-dasharray:'+ptrn
+    +'; fill-opacity:0.2'
+    +';" id="'+"Obj"+this.index 
+    +'" cx="'+ this.center.cx.toFixed(1)
+    +'" cy="'+this.center.cy.toFixed(1)
+    +'" r = "'+ this.r.toFixed(1)
+    +'" /> ';
 
     return scode;
   }
@@ -1990,14 +2027,31 @@ class line{
   }
 
   SVGcode(){
+    let ptrn="";
+    let p2 = this.size;
+
+    switch(this.pattern){
+    case "dashed":
+      ptrn = Number(4*Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    case "dotted":
+      ptrn = "1"+","+Number(2*Number(p2));
+      break;
+
+    default:
+      ptrn = "0,0";
+    }
+
+
     let scode = ' <line '
     +' style="stroke :'+this.stroke
-    +';stroke-width:'+this.size+';stroke-linecap:round;" '
+    +';stroke-width:'+this.size+';stroke-linecap:round;stroke-linejoin :round; stroke-dasharray:'+ptrn+';'
     +'" x1="'+this.P1.cx.toFixed(1)
     +'" x2="'+this.P2.cx.toFixed(1)
     +'" y1="' +this.P1.cy.toFixed(1)
     +'" y2="'+this.P2.cy.toFixed(1)
-    +' "/> ';
+    +'" /> ';
 
     return scode;
   }
@@ -2372,6 +2426,22 @@ class polygon{
 
   SVGcode(){
 
+    let ptrn="";
+    let p2 = this.size;
+
+    switch(this.pattern){
+    case "dashed":
+      ptrn = Number(4*Number(p2))+","+Number(2*Number(p2));
+      break;
+
+    case "dotted":
+      ptrn = "1"+","+Number(2*Number(p2));
+      break;
+
+    default:
+      ptrn = "0,0";
+    }
+
     let poly_shape=this.points[0].cx.toFixed(1)+',' +this.points[0].cy.toFixed(1);
 
     for(let i=0;i<this.points.length;i++)
@@ -2379,9 +2449,12 @@ class polygon{
 
    let scode = ' <polygon '
      +' style="stroke-linejoin:round;  fill :'+ this.fill
-     +';stroke-width:'+this.size 
-     + '; stroke:'+this.stroke
-     +';" points=" '+ this.polyshape
+     +'; fill-opacity:0.2'
+     +'; stroke-width:'+this.size 
+     +'; stroke:'+this.stroke
+     +'; stroke-dasharray:'+ptrn
+     +'; stroke-linecap:round; stroke-linejoin:round'
+     +';" points=" '+ poly_shape
      + ' " /> ';
 
     return scode;
@@ -2557,12 +2630,12 @@ class midText{
     newChbox.setAttribute("type", "checkbox");
 
 
-    //let chkCode= ' if( this.checked==true){ addToChecked('
-    //            +this.index
-    //            +')  }  if( this.checked==false){removeFromChecked('
-    //            +this.index+')}';
-
+  /*
     let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.color="red"   };  if( this.checked==false){uncheckTheObject('+this.index+'); allObjects['+this.index+'].SVGobj.style.color= " '+this.stroke+'  " ; }; ';
+    */
+
+    let chkCode= ' if( this.checked==true){ checkTheObject('+this.index+');   }  if( this.checked==false){uncheckTheObject('+this.index+');  } ';
+    
 
     newChbox.setAttribute("onchange",chkCode);
 
@@ -2661,42 +2734,27 @@ class midText{
 
     this.EditSloped=editSloped;
 
-    //// SVG Object
-
-    let coorx = Number(this.P1.cx)*(1-Number(this.location)) +Number(this.P2.cx)*Number(this.location)  ;
-    let coory =Number(this.P1.cy)*(1-Number(this.location)) +Number(this.P2.cy)*Number(this.location)  ;
-    let sl = this.id.length;
-    let wd = Number(sl)*9;
-
-
-    let P = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-    P.setAttribute("x", Number(coorx)+Number(this.dx) );
-    P.setAttribute("y", Number(coory)+Number(this.dy) -10 );
-    P.setAttribute("width", wd);
-    P.setAttribute("height", 20);
-    P.setAttribute("style", "font-family:Arial; font-size:18;");
-    P.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-
-    P.setAttribute("style","cursor:all-scroll;");
-    P.setAttribute("onclick", ' if( allObjects['+this.index+'].checkBox.checked==true){unselectTheObject('+this.index+') ;this.style.color = "' + this.fill + '";} else { selectTheObject('+this.index+') ; this.style.color = "red";   }' );
-
-    let textNode = document.createTextNode( '$'+ this.id+'$'); 
-    P.appendChild(textNode);
-
-    this.SVGobj = P;
-
 
   }
 
   SVGcode(){
-    scode=' <text '
+    let coorx = Number(this.P1.cx)*(1-Number(this.location)) +Number(this.P2.cx)*Number(this.location)  ;
+    let coory =Number(this.P1.cy)*(1-Number(this.location)) +Number(this.P2.cy)*Number(this.location)  ;
+    let sl = this.id.length;
+    let wd = Number(sl)*10;
+
+    let tx = Number(coorx)+Number(this.dx);
+    let ty = Number(coory)+Number(this.dy) -10;
+
+
+    let scode=' <foreignObject '
     +' style="font-size:18;font-family:Arial;'
     +'fill:'+ 'Black'
-    +';" x = "' +Number(this.cx)
-    +'" y =" '+Number(this.cy)
-    +'" dx = "' +Number(this.dx).toFixed(1)
-    +'" dy =" '+Number(this.dy).toFixed(1)
-    +'" >'+this.id+' </text>';
+    +';" x="' + Number(tx).toFixed(1)
+    +'" y="'+ Number(ty).toFixed(1)
+    +'" width="'+wd
+    +'" height ="20'
+    +'" >'+'$'+ this.id+'$'+' </foreignObject>';
 
     return scode;
   }
@@ -2706,11 +2764,6 @@ class midText{
     let coory =Number(this.P1.cy)*(1-Number(this.location)) +Number(this.P2.cy)*Number(this.location)  ;
     let sl = this.id.length;
     let wd = Number(sl)*10;
-
-    // let sl = this.id.length;
-    // let wd = Number(sl)*10;
-    // P.setAttribute("width", wd);
-
 
 
     let P = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
@@ -2913,9 +2966,6 @@ class angle{
      }
      let scode = ' <clipPath id='+this.id+' > <polygon  points=" '+ poly_shape + ' " /> </clipPath>';
 
-     /*
-     <circle style="fill:blue; fill-opacity:0.2; stroke:red;stroke-width:3;" cx = "267.0" cy =" 78.0" r = " 20 " clip-path="url(#tri1)" />
-     */
      scode+= ' <circle style="fill:'+this.fill+'; stroke:'+this.stroke
      +';stroke-width:3;" cx ='+this.points[1].cx
      +' cy ='+this.points[1].cy
@@ -3139,10 +3189,6 @@ document.getElementById("drawingFrame").ondblclick = function(event) {CreatePoin
 function CreatePoint(e)
 {
 
-  /*
-  (index,id,cx,cy,r,fill,stroke,property,dx,dy,labeled,pointType,Objs)
-  */
-
   let oo = [];
 
   let P= new point(ObjectCounter,labels[0],e.clientX-11,e.clientY-52,3,"none","Gray",-5,-5,false,"base",oo);
@@ -3168,11 +3214,12 @@ function reBuild(Objs){
   loadTable(Objs);
   MathJax.typeset();
 
-  /*
+
+
 
   loadSVGCode(Objs);
   MathJax.typeset();
-  */
+
 
   loadCheckBoxes(Objs);
   MathJax.typeset();
@@ -3194,11 +3241,11 @@ function reBuild2(Objs)
   loadTable(Objs);
   MathJax.typeset();
 
-  /*
+ 
 
   loadSVGCode(Objs);
   MathJax.typeset();
-  */
+
 
   loadCheckBoxes(Objs);
   MathJax.typeset();
@@ -3310,11 +3357,6 @@ function clickMidTextOK(){
   document.getElementById("midTextEditTable").innerHTML = "";
 
   clearButtons();
-
-  
-
-
-
 }
 
 
@@ -4388,21 +4430,55 @@ function copyTIKZcode()
 
 
 function loadSVGCode(Objs){
-  document.getElementById("test").innerText="";
-  for(let i=0;i<Objs.length;i++){
+
+  let SVGcd = document.getElementById("SVGcode");
+  SVGcd.innerText="";
+
+  let t1 = document.createElement( "textNode" );
+  t1.innerText='<svg viewbox="0 0 600 600">';
+  SVGcd.appendChild(t1);
+
+  let t1br = document.createElement( "BR" );
+  SVGcd.appendChild(t1br);
+
+  let t1brr = document.createElement( "BR" );
+  SVGcd.appendChild(t1brr);
+
+
+  for(let i=0;i<Objs.length;i++)
+  {
     let P = Objs[i];
-    let fig = P.figure;
-    document.getElementById("test").innerHTML+='<br>';
-    if(fig=="Point"||fig=="Line"||fig=="Circle"){
-      document.getElementById("test").innerText+= P.SVGcode();
+
+    txt = document.createElement( "textNode" );
+    txt.innerText= P.SVGcode();
+    SVGcd.appendChild(txt);
+
+    let tbr = document.createElement( "BR" );
+    SVGcd.appendChild(tbr);
+
+    let t2br = document.createElement( "BR" );
+    SVGcd.appendChild(t2br);
+
+    if(P.figure=="Point")
+      {
+        if(P.labeled){
+          ltxt = document.createElement( "textNode" );
+          ltxt.innerText= P.SVGLabelCode();
+          SVGcd.appendChild(ltxt);
+
+          let ltbr = document.createElement( "BR" );
+          SVGcd.appendChild(ltbr);
+
+          let lt2br = document.createElement( "BR" );
+          SVGcd.appendChild(lt2br);
+        }
+      }
     }
-    else{
-      document.getElementById("test").innerText+= SVGcode(Objs[i]);
-    }
-
-  }
 
 
+  let t3 = document.createElement( "textNode" );
+  t3.innerText="</svg>";
+  SVGcd.appendChild(t3);
 
 }
 
